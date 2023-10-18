@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 
 
@@ -50,7 +51,7 @@ class Welcome extends StatelessWidget {
                             onPressed: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => Login()),
+                                MaterialPageRoute(builder: (context) => HomeUser()),
                               );
                             },
                             style: ElevatedButton.styleFrom(

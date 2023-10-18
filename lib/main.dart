@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
           splashTransition: SplashTransition.fadeTransition,
           splash: Center(
-            child: Image.asset("assets/icon/icon_color.png", height: 200,),
+            child: Image.asset("assets/icon/icon_color.png"),
           ),
           nextScreen: Welcome()),
     );
