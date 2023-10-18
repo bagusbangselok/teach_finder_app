@@ -102,6 +102,32 @@ class Welcome extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               color: Color(0xFF00A7FF)),
                         ))),
+                SizedBox(height: 20),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Login()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side:
+                                BorderSide(color: Color(0xFF00A7FF), width: 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                        child: Text(
+                          "Home",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF00A7FF)),
+                        ))),
               ],
             )),
           ],
