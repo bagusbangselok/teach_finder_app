@@ -6,13 +6,12 @@ import 'package:teach_finder_app/bloc/login_bloc/login_event.dart';
 import 'package:teach_finder_app/bloc/login_bloc/login_state.dart';
 import 'package:teach_finder_app/repository/user/user_repository.dart';
 
-
-
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
   final AuthenticationBloc authenticationBloc;
 
-  LoginBloc(super.initialState, {
+  LoginBloc(
+    super.initialState, {
     required this.userRepository,
     required this.authenticationBloc,
   })  : assert(userRepository != null),
@@ -23,9 +22,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(
-      LoginState currentState,
-      LoginEvent event,
-      ) async* {
+    LoginState currentState,
+    LoginEvent event,
+  ) async* {
     if (event is LoginButtonPressed) {
       yield LoginLoading();
 
