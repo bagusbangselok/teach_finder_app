@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black26,
@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black26,
@@ -151,7 +151,7 @@ class _LoginState extends State<Login> {
           elevation: 5,
           padding: EdgeInsets.all(15),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(5),
           ),
           primary: Color(0xFF00A7FF),
         ),
@@ -167,6 +167,27 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Widget SignUpBtn() {
+    return GestureDetector(
+      onTap: () => print("Sign Up Pressed"),
+      child: RichText(
+        text: TextSpan(children: [
+          TextSpan(
+            text: 'Dont have an account? ',
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+          TextSpan(
+              text: 'SignUp',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500)),
+        ]),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,7 +196,6 @@ class _LoginState extends State<Login> {
       child: GestureDetector(
         child: Stack(
           children: <Widget>[
-            Image.asset("assets/icon/logo_app.png", height: 25),
             Container(
               height: double.infinity,
               child: SingleChildScrollView(
@@ -201,6 +221,7 @@ class _LoginState extends State<Login> {
                     RememberMe(),
                     SizedBox(height: 10),
                     LoginBtn(),
+                    SignUpBtn(),
                   ],
                 ),
               ),
