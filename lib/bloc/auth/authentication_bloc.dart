@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:teach_finder/bloc/auth/authentication_event.dart';
-import 'package:teach_finder/bloc/auth/authentication_state.dart';
-import 'package:teach_finder/repository/user/user_repository.dart';
+import 'package:teach_finder_app/bloc/auth/authentication_event.dart';
+import 'package:teach_finder_app/bloc/auth/authentication_state.dart';
+import 'package:teach_finder_app/repository/user/user_repository.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {

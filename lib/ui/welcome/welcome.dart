@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teach_finder/ui/login/login.dart';
+import 'package:teach_finder_app/ui/login/login.dart';
 
 class Welcome extends StatelessWidget {
   @override

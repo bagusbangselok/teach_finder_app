@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:teach_finder/bloc/auth/authentication_bloc.dart';
-import 'package:teach_finder/bloc/login_bloc/login_event.dart';
-import 'package:teach_finder/bloc/login_bloc/login_state.dart';
-import 'package:teach_finder/repository/user/user_repository.dart';
+import 'package:teach_finder_app/bloc/auth/authentication_bloc.dart';
+import 'package:teach_finder_app/bloc/login_bloc/login_event.dart';
+import 'package:teach_finder_app/bloc/login_bloc/login_state.dart';
+import 'package:teach_finder_app/repository/user/user_repository.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
