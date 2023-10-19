@@ -9,44 +9,18 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isRememberMe = false;
-
   Widget FormEmail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email : ',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
+      children: const [
         SizedBox(height: 10),
-        Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2))
-                ]),
-            height: 60,
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
-                color: Colors.black87,
-              ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  hintText: 'Enter Your Email Address',
-                  hintStyle: TextStyle(color: Colors.black38)),
-            ))
+        TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: "Enter Your Email",
+            prefixIcon: Icon(Icons.mail, color: Colors.black),
+          ),
+        ),
       ],
     );
   }
@@ -55,39 +29,14 @@ class _LoginState extends State<Login> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Password : ',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
         SizedBox(height: 10),
-        Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2))
-                ]),
-            height: 60,
-            child: TextField(
-              obscureText: true,
-              style: TextStyle(
-                color: Colors.black87,
-              ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  hintText: 'Enter Your Password',
-                  hintStyle: TextStyle(color: Colors.black38)),
-            ))
+        TextField(
+          obscureText: true,
+          decoration: InputDecoration(
+            hintText: "Enter Your Password",
+            prefixIcon: Icon(Icons.lock, color: Colors.black),
+          ),
+        )
       ],
     );
   }
@@ -180,9 +129,9 @@ class _LoginState extends State<Login> {
           TextSpan(
               text: 'SignUp',
               style: TextStyle(
-                  color: Colors.black,
+                  color: Color(0xFF00A7FF),
                   fontSize: 18,
-                  fontWeight: FontWeight.w500)),
+                  fontWeight: FontWeight.bold)),
         ]),
       ),
     );
