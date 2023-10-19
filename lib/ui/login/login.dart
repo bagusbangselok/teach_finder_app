@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:services.dart';
+import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/register/register_user.dart';
+import 'package:teach_finder_app/ui/welcome/welcome.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,8 +19,8 @@ class _LoginState extends State<Login> {
         TextField(
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: "Enter Your Email",
-            prefixIcon: Icon(Icons.mail, color: Colors.black),
+            hintText: "Masukkan Alamat Email",
+            prefixIcon: Icon(Icons.mail, color: Colors.black87),
           ),
         ),
       ],
@@ -33,33 +35,13 @@ class _LoginState extends State<Login> {
         TextField(
           obscureText: true,
           decoration: InputDecoration(
-            hintText: "Enter Your Password",
-            prefixIcon: Icon(Icons.lock, color: Colors.black),
+            hintText: "Masukkan Password",
+            prefixIcon: Icon(Icons.lock, color: Colors.black87),
           ),
         )
       ],
     );
   }
-
-// Widget ForgotPassBtn() {
-//   return Container(
-//     alignment: Alignment.centerRight, // Align the button to the right
-//     child: FlatButton(
-//       onPressed: () {
-//         print("Forgot Password pressed");
-//         // Add your logic for handling the "Forgot Password" action here
-//       },
-//       padding: EdgeInsets.only(right: 0),
-//       child: Text(
-//         'Forgot Password ? ',
-//         style: TextStyle(
-//           color: Colors.white,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
   Widget RememberMe() {
     return Container(
@@ -94,7 +76,10 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          print('Login Press'); // You can add your logic here
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeUser()),
+          );
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,
@@ -118,20 +103,25 @@ class _LoginState extends State<Login> {
 
   Widget SignUpBtn() {
     return GestureDetector(
-      onTap: () => print("Sign Up Pressed"),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Welcome()),
+        );
+      },
       child: RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'Dont have an account? ',
+            text: 'Belum Mempunyai Akun ?',
             style: TextStyle(
                 color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
           ),
           TextSpan(
-              text: 'SignUp',
+              text: ' Register',
               style: TextStyle(
                   color: Color(0xFF00A7FF),
                   fontSize: 18,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.w500)),
         ]),
       ),
     );
@@ -151,21 +141,31 @@ class _LoginState extends State<Login> {
                 physics: AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 120),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
                     Text(
                       'Sign In',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(0xFF00A7FF),
+                          color: Colors.black87,
                           fontSize: 40,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(height: 10),
+                    // Image.asset("assets/icon/icon_color.png", height: 50),
+                    SizedBox(height: 10),
+                    Text(
+                      'Halo Selamat Datang Di Aplikasi TeachFinder.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20),
                     ),
                     SizedBox(height: 50),
                     FormEmail(),
                     SizedBox(height: 30),
                     FormPassword(),
-                    // ForgotPassBtn(),
                     SizedBox(height: 20),
                     RememberMe(),
                     SizedBox(height: 10),
