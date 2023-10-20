@@ -143,6 +143,8 @@ class _LoginState extends State<Login> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(height: 10),
+                    Image.asset("assets/icon/icon_color.png", height: 50),
                     Text(
                       'Sign In',
                       textAlign: TextAlign.center,

@@ -43,7 +43,6 @@ class _RegisterGuruState extends State<RegisterGuru> {
               child: Text(items),
             );
           }).toList(),
-          // After select
           onChanged: (String? newValue) {
             setState(() {
               dropdownvalue = newValue!;
@@ -209,6 +208,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 10),
+            Image.asset("assets/icon/icon_color.png", height: 50),
             Text(
               'Register Guru',
               textAlign: TextAlign.center,
@@ -218,8 +219,6 @@ class _RegisterGuruState extends State<RegisterGuru> {
                   fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 10),
-            // Image.asset("assets/icon/icon_color.png", height: 50),
-            // SizedBox(height: 10),
             Text(
               'Halo Silahkan Registrasi Sebagai Guru.',
               textAlign: TextAlign.center,

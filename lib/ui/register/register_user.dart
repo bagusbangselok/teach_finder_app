@@ -174,6 +174,8 @@ class _RegisterUserState extends State<RegisterUser> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 10),
+            Image.asset("assets/icon/icon_color.png", height: 50),
             Text(
               'Register User',
               textAlign: TextAlign.center,
@@ -183,8 +185,6 @@ class _RegisterUserState extends State<RegisterUser> {
                   fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 10),
-            // Image.asset("assets/icon/icon_color.png", height: 50),
-            // SizedBox(height: 10),
             Text(
               'Halo Silahkan Registrasi Sebagai User.',
               textAlign: TextAlign.center,
@@ -193,7 +193,7 @@ class _RegisterUserState extends State<RegisterUser> {
                   fontWeight: FontWeight.w300,
                   fontSize: 20),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             FormNama(),
             SizedBox(height: 20),
             FormAlamat(),
