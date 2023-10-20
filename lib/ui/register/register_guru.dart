@@ -34,6 +34,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
       children: [
         SizedBox(height: 10),
         DropdownButton(
+          isExpanded: true,
           value: dropdownvalue,
           icon: const Icon(Icons.keyboard_arrow_down),
           items: lokasi.map((String items) {

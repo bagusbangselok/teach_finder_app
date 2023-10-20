@@ -50,6 +50,7 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         DropdownButton(
+          isExpanded: true,
           value: dropdownvalue,
           icon: const Icon(Icons.keyboard_arrow_down),
           items: jenjang.map((String items) {
