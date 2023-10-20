@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 //push
@@ -6,6 +7,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         body: SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
@@ -122,7 +124,35 @@ class Welcome extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                               )),
                           child: Text(
-                            "Home",
+                            "Home User",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF00A7FF)),
+                          )
+                      )
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomeTeacher()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              side:
+                              BorderSide(color: Color(0xFF00A7FF), width: 1),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 20),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                          child: Text(
+                            "Home Teacher",
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,

@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/ui/home_user/detail_home.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
-// push
-class HomeUser extends StatelessWidget {
+
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+String dropdownValue = list.first;
+
+class HomeUser extends StatefulWidget {
+  const HomeUser({super.key});
+
+  @override
+  State<HomeUser> createState() => _HomeUser();
+}
+
+class _HomeUser extends State<HomeUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,107 +73,134 @@ class HomeUser extends StatelessWidget {
               ),
               // Container list guru private
               SizedBox(
-                width: double.infinity,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 44),
                   width: double.infinity,
-                  height: 550,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40)
-                      ),
-                      shape:BoxShape.rectangle
-                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 44),
+                    width: double.infinity,
+                    height: 550,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)
+                        ),
+                        shape:BoxShape.rectangle
+                    ),
                   child: Column(
                     children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                height: 35,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                    color: Color(0xFFFFCB17)
-                                  )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.location_on_sharp, size: 18),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "Lokasi",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Icon(Icons.keyboard_arrow_down_outlined)
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Container(
-                                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                height: 35,
-                                width: 110,
-                                decoration: BoxDecoration(
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                  height: 35,
+                                  width: 100,
+                                  decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                        color: Color(0xFFFFCB17)
+                                      color: Color(0xFFFFCB17)
                                     )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.book, size: 18),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "Mata Pelajaran",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.location_on_sharp,size: 18),
+                                      SizedBox(width: 5,),
+                                      DropdownButton(
+                                        hint: Text(
+                                          "Lokasi",
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400
+                                          ),
+                                        ),
+                                        icon: Icon(Icons.keyboard_arrow_down_outlined),
+                                        items: list.map<DropdownMenuItem<String>>((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? value) {
+                                          setState(() {
+                                            dropdownValue = value!;
+                                          });
+                                        },
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              Container(
-                                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                height: 35,
-                                width: 110,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: Color(0xFFFFCB17)
-                                    )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.account_balance_sharp, size: 18),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "Jenjang",
-                                      style: TextStyle(
+                                SizedBox(width: 10),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                  height: 35,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                          color: Color(0xFFFFCB17)
+                                      )
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.book, size: 18),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Mata Pelajaran",
+                                        style: TextStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeight.w400
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              )
-                            ],
+                                SizedBox(width: 10),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                  height: 35,
+                                  width: 110,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                          color: Color(0xFFFFCB17)
+                                      )
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.account_balance_sharp, size: 18),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Jenjang",
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           SizedBox(height: 20),
-                          CardListTeacher(
-                            urlImage: "assets/icon/user_icon1.png",
-                            name: "M. Fattah, S.Pd",
-                            location: "Keputih",
-                            salary: "85.000",
+                          InkWell(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DetailHome()),
+                              );
+                            },
+                            child: CardListTeacher(
+                              urlImage: "assets/icon/user_icon1.png",
+                              name: "M. Fattah, S.Pd",
+                              location: "Keputih",
+                              salary: "85.000",
+                            ),
                           )
                     ],
                   ),
