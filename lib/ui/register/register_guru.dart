@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 
-class RegisterGuru extends StatelessWidget {
+class RegisterGuru extends StatefulWidget {
+  @override
+  _RegisterGuruState createState() => _RegisterGuruState();
+}
+
+class _RegisterGuruState extends State<RegisterGuru> {
   Widget FormNama() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,6 +24,36 @@ class RegisterGuru extends StatelessWidget {
     );
   }
 
+  // Dropdown Widget
+  String dropdownvalue = 'Pilih Lokasi Anda';
+  // List Item dropdown menu
+  var lokasi = ['Pilih Lokasi Anda', 'Keputih', 'Gubeng', 'Kertajaya'];
+  Widget LokasiAlamat() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 10),
+        DropdownButton(
+          value: dropdownvalue,
+          icon: const Icon(Icons.keyboard_arrow_down),
+          items: lokasi.map((String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          }).toList(),
+          // After select
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownvalue = newValue!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+  // End Widget
+
   Widget FormAlamat() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,6 +64,38 @@ class RegisterGuru extends StatelessWidget {
           decoration: InputDecoration(
             hintText: "Masukkan Alamat Lengkap",
             prefixIcon: Icon(Icons.home, color: Colors.black87),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget FormInputData() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        SizedBox(height: 10),
+        TextField(
+          keyboardType: TextInputType.datetime,
+          decoration: InputDecoration(
+            hintText: "Masukkan SKL/Ijazah",
+            prefixIcon: Icon(Icons.email, color: Colors.black87),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget FormPhone() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        SizedBox(height: 10),
+        TextField(
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            hintText: "Masukkan Nomor Telepon",
+            prefixIcon: Icon(Icons.phone, color: Colors.black87),
           ),
         ),
       ],
@@ -83,36 +150,36 @@ class RegisterGuru extends StatelessWidget {
     );
   }
 
-  // Widget RegisterUserBtn() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(vertical: 25),
-  //     width: double.infinity,
-  //     child: ElevatedButton(
-  //       onPressed: () {
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => Login()),
-  //         );
-  //       },
-  //       style: ElevatedButton.styleFrom(
-  //         elevation: 5,
-  //         padding: EdgeInsets.all(15),
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(5),
-  //         ),
-  //         primary: Color(0xFF00A7FF),
-  //       ),
-  //       child: Text(
-  //         'Register',
-  //         style: TextStyle(
-  //           color: Colors.white,
-  //           fontSize: 19,
-  //           fontWeight: FontWeight.bold,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget RegisterGuruBtn() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 25),
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Login()),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          elevation: 5,
+          padding: EdgeInsets.all(15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          primary: Color(0xFF00A7FF),
+        ),
+        child: Text(
+          'Register',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 19,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +189,6 @@ class RegisterGuru extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          // children
           children: [
             Text(
               'Register Guru',
@@ -143,10 +209,14 @@ class RegisterGuru extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                   fontSize: 20),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 40),
             FormNama(),
             SizedBox(height: 20),
+            LokasiAlamat(),
+            SizedBox(height: 20),
             FormAlamat(),
+            SizedBox(height: 20),
+            FormPhone(),
             SizedBox(height: 20),
             FormEmail(),
             SizedBox(height: 20),
@@ -154,33 +224,7 @@ class RegisterGuru extends StatelessWidget {
             SizedBox(height: 20),
             FormKonfirmasiPassword(),
             SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 5,
-                  padding: EdgeInsets.all(15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  primary: Color(0xFF00A7FF),
-                ),
-                child: Text(
-                  'Register',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            RegisterGuruBtn(),
             SizedBox(height: 30),
           ],
         ),
