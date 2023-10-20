@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
+import 'package:teach_finder_app/ui/register/register_user.dart';
+import 'package:teach_finder_app/ui/register/register_Guru.dart';
+
 //push
 class Welcome extends StatelessWidget {
   @override
@@ -20,6 +23,7 @@ class Welcome extends StatelessWidget {
             SizedBox(height: 28),
             Center(
                 child: Column(
+<<<<<<< HEAD
                 children: [
                   Text("Selamat datang di TeachFinder!",
                       style:
@@ -163,6 +167,122 @@ class Welcome extends StatelessWidget {
                 ],
               )
             ),
+=======
+              children: [
+                Text("Selamat datang di TeachFinder!",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 22)),
+                SizedBox(height: 14),
+                Text(
+                    "Aplikasi dimana kamu bisa mencari guru private di area yang kamu mau",
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w300, fontSize: 16)),
+                SizedBox(height: 82),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Login()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF00A7FF),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                        child: Text(
+                          "Masuk",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ))),
+                SizedBox(height: 20),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterUser()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side:
+                                BorderSide(color: Color(0xFF00A7FF), width: 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                        child: Text(
+                          "Daftar sebagai pengguna",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF00A7FF)),
+                        ))),
+                SizedBox(height: 20),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterGuru()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side:
+                                BorderSide(color: Color(0xFF00A7FF), width: 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                        child: Text(
+                          "Daftar sebagai guru",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF00A7FF)),
+                        ))),
+                SizedBox(height: 20),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomeUser()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side:
+                                BorderSide(color: Color(0xFF00A7FF), width: 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                        child: Text(
+                          "Home",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF00A7FF)),
+                        ))),
+              ],
+            )),
+>>>>>>> 0110d66c786e83eae2451e00a6bd164a4a59c120
           ],
         ),
       ),

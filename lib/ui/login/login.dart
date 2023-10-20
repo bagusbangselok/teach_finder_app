@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:services.dart';
+import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/register/register_user.dart';
+import 'package:teach_finder_app/ui/welcome/welcome.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -9,44 +11,18 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isRememberMe = false;
-
   Widget FormEmail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Email : ',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
+      children: const [
         SizedBox(height: 10),
-        Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2))
-                ]),
-            height: 60,
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(
-                color: Colors.black87,
-              ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  hintText: 'Enter Your Email Address',
-                  hintStyle: TextStyle(color: Colors.black38)),
-            ))
+        TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: "Masukkan Alamat Email",
+            prefixIcon: Icon(Icons.mail, color: Colors.black87),
+          ),
+        ),
       ],
     );
   }
@@ -55,62 +31,17 @@ class _LoginState extends State<Login> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Password : ',
-          style: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-        ),
         SizedBox(height: 10),
-        Container(
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 6,
-                      offset: Offset(0, 2))
-                ]),
-            height: 60,
-            child: TextField(
-              obscureText: true,
-              style: TextStyle(
-                color: Colors.black87,
-              ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Colors.black,
-                  ),
-                  hintText: 'Enter Your Password',
-                  hintStyle: TextStyle(color: Colors.black38)),
-            ))
+        TextField(
+          obscureText: true,
+          decoration: InputDecoration(
+            hintText: "Masukkan Password",
+            prefixIcon: Icon(Icons.lock, color: Colors.black87),
+          ),
+        )
       ],
     );
   }
-
-// Widget ForgotPassBtn() {
-//   return Container(
-//     alignment: Alignment.centerRight, // Align the button to the right
-//     child: FlatButton(
-//       onPressed: () {
-//         print("Forgot Password pressed");
-//         // Add your logic for handling the "Forgot Password" action here
-//       },
-//       padding: EdgeInsets.only(right: 0),
-//       child: Text(
-//         'Forgot Password ? ',
-//         style: TextStyle(
-//           color: Colors.white,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
   Widget RememberMe() {
     return Container(
@@ -145,7 +76,10 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          print('Login Press'); // You can add your logic here
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeUser()),
+          );
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,
@@ -169,18 +103,23 @@ class _LoginState extends State<Login> {
 
   Widget SignUpBtn() {
     return GestureDetector(
-      onTap: () => print("Sign Up Pressed"),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Welcome()),
+        );
+      },
       child: RichText(
         text: TextSpan(children: [
           TextSpan(
-            text: 'Dont have an account? ',
+            text: 'Belum Mempunyai Akun ?',
             style: TextStyle(
                 color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
           ),
           TextSpan(
-              text: 'SignUp',
+              text: ' Register',
               style: TextStyle(
-                  color: Colors.black,
+                  color: Color(0xFF00A7FF),
                   fontSize: 18,
                   fontWeight: FontWeight.w500)),
         ]),
@@ -202,21 +141,33 @@ class _LoginState extends State<Login> {
                 physics: AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 120),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10),
+                    Image.asset("assets/icon/icon_color.png", height: 50),
                     Text(
                       'Sign In',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(0xFF00A7FF),
+                          color: Colors.black87,
                           fontSize: 40,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(height: 10),
+                    // Image.asset("assets/icon/icon_color.png", height: 50),
+                    SizedBox(height: 10),
+                    Text(
+                      'Halo Selamat Datang Di Aplikasi TeachFinder.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20),
                     ),
                     SizedBox(height: 50),
                     FormEmail(),
                     SizedBox(height: 30),
                     FormPassword(),
-                    // ForgotPassBtn(),
                     SizedBox(height: 20),
                     RememberMe(),
                     SizedBox(height: 10),
