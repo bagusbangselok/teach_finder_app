@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
+import 'package:file_picker/file_picker.dart';
 
 class RegisterGuru extends StatefulWidget {
   @override
@@ -26,8 +27,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
 
   // Dropdown Widget
   String dropdownvalue = 'Pilih Lokasi Anda';
-  // List Item dropdown menu
-  var lokasi = ['Pilih Lokasi Anda', 'Keputih', 'Gubeng', 'Kertajaya'];
+  List<String> lokasi = ['Pilih Lokasi Anda', 'Keputih', 'Gubeng', 'Kertajaya'];
   Widget LokasiAlamat() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,18 +70,36 @@ class _RegisterGuruState extends State<RegisterGuru> {
     );
   }
 
-  Widget FormInputData() {
+  String? filePath;
+
+  void _openFileExplorer() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      setState(() {
+        filePath = result.files.single.path;
+      });
+    }
+  }
+
+  Widget FormInputFile() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
-          keyboardType: TextInputType.datetime,
+          enableInteractiveSelection: false,
+          readOnly: true,
+          controller:
+              TextEditingController(text: filePath ?? "Pilih File SKL/Ijazah"),
           decoration: InputDecoration(
-            hintText: "Masukkan SKL/Ijazah",
-            prefixIcon: Icon(Icons.email, color: Colors.black87),
+            hintText: "Pilih File SKL/Ijazah",
+            prefixIcon: IconButton(
+                onPressed: () => _openFileExplorer(),
+                icon: Icon(Icons.folder_open),
+                color: Colors.black87),
           ),
         ),
+        if (filePath != null) Text("File Terpilih : $filePath"),
       ],
     );
   }
@@ -215,6 +233,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
             LokasiAlamat(),
             SizedBox(height: 20),
             FormAlamat(),
+            SizedBox(height: 20),
+            FormInputFile(),
             SizedBox(height: 20),
             FormPhone(),
             SizedBox(height: 20),
