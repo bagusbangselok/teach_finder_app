@@ -1,26 +1,22 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:teach_finder_app/bloc/navigation/navigation_bloc.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher.dart';
+import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 import 'package:teach_finder_app/ui/welcome/welcome.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// push
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final isLoggedIn = await prefs.getBool('isLoggedIn') ?? false;
+  LoginProvider _loginProvider = LoginProvider();
+  final user = await _loginProvider.getProfilUser();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.transparent));
   runApp(
-    BlocProvider(
-      create: (context) => NavigationBloc(),
-      child: MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.transparent));
-    return MaterialApp(
+    MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
           splashTransition: SplashTransition.fadeTransition,
@@ -30,7 +26,20 @@ class MyApp extends StatelessWidget {
               height: 200,
             ),
           ),
-          nextScreen: Welcome()),
+          nextScreen: loginRole(isLoggedIn, user?.user)
+        )
+      )
     );
+}
+Widget loginRole(isLoggedIn, user) {
+  if(isLoggedIn){
+    if(user?.roleId == '2'){
+      HomeTeacher();
+    } else if(user?.roleId == '3'){
+      HomeUser();
+    }
+  } else {
+    Welcome();
   }
+  return Welcome();
 }

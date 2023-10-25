@@ -95,5 +95,5 @@ class DetailHome extends StatelessWidget {
         ),
       ),
     );
-  }
+}
 }

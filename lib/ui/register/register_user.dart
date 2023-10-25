@@ -45,28 +45,25 @@ class _RegisterUserState extends State<RegisterUser> {
   // List Item dropdown menu
   var jenjang = ['Pilih Jenjang Sekolah', 'SD', 'SMP', 'SMA/SMK'];
   Widget JenjangSekolah() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 10),
-        DropdownButton(
-          isExpanded: true,
-          value: dropdownvalue,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: jenjang.map((String items) {
-            return DropdownMenuItem(
-              value: items,
-              child: Text(items),
-            );
-          }).toList(),
-          // After select
-          onChanged: (String? newValue) {
-            setState(() {
-              dropdownvalue = newValue!;
-            });
-          },
-        ),
-      ],
+    return DropdownButtonFormField(
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.school, color: Colors.black87)
+      ),
+      isExpanded: true,
+      value: dropdownvalue,
+      icon: const Icon(Icons.keyboard_arrow_down),
+      items: jenjang.map((String items) {
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items),
+        );
+      }).toList(),
+      // After select
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownvalue = newValue!;
+        });
+      },
     );
   }
 
@@ -174,15 +171,16 @@ class _RegisterUserState extends State<RegisterUser> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 40),
             Image.asset("assets/icon/icon_color.png", height: 50),
+            SizedBox(height: 10),
             Text(
               'Register User',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.black87,
                   fontSize: 40,
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.w600),
             ),
             SizedBox(height: 10),
             Text(
@@ -191,7 +189,7 @@ class _RegisterUserState extends State<RegisterUser> {
               style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.w300,
-                  fontSize: 20),
+                  fontSize: 16),
             ),
             SizedBox(height: 30),
             FormNama(),
