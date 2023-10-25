@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_user/controller/model_teacher.dart';
 
-class CardListTeacher extends StatelessWidget {
+class CardListBooking extends StatelessWidget {
   final String urlImage;
   final String name;
   final String location;
   final String subject;
   final String salary;
 
-  const CardListTeacher(
+  const CardListBooking(
       {Key? key,
       required this.urlImage,
       required this.name,
@@ -21,7 +20,7 @@ class CardListTeacher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
       width: double.infinity,
       decoration: BoxDecoration(
           color: whiteColor,
@@ -42,7 +41,7 @@ class CardListTeacher extends StatelessWidget {
             height: 80,
             child: Image.asset(urlImage),
           ),
-          SizedBox(width: 24),
+          SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -72,14 +71,39 @@ class CardListTeacher extends StatelessWidget {
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
             ],
           ),
-          SizedBox(width: 24),
+          SizedBox(width: 10),
           Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.chevron_right,
-                color: blackColor,
-                size: 24,
+              InkWell(
+                child: Row(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: successColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.check,
+                              color: whiteColor,
+                              size: 10,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              "Approval",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
               )
             ],
           )
