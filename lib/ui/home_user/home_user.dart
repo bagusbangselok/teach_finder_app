@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_user/detail_home.dart';
+import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
@@ -13,10 +15,14 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUser extends State<HomeUser> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF00A7FF),
+        key: _scaffoldKey,
+        drawer: DrawerUser(),
+        backgroundColor: primaryColor,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -30,18 +36,20 @@ class _HomeUser extends State<HomeUser> {
                       children: [
                         IconButton(
                           icon: const Icon(
-                          Icons.menu,
+                            Icons.menu,
                             color: Colors.white,
                             size: 30, // Changing Drawer Icon Size
                           ),
                           onPressed: () {
-                            Scaffold.of(context).openDrawer();
+                            _scaffoldKey.currentState?.openDrawer();
                           },
-                          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                          tooltip: MaterialLocalizations.of(context)
+                              .openAppDrawerTooltip,
                         ),
                         InkWell(
-                          onTap: (){},
-                          child: Image.asset("assets/icon/icon_white.png", width: 50),
+                          onTap: () {},
+                          child: Image.asset("assets/icon/icon_white.png",
+                              width: 50),
                           borderRadius: BorderRadius.circular(50),
                         )
                       ],
@@ -57,10 +65,15 @@ class _HomeUser extends State<HomeUser> {
                               children: [
                                 Text("Halo, Daniel !!",
                                     style: TextStyle(
-                                        color: Colors.white,fontSize: 20,
+                                        color: Colors.white,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w600)),
                                 SizedBox(height: 12),
-                                Text("Ingin mencari guru private mapel apa ??", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400))
+                                Text("Ingin mencari guru private mapel apa ??",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400))
                               ],
                             ),
                           ),
@@ -73,143 +86,136 @@ class _HomeUser extends State<HomeUser> {
               ),
               // Container list guru private
               SizedBox(
+                width: double.infinity,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 44),
                   width: double.infinity,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 44),
-                    width: double.infinity,
-                    height: 550,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                  height: 1000,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40)
-                        ),
-                        shape:BoxShape.rectangle
-                    ),
+                          topRight: Radius.circular(40)),
+                      shape: BoxShape.rectangle),
                   child: Column(
                     children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                  height: 35,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: Color(0xFFFFCB17)
-                                    )
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              height: 35,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: primaryColor)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.location_on_sharp, size: 18),
+                                  SizedBox(
+                                    width: 5,
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.location_on_sharp,size: 18),
-                                      SizedBox(width: 5,),
-                                      DropdownButton(
-                                        hint: Text(
-                                          "Lokasi",
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400
-                                          ),
-                                        ),
-                                        icon: Icon(Icons.keyboard_arrow_down_outlined),
-                                        items: list.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (String? value) {
-                                          setState(() {
-                                            dropdownValue = value!;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                  height: 35,
-                                  width: 110,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          color: Color(0xFFFFCB17)
-                                      )
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.book, size: 18),
-                                      SizedBox(width: 5),
-                                      Text(
-                                        "Mata Pelajaran",
-                                        style: TextStyle(
+                                  DropdownButton(
+                                    hint: Text(
+                                      "Lokasi",
+                                      style: TextStyle(
                                           fontSize: 10,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                      ),
-                                    ],
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    icon: Icon(
+                                        Icons.keyboard_arrow_down_outlined),
+                                    items: list.map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        dropdownValue = value!;
+                                      });
+                                    },
                                   ),
-                                ),
-                                SizedBox(width: 10),
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                  height: 35,
-                                  width: 110,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                          color: Color(0xFFFFCB17)
-                                      )
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.account_balance_sharp, size: 18),
-                                      SizedBox(width: 5),
-                                      Text(
-                                        "Jenjang",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 20),
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => DetailHome()),
-                              );
-                            },
-                            child: CardListTeacher(
-                              urlImage: "assets/icon/user_icon1.png",
-                              name: "M. Fattah, S.Pd",
-                              location: "Keputih",
-                              salary: "85.000",
+                            SizedBox(width: 10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              height: 35,
+                              width: 110,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: primaryColor)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.book, size: 18),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Mata Pelajaran",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
                             ),
-                          )
+                            SizedBox(width: 10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              height: 35,
+                              width: 110,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: primaryColor)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.account_balance_sharp, size: 18),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Jenjang",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailHome()),
+                          );
+                        },
+                        child: CardListTeacher(
+                          urlImage: "assets/icon/user_icon1.png",
+                          name: "M. Fattah, S.Pd",
+                          location: "Keputih",
+                          subject: "Matematika",
+                          salary: "85.000",
+                        ),
+                      ),
                     ],
                   ),
                 ),
               )
             ],
           ),
-        )
-    );
+        ));
   }
-
 }

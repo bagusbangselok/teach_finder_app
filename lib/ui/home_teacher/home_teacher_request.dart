@@ -1,0 +1,208 @@
+import 'package:flutter/material.dart';
+import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/ui/home_teacher/add_schedule.dart';
+import 'package:teach_finder_app/ui/home_teacher/detail_home_request.dart';
+import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
+import 'package:teach_finder_app/ui/home_user/detail_home.dart';
+import 'package:teach_finder_app/ui/login/login.dart';
+import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
+import 'package:teach_finder_app/ui/page_not_found/schedule_not_found.dart';
+import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
+import 'package:teach_finder_app/ui/utils/card_list_user.dart';
+
+class HomeTeacherRequest extends StatelessWidget {
+  bool showCardListUser = true;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerTeacher(),
+      backgroundColor: primaryColor,
+      body: SingleChildScrollView(
+          child: Column(children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: whiteColor,
+                      size: 30, // Changing Drawer Icon Size
+                    ),
+                    onPressed: () {
+                      _scaffoldKey.currentState?.openDrawer();
+                    },
+                    tooltip:
+                        MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Image.asset("assets/icon/icon_white.png", width: 50),
+                    borderRadius: BorderRadius.circular(50),
+                  )
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 40, left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Adella Agatha",
+                              style: TextStyle(
+                                  color: whiteColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600)),
+                          SizedBox(height: 12),
+                          Row()
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HomeTeacherSchedule()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: whiteColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "Data Jadwal",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: secondaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: secondaryColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: Row(children: [
+                        Icon(
+                          Icons.person,
+                          color: whiteColor,
+                        ),
+                        SizedBox(width: 4),
+                        Text("User Request",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: whiteColor,
+                            ))
+                      ])),
+                ],
+              )
+            ],
+          ),
+        ),
+        // Container list siswa
+        SizedBox(
+            width: double.infinity,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 44),
+              width: double.infinity,
+              height: 1000,
+              decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40)),
+                  shape: BoxShape.rectangle),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "List User Request",
+                          style: TextStyle(
+                              color: blackColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ]),
+                  SizedBox(height: 20),
+                  // Conditional
+                  if (showCardListUser)
+                    Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailHomeRequest()),
+                            );
+                          },
+                          child: CardListUser(
+                            urlImage: "assets/icon/user_icon1.png",
+                            name: "Steven Martin",
+                            level: "SMP",
+                            subject: "Matematika",
+                            time: "Senin: 15.00 - 16.10",
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailHome()),
+                            );
+                          },
+                          child: CardListUser(
+                            urlImage: "assets/icon/user_icon2.png",
+                            name: "Cindy Avelia",
+                            level: "SMA",
+                            subject: "Matematika",
+                            time: "Senin: 15.00 - 16.10",
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    RequestNotFound(),
+                ],
+              ),
+            ))
+      ])),
+    );
+  }
+}
