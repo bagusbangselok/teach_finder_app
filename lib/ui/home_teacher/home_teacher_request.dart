@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
+import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_teacher/add_schedule.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/detail_home_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 import 'package:teach_finder_app/ui/home_user/detail_home.dart';
-import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
-import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
-import 'package:teach_finder_app/ui/page_not_found/schedule_not_found.dart';
-import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 import 'package:teach_finder_app/ui/utils/card_list_user.dart';
 
 class HomeTeacherRequest extends StatefulWidget {
-  final Future<int> userId;
-
-  HomeTeacherRequest({required this.userId});
-
   @override
   _HomeTeacherRequestState createState() => _HomeTeacherRequestState();
 }
@@ -27,30 +19,17 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   bool showCardListUser = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController = ProfileTeacherController();
-  LoginController _loginController = LoginController();
-
   List<TeacherModel> items = [];
 
   @override
-  void initState() {
-    super.initState();
-    // _(widget.userId).then((fetchedItems) {
-    //   setState(() {
-    //     items = fetchedItems;
-    //   });
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    int id = _loginController.getId() as int;
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerTeacher(),
       backgroundColor: primaryColor,
-      body: FutureBuilder<TeacherModel?>(
-        future: _profileTeacherController.getProfileById(id),
-        builder: (BuildContext context, AsyncSnapshot<TeacherModel?> snapshot) {
+      body: FutureBuilder<UserModel?>(
+        future: _profileTeacherController.getProfileByToken(),
+        builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
           print("data : ${snapshot.data}");
           return SingleChildScrollView(
               child: Column(children: [
@@ -90,7 +69,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Adella Agatha",
+                              Text("${snapshot.data?.name}",
                                   style: TextStyle(
                                       color: whiteColor,
                                       fontSize: 20,

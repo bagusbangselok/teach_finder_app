@@ -42,7 +42,7 @@ Widget loginRole(isLoggedIn, user) {
   if(isLoggedIn == true){
     print("aku");
     if(user.roleId == '2'){
-      return HomeTeacherRequest(userId: _loginController.getId());
+      return HomeTeacherRequest();
     } else if(user.roleId == '3'){
       print("role3");
       return HomeUser();

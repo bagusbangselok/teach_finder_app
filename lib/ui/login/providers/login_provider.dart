@@ -11,6 +11,7 @@ import 'package:teach_finder_app/ui/home_user/home_user.dart';
 class LoginProvider {
   final Dio _dio = Dio();
   var currentUser;
+  var user;
   // FormData formData = FormData.fromMap({
   // });
 
@@ -25,6 +26,7 @@ class LoginProvider {
 
       final tokenKey = response.data['user']['secret_token'];
       final id = response.data['user']['id'];
+      user = response.data['user'];
 
       print(response.data['success']);
       print(response.data);
@@ -45,7 +47,7 @@ class LoginProvider {
             print('role 2');
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomeTeacherRequest(userId: response.data['user']['id']),
+                builder: (context) => HomeTeacherRequest(),
               ),
             );
           } else if(role == '3'){

@@ -97,7 +97,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeTeacherRequest(userId: _loginController.getId()),
+                            builder: (context) => HomeTeacherRequest(),
                           ),
                         );
                       },
