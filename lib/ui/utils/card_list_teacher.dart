@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_user/controller/model_teacher.dart';
 
 class CardListTeacher extends StatelessWidget {
   final String urlImage;

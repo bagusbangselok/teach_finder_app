@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_teacher/home_teacher.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/register_user.dart';
 import 'package:teach_finder_app/ui/register/register_Guru.dart';
 
 class Welcome extends StatelessWidget {
+  LoginController _loginController = LoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +144,7 @@ class Welcome extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => HomeTeacher()),
+                              MaterialPageRoute(builder: (context) => HomeTeacherRequest(userId: _loginController.getId())),
                             );
                           },
                           style: ElevatedButton.styleFrom(

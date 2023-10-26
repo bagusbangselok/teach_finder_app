@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:teach_finder_app/models/murid_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
-import 'package:teach_finder_app/ui/home_teacher/home_teacher.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 
 class LoginProvider {
@@ -24,7 +25,8 @@ class LoginProvider {
       print(response.statusCode);
       final tokenKey = response.data['user']['secret_token'];
       print(response.data['user']['role_id']);
-      
+      final id = response.data['user']['id'];
+      saveProfileId(id);
       if (response.statusCode == 200) {
         if(response.data['success']){
           print('success!!');
@@ -33,7 +35,7 @@ class LoginProvider {
             print('role 2');
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomeTeacher(),
+                builder: (context) => HomeTeacherRequest(userId: response.data['user']['id']),
               ),
             );
           } else if(role == '3'){
@@ -50,6 +52,17 @@ class LoginProvider {
     } on DioError catch (e) {
       print('Error during login: $e');
     }
+  }
+
+  Future<TeacherModel?> saveProfileId(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('profileId', id);
+  }
+
+  Future<int> getProfileId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int profileId = prefs.getInt('profileId') ?? 0; // Menggunakan 0 sebagai nilai default jika ID tidak tersedia
+    return profileId;
   }
 
   Future<UserModel?> getProfilUser() async {

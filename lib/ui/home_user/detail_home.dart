@@ -17,7 +17,7 @@ class DetailHome extends StatelessWidget {
               decoration: BoxDecoration(
                 color: primaryColor,
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(20)),
+                BorderRadius.vertical(bottom: Radius.circular(20)),
               ),
               child: Center(
                   child: Text("Detail Guru Private",
@@ -29,17 +29,18 @@ class DetailHome extends StatelessWidget {
             SizedBox(height: 20),
             Center(
                 child: Column(
-              children: [
-                Image.asset("assets/icon/user_icon1.png"),
-                SizedBox(height: 12),
-                Text(
-                  "M. Fattah, S.Pd",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 12),
-                Icon(Icons.star)
-              ],
-            )),
+                  children: [
+                    Image.asset("assets/icon/user_icon1.png"),
+                    SizedBox(height: 12),
+                    Text(
+                      "M. Fattah, S.Pd",
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(height: 12),
+                    Icon(Icons.star)
+                  ],
+                )),
             SizedBox(height: 12),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -84,16 +85,11 @@ class DetailHome extends StatelessWidget {
                     child: Text(
                       "Pengajuan",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                     ))),
           ],
         ),
       ),
     );
-<<<<<<< HEAD
-}
-}
-=======
   }
 }
->>>>>>> 696b3d23a184fa34e435aab438236cdbc82e2174

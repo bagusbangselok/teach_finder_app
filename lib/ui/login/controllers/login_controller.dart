@@ -72,6 +72,10 @@ class LoginController {
     prefs.setBool('isLoggedIn', isLoggedIn);
   }
 
+  Future<int> getId() async{
+    return await _loginProvider.getProfileId();
+  }
+
   Future<void> sendAuthenticatedRequest() async {
     final authToken = await getAuthToken();
 

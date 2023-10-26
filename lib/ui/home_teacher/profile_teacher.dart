@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
+import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
 import 'package:teach_finder_app/ui/welcome/welcome.dart';
 
 class ProfileTeacher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    LoginController _loginController = LoginController();
     return Scaffold(
         body: SingleChildScrollView(
             child: Container(
@@ -101,7 +103,8 @@ class ProfileTeacher extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
+                  _loginController.logoutUser();
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Welcome()));
                 },
                 style: ElevatedButton.styleFrom(
