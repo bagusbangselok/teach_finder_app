@@ -7,6 +7,7 @@ import 'package:teach_finder_app/ui/home_teacher/detail_home_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 import 'package:teach_finder_app/ui/home_user/detail_home.dart';
+import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
 import 'package:teach_finder_app/ui/page_not_found/schedule_not_found.dart';
@@ -26,7 +27,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   bool showCardListUser = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController = ProfileTeacherController();
-
+  LoginController _loginController = LoginController();
 
   List<TeacherModel> items = [];
 
@@ -42,7 +43,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
 
   @override
   Widget build(BuildContext context) {
-    var id = _profileTeacherController.getId();
+    int id = _loginController.getId() as int;
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerTeacher(),

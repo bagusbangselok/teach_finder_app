@@ -12,8 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final isLoggedIn = await prefs.getBool('isLoggedIn') ?? false;
+  // final isLoggedIn = await prefs.getBool('isLoggedIn') ?? false;
+  LoginController _loginController = LoginController();
   LoginProvider _loginProvider = LoginProvider();
+  bool isLoggedIn = await _loginController.getIsLoggedIn();
   final user = await _loginProvider.getProfilUser();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.transparent));
@@ -28,21 +30,25 @@ void main() async {
               height: 200,
             ),
           ),
-          nextScreen: loginRole(isLoggedIn, user?.user)
+          nextScreen: loginRole(isLoggedIn, user)
         )
       )
     );
 }
 Widget loginRole(isLoggedIn, user) {
   LoginController _loginController = LoginController();
-  if(isLoggedIn){
-    if(user?.roleId == '2'){
-      HomeTeacherRequest(userId: _loginController.getId());
-    } else if(user?.roleId == '3'){
-      HomeUser();
+  print("login : ${isLoggedIn}");
+  // print("role: ${user.roleId}");
+  if(isLoggedIn == true){
+    print("aku");
+    if(user.roleId == '2'){
+      return HomeTeacherRequest(userId: _loginController.getId());
+    } else if(user.roleId == '3'){
+      print("role3");
+      return HomeUser();
     }
-  } else {
-    Welcome();
+  } else if (!isLoggedIn) {
+    return Welcome();
   }
-  return Welcome();
+  return Center();
 }

@@ -17,7 +17,7 @@ class ProfileTeacherController {
     // _profileTeacherProvider.getListTeacherById(id)
   }
 
-  getId() async {
+  Future<int> getId() async {
     int savedUserId = await _loginProvider.getProfileId();
     return savedUserId;
   }

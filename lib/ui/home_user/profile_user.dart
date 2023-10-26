@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
+import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/welcome/welcome.dart';
 
 class ProfileUser extends StatelessWidget {
+  LoginController _loginController = LoginController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +98,8 @@ class ProfileUser extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
+                  _loginController.logoutUser();
+                  _loginController.saveLoginStatus(false);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Welcome()));
                 },

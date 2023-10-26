@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +10,7 @@ import 'package:teach_finder_app/ui/home_user/home_user.dart';
 
 class LoginProvider {
   final Dio _dio = Dio();
-
+  var currentUser;
   // FormData formData = FormData.fromMap({
   // });
 
@@ -20,13 +22,21 @@ class LoginProvider {
           'email': email,
           'password': password
         });
+
+      final tokenKey = response.data['user']['secret_token'];
+      final id = response.data['user']['id'];
+
       print(response.data['success']);
       print(response.data);
       print(response.statusCode);
-      final tokenKey = response.data['user']['secret_token'];
       print(response.data['user']['role_id']);
-      final id = response.data['user']['id'];
+
       saveProfileId(id);
+      saveUserSession(tokenKey);
+
+      print("id = ${getProfileId().toString()}");
+      print("userr = ${getProfilUser}");
+
       if (response.statusCode == 200) {
         if(response.data['success']){
           print('success!!');
@@ -46,12 +56,20 @@ class LoginProvider {
               ),
             );
           } else return null;
-          return UserModel.fromJson(response.data);
+          final json = jsonDecode(response.data);
+          currentUser.value = UserModel.fromJson(json);
+          return currentUser.value;
         }
       }
     } on DioError catch (e) {
       print('Error during login: $e');
     }
+  }
+
+  void saveUserSession(String authToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('authToken', authToken);
+    print("token : ${prefs.getString('authToken')}");
   }
 
   Future<TeacherModel?> saveProfileId(int id) async {
@@ -65,24 +83,35 @@ class LoginProvider {
     return profileId;
   }
 
+  Future<String?> getAuthToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('authToken');
+  }
+
   Future<UserModel?> getProfilUser() async {
     print("object");
+    getAuthToken();
+    print("tokenn : ${getAuthToken()}");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       Options headers = Options(
         headers: {
-          'Authorization': 'm4Bsf3Rb9XGqHKI4623KPl4Kr12x72SOQ92hpKdZ',
+          'Authorization': prefs.getString('authToken'),
         }
       );
       final response = await _dio.get(
           'https://teachfinder.agiftsany-azhar.web.id/api/user/show',
           options: headers
       );
-      print(response.data['user']);
+      print(response.data);
       print(response.statusCode);
 
       if (response.statusCode == 200) {
+        print("dataUser: ${response.data['user']}");
         if(response.data['success']){
-          return UserModel.fromJson(response.data);
+          var json = response.data['User'];
+          print("json: ${json}");
+          return UserModel.fromJson(response.data['User']);
         }
       }
     } on DioError catch (e) {

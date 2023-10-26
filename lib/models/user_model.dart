@@ -5,27 +5,11 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
+List<UserModel> userModelFromJson(String str) => List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
 
-String userModelToJson(UserModel data) => json.encode(data.toJson());
+String userModelToJson(List<UserModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
-  final User user;
-
-  UserModel({
-    required this.user,
-  });
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    user: User.fromJson(json["User"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "User": user.toJson(),
-  };
-}
-
-class User {
   final int id;
   final String name;
   final String email;
@@ -34,16 +18,8 @@ class User {
   final String roleId;
   final dynamic image;
   final String secretToken;
-  final dynamic visibleToken;
-  final DateTime lastLogin;
-  final DateTime lastLogout;
-  final String secretLink;
-  final DateTime secretAt;
-  final String secretIsUsed;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
-  User({
+  UserModel({
     required this.id,
     required this.name,
     required this.email,
@@ -52,17 +28,9 @@ class User {
     required this.roleId,
     required this.image,
     required this.secretToken,
-    required this.visibleToken,
-    required this.lastLogin,
-    required this.lastLogout,
-    required this.secretLink,
-    required this.secretAt,
-    required this.secretIsUsed,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["id"],
     name: json["name"],
     email: json["email"],
@@ -71,14 +39,6 @@ class User {
     roleId: json["role_id"],
     image: json["image"],
     secretToken: json["secret_token"],
-    visibleToken: json["visible_token"],
-    lastLogin: DateTime.parse(json["last_login"]),
-    lastLogout: DateTime.parse(json["last_logout"]),
-    secretLink: json["secret_link"],
-    secretAt: DateTime.parse(json["secret_at"]),
-    secretIsUsed: json["secret_is_used"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -90,13 +50,5 @@ class User {
     "role_id": roleId,
     "image": image,
     "secret_token": secretToken,
-    "visible_token": visibleToken,
-    "last_login": lastLogin.toIso8601String(),
-    "last_logout": lastLogout.toIso8601String(),
-    "secret_link": secretLink,
-    "secret_at": secretAt.toIso8601String(),
-    "secret_is_used": secretIsUsed,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
   };
 }
