@@ -144,9 +144,9 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
             SizedBox(
                 width: double.infinity,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 44),
+                  padding: EdgeInsets.only(left: 20, right: 20, top: 44),
                   width: double.infinity,
-                  height: 1000,
+                  height: 540,
                   decoration: BoxDecoration(
                       color: whiteColor,
                       borderRadius: BorderRadius.only(
@@ -171,42 +171,33 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                             child: CircularProgressIndicator()),
                       ) : Expanded(child:
                       showCardListUser ?
-                        Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailHomeRequest()),
-                                );
-                              },
-                              child: CardListUser(
-                                urlImage: "assets/icon/user_icon1.png",
-                                name: "Steven Martin",
-                                level: "SMP",
-                                subject: "Matematika",
-                                time: "Senin: 15.00 - 16.10",
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailHome()),
-                                );
-                              },
-                              child: CardListUser(
-                                urlImage: "assets/icon/user_icon2.png",
-                                name: "Cindy Avelia",
-                                level: "SMA",
-                                subject: "Matematika",
-                                time: "Senin: 15.00 - 16.10",
-                              ),
-                            ),
-                          ],
+                        ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                SingleChildScrollView(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailHomeRequest()),
+                                      );
+                                    },
+                                    child: CardListUser(
+                                      urlImage: "assets/icon/user_icon1.png",
+                                      name: "Steven Martin",
+                                      level: "SMP",
+                                      subject: "Matematika",
+                                      time: "Senin: 15.00 - 16.10",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 15)
+                              ],
+                            );
+                          }
                         )
                       :
                         RequestNotFound(),

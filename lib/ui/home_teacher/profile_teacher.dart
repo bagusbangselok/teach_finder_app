@@ -104,6 +104,7 @@ class ProfileTeacher extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () {
                   _loginController.logoutUser();
+                  _loginController.saveLoginStatus(false);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Welcome()));
                 },

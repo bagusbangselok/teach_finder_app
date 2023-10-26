@@ -8,15 +8,11 @@ import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 class LoginController {
   late final GlobalKey<FormState> loginFormKey;
   final LoginProvider _loginProvider = LoginProvider();
+  bool obscureText = true;
 
-  // void _validateInputs() {
-  //   if (loginFormKey.currentState!.validate()) {
-  //     //If all data are correct then save data to out variables
-  //     loginFormKey.currentState!.save();
-  //
-  //     doLogin(txtEditEmail.text, txtEditPwd.text);
-  //   }
-  // }
+  void toggleVisibility() {
+    obscureText = !obscureText;
+  }
 
   void loginProcess(BuildContext context, String email, String password) async {
     final user = await _loginProvider.loginAccount(context, email, password);

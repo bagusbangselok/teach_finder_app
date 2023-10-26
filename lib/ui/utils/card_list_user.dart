@@ -20,7 +20,7 @@ class CardListUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         width: double.infinity,
         decoration: BoxDecoration(
             color: whiteColor,
@@ -34,7 +34,7 @@ class CardListUser extends StatelessWidget {
             ]),
         margin: EdgeInsets.symmetric(horizontal: 4),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: 80,

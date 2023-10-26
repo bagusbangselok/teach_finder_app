@@ -17,6 +17,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late LoginController _loginController = LoginController();
+  bool _obscureText = true;
   bool isRememberMe = false;
 
   Widget RememberMe() {
@@ -91,9 +92,11 @@ class _LoginState extends State<Login> {
                                 } else return null;
                                 },
                               controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
                                 hintText: "Masukkan Email",
-                                prefixIcon: Icon(Icons.lock, color: Colors.black87),
+                                prefixIcon: Icon(Icons.email, color: Colors.black87),
                               ),
                             )
                           ],
@@ -105,10 +108,19 @@ class _LoginState extends State<Login> {
                             SizedBox(height: 10),
                             TextField(
                               controller: _passwordController,
-                              obscureText: true,
+                              obscureText: _obscureText,
                               decoration: InputDecoration(
                                 hintText: "Masukkan Password",
                                 prefixIcon: Icon(Icons.lock, color: Colors.black87),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                    setState((){
+                                      _obscureText = !_obscureText;
+                                    });},
+                                  icon: _obscureText == false
+                                      ? Icon(Icons.visibility_off_outlined)
+                                      : Icon(Icons.visibility_outlined),
+                                ),
                               ),
                             )
                           ],
@@ -178,5 +190,10 @@ class _LoginState extends State<Login> {
             ),
           )
     );
+  }
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
   }
 }

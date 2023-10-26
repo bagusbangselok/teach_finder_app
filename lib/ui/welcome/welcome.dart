@@ -110,62 +110,6 @@ class Welcome extends StatelessWidget {
                                 color: primaryColor),
                           ))),
                   SizedBox(height: 20),
-                  SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomeUser()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              side:
-                                  BorderSide(color: Color(0xFF00A7FF), width: 1),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: Text(
-                            "Home User",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: primaryColor),
-                          )
-                      )
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomeTeacherRequest(),
-                              )
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              side:
-                              BorderSide(color: primaryColor, width: 1),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: Text(
-                            "Home Teacher",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: primaryColor),
-                          )
-                      )
-                  ),
                 ],
               )
             ),
