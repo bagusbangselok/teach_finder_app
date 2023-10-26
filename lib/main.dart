@@ -4,13 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
+import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 import 'package:teach_finder_app/ui/welcome/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   final isLoggedIn = await prefs.getBool('isLoggedIn') ?? false;
   LoginProvider _loginProvider = LoginProvider();
   final user = await _loginProvider.getProfilUser();

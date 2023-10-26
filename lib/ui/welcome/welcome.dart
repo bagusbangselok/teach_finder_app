@@ -144,7 +144,8 @@ class Welcome extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => HomeTeacherRequest(userId: _loginController.getId())),
+                              MaterialPageRoute(builder: (context) => HomeTeacherRequest(userId: _loginController.getId()),
+                              )
                             );
                           },
                           style: ElevatedButton.styleFrom(
