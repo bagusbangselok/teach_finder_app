@@ -137,6 +137,8 @@ class Jadwal {
   final String harga;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final Hari hari;
+  final Hari mataPelajaran;
 
   Jadwal({
     required this.id,
@@ -150,6 +152,8 @@ class Jadwal {
     required this.harga,
     required this.createdAt,
     required this.updatedAt,
+    required this.hari,
+    required this.mataPelajaran,
   });
 
   factory Jadwal.fromJson(Map<String, dynamic> json) => Jadwal(
@@ -164,6 +168,8 @@ class Jadwal {
     harga: json["harga"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    hari: Hari.fromJson(json["hari"]),
+    mataPelajaran: Hari.fromJson(json["mata_pelajaran"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -176,6 +182,36 @@ class Jadwal {
     "waktu_mulai": waktuMulai,
     "waktu_akhir": waktuAkhir,
     "harga": harga,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "hari": hari.toJson(),
+    "mata_pelajaran": mataPelajaran.toJson(),
+  };
+}
+
+class Hari {
+  final int id;
+  final String name;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  Hari({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Hari.fromJson(Map<String, dynamic> json) => Hari(
+    id: json["id"],
+    name: json["name"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };
@@ -192,6 +228,7 @@ class Murid {
   final String userId;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final Hari jenjang;
 
   Murid({
     required this.id,
@@ -204,6 +241,7 @@ class Murid {
     required this.userId,
     required this.createdAt,
     required this.updatedAt,
+    required this.jenjang,
   });
 
   factory Murid.fromJson(Map<String, dynamic> json) => Murid(
@@ -217,6 +255,7 @@ class Murid {
     userId: json["user_id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    jenjang: Hari.fromJson(json["jenjang"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -230,5 +269,6 @@ class Murid {
     "user_id": userId,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "jenjang": jenjang.toJson(),
   };
 }

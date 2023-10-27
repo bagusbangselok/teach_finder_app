@@ -7,6 +7,7 @@ class CardListUser extends StatelessWidget {
   final String level;
   final String subject;
   final String time;
+  final String status;
 
   const CardListUser(
       {Key? key,
@@ -14,8 +15,9 @@ class CardListUser extends StatelessWidget {
       required this.name,
       required this.level,
       required this.time,
-      required this.subject})
-      : super(key: key);
+      required this.subject,
+      required this.status
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class CardListUser extends StatelessWidget {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 Text(level,
                     style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 Text(subject,
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
@@ -61,13 +63,25 @@ class CardListUser extends StatelessWidget {
             ),
             SizedBox(width: 12),
             Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                status == 0 ? Text('Menunggu',
+                style: TextStyle(
+                color: Colors.white70,
+                fontSize: 12
+                ))
+                : Text('Disetujui',
+                  style: TextStyle(
+                    color: successColor,
+                    fontSize: 12
+                  )),
+                SizedBox(height: 20),
                 Icon(
                   Icons.chevron_right,
                   color: blackColor,
                   size: 24,
-                )
+                ),
+                SizedBox(height: 20,)
               ],
             )
           ],

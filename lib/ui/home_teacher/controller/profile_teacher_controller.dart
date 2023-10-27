@@ -11,8 +11,6 @@ import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 class ProfileTeacherController {
   LoginProvider _loginProvider = LoginProvider();
   PesananProvider _pesananProvider = PesananProvider();
-  ProfileTeacherProvider _profileTeacherProvider = ProfileTeacherProvider();
-
 
   // final _service = Provider.of<ProfileTeacherProvider>();
 
@@ -30,7 +28,11 @@ class ProfileTeacherController {
   }
 
   Future<List<PesananModel>> getListPesananGuru() async{
-    print("awaittt : ${await _pesananProvider.getPesanan()}");
-    return await _pesananProvider.getPesanan();
+    return await _pesananProvider.getListPesanan();
   }
+
+  // Future<PesananModel?> getPesananById(PesananModel id) async{
+  //   print("Await: ${await _pesananProvider.getPesananById(id)}");
+  //   return await _pesananProvider.getPesananById(id);
+  // }
 }

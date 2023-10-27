@@ -19,8 +19,7 @@ class HomeTeacherRequest extends StatefulWidget {
 class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   bool showCardListUser = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ProfileTeacherController _profileTeacherController =
-      ProfileTeacherController();
+  ProfileTeacherController _profileTeacherController = ProfileTeacherController();
   List<TeacherModel> items = [];
 
   @override
@@ -205,7 +204,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DetailHomeRequest()),
+                                    builder: (context) => DetailHomeRequest(pesanan: snapshotPesanan.data![index])),
                               );
                             },
                             child: CardListUser(
@@ -213,12 +212,13 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                               name:
                                   "${snapshotPesanan.data![index].murid.name}",
                               level:
-                                  "${snapshotPesanan.data![index].murid.jenjangId}",
+                                  "${snapshotPesanan.data![index].murid.jenjang.name}",
                               subject:
-                                  "${snapshotPesanan.data![index].jadwal.mataPelajaranId}",
+                                  "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
                               time:
-                                  "${snapshotPesanan.data![index].jadwal.waktuMulai} - "
+                                  "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
                                       "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
+                              status: snapshotPesanan.data![index].status,
                             ),
                           ),
                         );

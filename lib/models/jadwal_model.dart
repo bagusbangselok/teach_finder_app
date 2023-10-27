@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final jadwalmodel = jadwalmodelFromJson(jsonString);
+//     final jadwalModel = jadwalModelFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Jadwalmodel> jadwalmodelFromJson(String str) => List<Jadwalmodel>.from(json.decode(str).map((x) => Jadwalmodel.fromJson(x)));
+JadwalModel jadwalModelFromJson(String str) => JadwalModel.fromJson(json.decode(str));
 
-String jadwalmodelToJson(List<Jadwalmodel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String jadwalModelToJson(JadwalModel data) => json.encode(data.toJson());
 
-class Jadwalmodel {
+class JadwalModel {
   final int id;
   final String name;
   final String guruId;
@@ -26,7 +26,7 @@ class Jadwalmodel {
   final Hari mataPelajaran;
   final Hari jenjang;
 
-  Jadwalmodel({
+  JadwalModel({
     required this.id,
     required this.name,
     required this.guruId,
@@ -44,7 +44,7 @@ class Jadwalmodel {
     required this.jenjang,
   });
 
-  factory Jadwalmodel.fromJson(Map<String, dynamic> json) => Jadwalmodel(
+  factory JadwalModel.fromJson(Map<String, dynamic> json) => JadwalModel(
     id: json["id"],
     name: json["name"],
     guruId: json["guru_id"],
