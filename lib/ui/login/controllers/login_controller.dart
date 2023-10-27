@@ -1,18 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 
 class LoginController {
   late final GlobalKey<FormState> loginFormKey;
   final LoginProvider _loginProvider = LoginProvider();
   bool obscureText = true;
-
-  void toggleVisibility() {
-    obscureText = !obscureText;
-  }
 
   void loginProcess(BuildContext context, String email, String password) async {
     final user = await _loginProvider.loginAccount(context, email, password);

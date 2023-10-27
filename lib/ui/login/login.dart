@@ -125,8 +125,8 @@ class _LoginState extends State<Login> {
                             )
                           ],
                         ),
-                        SizedBox(height: 20),
-                        RememberMe(),
+                        // SizedBox(height: 20),
+                        // RememberMe(),
                         SizedBox(height: 10),
                         Container(
                           padding: EdgeInsets.symmetric(vertical: 25),
@@ -169,13 +169,13 @@ class _LoginState extends State<Login> {
                               TextSpan(
                                 text: 'Belum mempunyai akun ?',
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               TextSpan(
                                   text: ' Register',
                                   style: TextStyle(
                                       color: primaryColor,
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                       decoration: TextDecoration.underline
                                   )),

@@ -12,8 +12,6 @@ class LoginProvider {
   final Dio _dio = Dio();
   var currentUser;
   var user;
-  // FormData formData = FormData.fromMap({
-  // });
 
   Future<UserModel?> loginAccount(BuildContext context, String email, String password) async {
     try {
