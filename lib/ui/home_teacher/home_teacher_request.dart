@@ -210,4 +210,40 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
       ),
     );
   }
+
+  Widget listRequest(BuildContext context){
+    return FutureBuilder(
+      future: _profileTeacherController.getProfileByToken(),
+      builder: (context, snapshot) {
+        return ListView.builder(
+            itemCount: 5,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  SingleChildScrollView(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailHomeRequest()),
+                        );
+                      },
+                      child: CardListUser(
+                        urlImage: "assets/icon/user_icon1.png",
+                        name: "Steven Martin",
+                        level: "SMP",
+                        subject: "Matematika",
+                        time: "Senin: 15.00 - 16.10",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 15)
+                ],
+              );
+            }
+        );
+      }
+    );
+  }
 }

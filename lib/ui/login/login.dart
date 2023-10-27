@@ -157,6 +157,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 20),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(

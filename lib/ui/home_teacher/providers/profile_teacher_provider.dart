@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teach_finder_app/models/guru_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
-import 'package:teach_finder_app/ui/login/providers/login_provider.dart';
 
 class ProfileTeacherProvider {
   final Dio _dio = Dio();

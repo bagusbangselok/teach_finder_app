@@ -100,7 +100,7 @@ class ProfileUser extends StatelessWidget {
                 onPressed: () {
                   _loginController.logoutUser();
                   _loginController.saveLoginStatus(false);
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Welcome()));
                 },
                 style: ElevatedButton.styleFrom(

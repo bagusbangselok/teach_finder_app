@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
+import 'package:teach_finder_app/res/url.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 
@@ -100,7 +101,7 @@ class LoginProvider {
         }
       );
       final response = await _dio.get(
-          'https://teachfinder.agiftsany-azhar.web.id/api/user/show',
+          Url.userUrlByToken,
           options: headers
       );
       print(response.data);
