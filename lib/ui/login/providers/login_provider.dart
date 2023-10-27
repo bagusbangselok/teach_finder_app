@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +16,7 @@ class LoginProvider {
   Future<UserModel?> loginAccount(BuildContext context, String email, String password) async {
     try {
       final response = await _dio.post(
-        'https://teachfinder.agiftsany-azhar.web.id/api/user/login',
+        '${Url.BASE_URL}/user/login',
         data: {
           'email': email,
           'password': password
@@ -57,9 +56,7 @@ class LoginProvider {
               ),
             );
           } else return null;
-          final json = jsonDecode(response.data);
-          currentUser.value = UserModel.fromJson(json);
-          return currentUser.value;
+          return UserModel.fromJson(response.data);
         }
       }
     } on DioError catch (e) {
@@ -89,6 +86,11 @@ class LoginProvider {
     return prefs.getString('authToken');
   }
 
+  void saveIdGuru(int idGuru) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('idGuru', idGuru);
+  }
+
   Future<UserModel?> getProfilUser() async {
     print("object");
     getAuthToken();
@@ -101,14 +103,18 @@ class LoginProvider {
         }
       );
       final response = await _dio.get(
-          Url.userUrlByToken,
+          'https://teachfinder.agiftsany-azhar.web.id/api/user/show',
           options: headers
       );
+
+      saveIdGuru(response.data['User']['guru']['id']);
+      print('id guru: ${response.data['User']['guru']['id']}');
+      print('id guru shared_preference: ${prefs.getInt('idGuru')}');
       print(response.data);
       print(response.statusCode);
 
       if (response.statusCode == 200) {
-        print("dataUser: ${response.data['user']}");
+        print("dataUser: ${response.data['User']}");
         if(response.data['success']){
           var json = response.data['User'];
           print("json: ${json}");
@@ -120,6 +126,5 @@ class LoginProvider {
     }
     return null;
   }
-
 
 }

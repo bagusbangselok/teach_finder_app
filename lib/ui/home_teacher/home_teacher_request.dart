@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
@@ -169,39 +170,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                         child: Center(
                           // render the loading indicator
                             child: CircularProgressIndicator()),
-                      ) : Expanded(child:
-                      showCardListUser ?
-                        ListView.builder(
-                          itemCount: 5,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                SingleChildScrollView(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => DetailHomeRequest()),
-                                      );
-                                    },
-                                    child: CardListUser(
-                                      urlImage: "assets/icon/user_icon1.png",
-                                      name: "Steven Martin",
-                                      level: "SMP",
-                                      subject: "Matematika",
-                                      time: "Senin: 15.00 - 16.10",
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 15)
-                              ],
-                            );
-                          }
-                        )
-                      :
-                        RequestNotFound(),
-                      )
+                      ) : listRequest(context)
                     ],
                   ),
                 ))
@@ -212,36 +181,40 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   }
 
   Widget listRequest(BuildContext context){
-    return FutureBuilder(
-      future: _profileTeacherController.getProfileByToken(),
-      builder: (context, snapshot) {
-        return ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  SingleChildScrollView(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailHomeRequest()),
-                        );
-                      },
-                      child: CardListUser(
-                        urlImage: "assets/icon/user_icon1.png",
-                        name: "Steven Martin",
-                        level: "SMP",
-                        subject: "Matematika",
-                        time: "Senin: 15.00 - 16.10",
-                      ),
+    return FutureBuilder<List<PesananModel>>(
+      future: _profileTeacherController.getListPesananGuru(),
+      builder: (BuildContext context, AsyncSnapshot<List<PesananModel>> snapshotPesanan) {
+        print('dataaa : ${snapshotPesanan.data}');
+        return !snapshotPesanan.hasData ?
+            Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ) :
+        Expanded(
+          child: ListView.builder(
+              itemCount: snapshotPesanan.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return SingleChildScrollView(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailHomeRequest()),
+                      );
+                    },
+                    child: CardListUser(
+                      urlImage: "assets/icon/user_icon1.png",
+                      name: "${snapshotPesanan.data![index].murid.name}",
+                      level: "${snapshotPesanan.data![index].murid.jenjangId}",
+                      subject: "${snapshotPesanan.data![index].jadwal.mataPelajaranId}",
+                      time: "${snapshotPesanan.data![index].jadwal.waktuMulai} - ${snapshotPesanan.data![index].jadwal.waktuAkhir}",
                     ),
                   ),
-                  SizedBox(height: 15)
-                ],
-              );
-            }
+                );
+              }
+          ),
         );
       }
     );
