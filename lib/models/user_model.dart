@@ -18,7 +18,7 @@ class UserModel {
   final String roleId;
   final dynamic image;
   final String secretToken;
-  final Guru guru;
+  final Guru? guru;
 
   UserModel({
     required this.id,
@@ -41,7 +41,7 @@ class UserModel {
     roleId: json["role_id"],
     image: json["image"],
     secretToken: json["secret_token"],
-    guru: Guru.fromJson(json["guru"]),
+    guru: Guru.fromJson(json["guru"] ?? json['murid']),
   );
 
   Map<String, dynamic> toJson() => {
@@ -53,21 +53,21 @@ class UserModel {
     "role_id": roleId,
     "image": image,
     "secret_token": secretToken,
-    "guru": guru.toJson(),
+    "guru": guru?.toJson(),
   };
 }
 
 class Guru {
-  final int id;
-  final String name;
-  final String email;
-  final String phone;
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? phone;
   final dynamic description;
-  final String isActive;
-  final String lokasiId;
-  final String isVerified;
-  final String sklIjazah;
-  final String userId;
+  final String? isActive;
+  final String? lokasiId;
+  final String? isVerified;
+  final String? sklIjazah;
+  final String? userId;
 
   Guru({
     required this.id,

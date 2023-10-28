@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
-import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
-import 'package:teach_finder_app/ui/register/register_user.dart';
-import 'package:teach_finder_app/ui/register/register_Guru.dart';
 
 class Welcome extends StatelessWidget {
   LoginController _loginController = LoginController();
@@ -58,58 +54,62 @@ class Welcome extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ))),
                   SizedBox(height: 20),
-                  SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => RegisterUser()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              side:
-                                  BorderSide(color: Color(0xFF00A7FF), width: 1),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: Text(
-                            "Daftar sebagai pengguna",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: primaryColor),
-                          ))),
-                  SizedBox(height: 20),
-                  SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => RegisterGuru()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              side:
-                                  BorderSide(color: Color(0xFF00A7FF), width: 1),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: Text(
-                            "Daftar sebagai guru",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: primaryColor),
-                          ))),
-                  SizedBox(height: 20),
+                  // SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //         onPressed: () async {
+                  //           // Navigator.push(
+                  //           //   context,
+                  //           //   MaterialPageRoute(builder: (context) => RegisterUser()),
+                  //           // );
+                  //           final Uri _urlUser = Uri.parse('https://bit.ly/RegistrasiUserTeachfinder');
+                  //           await launchUrl(_urlUser, mode: LaunchMode.inAppBrowserView);
+                  //         },
+                  //         style: ElevatedButton.styleFrom(
+                  //             primary: Colors.white,
+                  //             side:
+                  //                 BorderSide(color: Color(0xFF00A7FF), width: 1),
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 horizontal: 10, vertical: 20),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(10),
+                  //             )),
+                  //         child: Text(
+                  //           "Daftar sebagai pengguna",
+                  //           style: TextStyle(
+                  //               fontSize: 18,
+                  //               fontWeight: FontWeight.w700,
+                  //               color: primaryColor),
+                  //         ))),
+                  // SizedBox(height: 20),
+                  // SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //         onPressed: () async {
+                  //           Navigator.push(
+                  //             context,
+                  //             MaterialPageRoute(builder: (context) => RegisterGuru()),
+                  //           );
+                  //           final Uri _urlGuru = Uri.parse('https://bit.ly/RegistrasiGuruTeachfinder');
+                  //           await launchUrl(_urlGuru, mode: LaunchMode.inAppBrowserView);
+                  //         },
+                  //         style: ElevatedButton.styleFrom(
+                  //             primary: Colors.white,
+                  //             side:
+                  //                 BorderSide(color: Color(0xFF00A7FF), width: 1),
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 horizontal: 10, vertical: 20),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(10),
+                  //             )),
+                  //         child: Text(
+                  //           "Daftar sebagai guru",
+                  //           style: TextStyle(
+                  //               fontSize: 18,
+                  //               fontWeight: FontWeight.w700,
+                  //               color: primaryColor),
+                  //         ))),
+                  // SizedBox(height: 20),
                 ],
               )
             ),

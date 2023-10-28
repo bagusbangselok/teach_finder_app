@@ -106,9 +106,10 @@ class LoginProvider {
           'https://teachfinder.agiftsany-azhar.web.id/api/user/show',
           options: headers
       );
-
-      saveIdGuru(response.data['User']['guru']['id']);
-      print('id guru: ${response.data['User']['guru']['id']}');
+      if(response.data['User']['role_id'] == '2'){
+        saveIdGuru(response.data['User']['guru']['id']);
+      }
+      // print('id guru: ${response.data['User']['guru']['id']}');
       print('id guru shared_preference: ${prefs.getInt('idGuru')}');
       print(response.data);
       print(response.statusCode);

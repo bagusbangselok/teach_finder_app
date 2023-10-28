@@ -85,7 +85,7 @@ class ProfileTeacher extends StatelessWidget {
                       InkWell(
                         child: Row(
                           children: [
-                        snapshot.data?.guru.isActive == '0' ? Container(
+                        snapshot.data?.guru?.isActive == '0' ? Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 12),
                               decoration: BoxDecoration(

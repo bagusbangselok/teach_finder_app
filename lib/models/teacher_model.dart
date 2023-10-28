@@ -5,9 +5,9 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<TeacherModel> teacherModelFromJson(String str) => List<TeacherModel>.from(json.decode(str).map((x) => TeacherModel.fromJson(x)));
+TeacherModel teacherModelFromJson(String str) => TeacherModel.fromJson(json.decode(str));
 
-String teacherModelToJson(List<TeacherModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String teacherModelToJson(TeacherModel data) => json.encode(data.toJson());
 
 class TeacherModel {
   final int id;

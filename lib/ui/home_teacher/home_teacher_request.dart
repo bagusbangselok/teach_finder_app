@@ -90,7 +90,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomeTeacherSchedule()),
@@ -115,7 +115,13 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                         ),
                         SizedBox(width: 12),
                         ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeTeacherRequest()),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: secondaryColor,
                               padding: const EdgeInsets.symmetric(
