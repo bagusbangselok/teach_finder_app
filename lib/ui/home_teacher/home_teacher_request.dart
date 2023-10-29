@@ -20,7 +20,6 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   bool showCardListUser = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController = ProfileTeacherController();
-  List<TeacherModel> items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +30,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
       body: FutureBuilder<UserModel?>(
           future: _profileTeacherController.getProfileByToken(),
           builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
+            print(_profileTeacherController.getProfileByToken());
             print("data : ${snapshot.data}");
             return SingleChildScrollView(
                 child: Column(children: [
@@ -218,11 +218,11 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                               name:
                                   "${snapshotPesanan.data![index].murid.name}",
                               level:
-                                  "${snapshotPesanan.data![index].murid.jenjang.name}",
+                                  "${snapshotPesanan.data![index].murid.jenjangId}",
                               subject:
-                                  "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
+                                  "${snapshotPesanan.data![index].jadwal.mataPelajaranId}",
                               time:
-                                  "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
+                                  "${snapshotPesanan.data![index].jadwal.hariId}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
                                       "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
                               status: snapshotPesanan.data![index].status,
                             ),

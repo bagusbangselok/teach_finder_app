@@ -89,7 +89,12 @@ class DetailHome extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      RequestTeacher(idMurid, teacher.id, teacher.jadwal[0].id, context);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Acception(context);
+                          }
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
@@ -103,6 +108,139 @@ class DetailHome extends StatelessWidget {
                       style:
                       TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                     ))),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget Acception(context){
+    return AlertDialog(
+      title: Text("Peringatan!!", textAlign: TextAlign.center),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20)
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      content: SizedBox(
+        height: 152,
+        width: 292,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Apakah anda yakin ingin meminta guru tersebut untuk menjadi gurumu ?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              )
+            ),
+            SizedBox(height: 28),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsetsDirectional.symmetric(horizontal: 25, vertical: 10)),
+                    backgroundColor: MaterialStatePropertyAll(dangerColor),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      )
+                    )
+                  ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Tidak",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: whiteColor
+                      ))
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStatePropertyAll(EdgeInsetsDirectional.symmetric(horizontal: 25, vertical: 10)),
+                    backgroundColor: MaterialStatePropertyAll(primaryColor),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                      )
+                    )
+                  ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                      RequestTeacher(idMurid, teacher.id, teacher.jadwal[0].id, context);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return Finishing(context);
+                          }
+                      );
+                    },
+                    child: Text("Yakin",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: whiteColor
+                      ))
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget Finishing(context){
+    return AlertDialog(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      content: SizedBox(
+        height: 342,
+        width: 292,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset("assets/icon/success.png", height: 110),
+            SizedBox(height: 8),
+            Text("Berhasil !!",
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w600
+              )
+            ),
+            SizedBox(height: 46),
+            Flexible(
+                child: Text(
+                    "Sukses meminta kepada guru tersebut. Mohon ditunggu hingga guru tersebut menyetujui",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300
+                  ),)),
+            SizedBox(height: 32),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeUser()),
+                    );
+                  },
+                  child: Text("Selesai",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: whiteColor
+                    )
+                  )
+              ),
+            )
           ],
         ),
       ),
@@ -127,10 +265,6 @@ class DetailHome extends StatelessWidget {
         // Request was successful
         if(response.data['success']){
           print("Sukses Memesan");
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeUser()),
-          );
         }
         print('Response data: ${response.data}');
       } else {

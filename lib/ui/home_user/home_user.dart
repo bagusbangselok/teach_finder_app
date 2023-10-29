@@ -204,7 +204,7 @@ class _HomeUser extends State<HomeUser> {
                             ),
                           ),
                           SizedBox(height: 24),
-                          Expanded(child: ListGuru(snapshot.data?.id))
+                          Expanded(child: ListGuru(snapshot.data?.murid?.id))
                         ],
                       ),
                     ),

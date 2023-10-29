@@ -91,11 +91,16 @@ class LoginProvider {
     await prefs.setInt('idGuru', idGuru);
   }
 
+  void saveIdMurid(int idMurid) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('idMurid', idMurid);
+  }
+
   Future<UserModel?> getProfilUser() async {
-    print("object");
+    print("objectprofil");
     getAuthToken();
-    print("tokenn : ${getAuthToken()}");
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("tokenn : ${prefs.getString('authToken')}");
     try {
       Options headers = Options(
         headers: {
@@ -107,7 +112,12 @@ class LoginProvider {
           options: headers
       );
       if(response.data['User']['role_id'] == '2'){
+        print("save role 2");
         saveIdGuru(response.data['User']['guru']['id']);
+      }
+      if(response.data['User']['role_id'] == '3'){
+        print("save role 3");
+        saveIdMurid(response.data['User']['murid']['id']);
       }
       // print('id guru: ${response.data['User']['guru']['id']}');
       print('id guru shared_preference: ${prefs.getInt('idGuru')}');
@@ -117,6 +127,7 @@ class LoginProvider {
       if (response.statusCode == 200) {
         print("dataUser: ${response.data['User']}");
         if(response.data['success']){
+          print("sukses loh: ${response.data['success']}");
           var json = response.data['User'];
           print("json: ${json}");
           return UserModel.fromJson(response.data['User']);

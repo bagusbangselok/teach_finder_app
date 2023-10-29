@@ -19,10 +19,6 @@ class ProfileTeacherController {
     return prefs.getString('profileId');
   }
 
-  Future<List<TeacherModel>?> getListProfile() async {
-     // return await _service.getTeacher();
-  }
-
   Future<UserModel?> getProfileByToken() async{
     return await _loginProvider.getProfilUser();
   }
@@ -30,9 +26,4 @@ class ProfileTeacherController {
   Future<List<PesananModel>> getListPesananGuru() async{
     return await _pesananProvider.getListPesanan();
   }
-
-  // Future<PesananModel?> getPesananById(PesananModel id) async{
-  //   print("Await: ${await _pesananProvider.getPesananById(id)}");
-  //   return await _pesananProvider.getPesananById(id);
-  // }
 }

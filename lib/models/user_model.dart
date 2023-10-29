@@ -19,6 +19,7 @@ class UserModel {
   final dynamic image;
   final String secretToken;
   final Guru? guru;
+  final Murid? murid;
 
   UserModel({
     required this.id,
@@ -30,6 +31,7 @@ class UserModel {
     required this.image,
     required this.secretToken,
     required this.guru,
+    required this.murid,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -41,7 +43,8 @@ class UserModel {
     roleId: json["role_id"],
     image: json["image"],
     secretToken: json["secret_token"],
-    guru: Guru.fromJson(json["guru"] ?? json['murid']),
+    guru: Guru.fromJson(json["guru"] ?? json["murid"]),
+    murid: Murid.fromJson(json["murid"] ?? json["guru"])
   );
 
   Map<String, dynamic> toJson() => {
@@ -54,6 +57,7 @@ class UserModel {
     "image": image,
     "secret_token": secretToken,
     "guru": guru?.toJson(),
+    "murid": murid?.toJson(),
   };
 }
 
@@ -105,6 +109,52 @@ class Guru {
     "lokasi_id": lokasiId,
     "is_verified": isVerified,
     "skl_ijazah": sklIjazah,
+    "user_id": userId,
+  };
+
+
+}
+
+class Murid {
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String? pin;
+  final String? jenjangId;
+  final String? alamat;
+  final String? userId;
+
+  Murid({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.pin,
+    required this.jenjangId,
+    required this.alamat,
+    required this.userId,
+  });
+
+  factory Murid.fromJson(Map<String, dynamic> json) => Murid(
+    id: json["id"],
+    name: json["name"],
+    email: json["email"],
+    phone: json["phone"],
+    pin: json["pin"],
+    jenjangId: json["jenjang_id"],
+    alamat: json["alamat"],
+    userId: json["user_id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "email": email,
+    "phone": phone,
+    "pin": pin,
+    "jenjang_id": jenjangId,
+    "alamat": alamat,
     "user_id": userId,
   };
 }
