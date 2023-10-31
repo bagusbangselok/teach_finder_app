@@ -48,18 +48,18 @@ class CardListTeacher extends StatelessWidget {
               Text(name,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Color(0xFFFFCB17),
-                  ),
-                  Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  Icon(Icons.star, color: Color(0xFFFFCB17)),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Icon(
+              //       Icons.star,
+              //       color: Color(0xFFFFCB17),
+              //     ),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //   ],
+              // ),
               SizedBox(height: 4),
               Text(location,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),

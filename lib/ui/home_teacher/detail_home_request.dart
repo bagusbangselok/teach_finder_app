@@ -132,14 +132,14 @@ class DetailHomeRequest extends StatelessWidget {
                                               fontWeight: FontWeight.w700,
                                               color: blackColor)),
                                       SizedBox(height: 8),
-                                      Text("${pesanan.murid.jenjangId}",
+                                      Text("${pesanan.murid.jenjang.name}",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w400,
                                               color: blackColor)),
                                       SizedBox(height: 8),
                                       Text(
-                                        "${pesanan.jadwal.hariId}: ${pesanan.jadwal.waktuMulai} - ${pesanan.jadwal.waktuAkhir}",
+                                        "${pesanan.jadwal.hari.name}: ${pesanan.jadwal.waktuMulai} - ${pesanan.jadwal.waktuAkhir}",
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,

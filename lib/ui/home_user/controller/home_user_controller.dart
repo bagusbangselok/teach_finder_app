@@ -12,6 +12,6 @@ class HomeUserController {
   }
 
   Future<List<PesananModel>> getListPesananMurid() async{
-    return await _pesananMuridProvider.getListPesanan();
+    return await _pesananMuridProvider.getListPesananMurid();
   }
 }

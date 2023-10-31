@@ -54,18 +54,18 @@ class CardListBooking extends StatelessWidget {
                   Text(name,
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Color(0xFFFFCB17),
-                      ),
-                      Icon(Icons.star, color: Color(0xFFFFCB17)),
-                      Icon(Icons.star, color: Color(0xFFFFCB17)),
-                      Icon(Icons.star, color: Color(0xFFFFCB17)),
-                      Icon(Icons.star, color: Color(0xFFFFCB17)),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Icon(
+                  //       Icons.star,
+                  //       color: Color(0xFFFFCB17),
+                  //     ),
+                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                  //   ],
+                  // ),
                   SizedBox(height: 4),
                   Text(location,
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
@@ -77,7 +77,7 @@ class CardListBooking extends StatelessWidget {
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
                 ],
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -90,12 +90,14 @@ class CardListBooking extends StatelessWidget {
                               color: status == '0' ? silver : successColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: status == '0' ? Text(
-                              "Menunggu persetujuan",
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: blackColor,
-                                fontWeight: FontWeight.bold,
+                            child: status == '0' ? Flexible(
+                              child: Text(
+                                "Menunggu\n persetujuan",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ) : Row(
                               children: [

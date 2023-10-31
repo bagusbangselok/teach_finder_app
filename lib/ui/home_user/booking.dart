@@ -146,8 +146,10 @@ class _Booking extends State<Booking> {
     return FutureBuilder<List<PesananModel>>(
         future: _homeUserController.getListPesananMurid(),
         builder: (BuildContext context, AsyncSnapshot<List<PesananModel>> snapshot) {
-        return ListView.builder(
-          itemCount: snapshot.data?.length,
+        return !snapshot.hasData ?
+        Center(child: CircularProgressIndicator()) :
+        ListView.builder(
+          itemCount: snapshot.data!.length,
           itemBuilder: (context, index) {
             print("data pesanan siswa : ${snapshot.data}");
             return InkWell(
@@ -155,8 +157,8 @@ class _Booking extends State<Booking> {
               child: CardListBooking(
                 urlImage: "assets/icon/user_icon1.png",
                 name: "${snapshot.data![index].guru.name}",
-                location: "${snapshot.data![index].guru.lokasiId}",
-                subject: "${snapshot.data![index].jadwal.mataPelajaranId}",
+                location: "${snapshot.data![index].guru.lokasi.name}",
+                subject: "${snapshot.data![index].jadwal.mataPelajaran.name}",
                 salary: "${snapshot.data![index].jadwal.harga}",
                 status: "${snapshot.data![index].status}",
                 phone: "${snapshot.data![index].guru.phone}",

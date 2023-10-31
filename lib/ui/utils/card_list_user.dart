@@ -65,9 +65,9 @@ class CardListUser extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                status == 0 ? Text('Menunggu',
+                status == '0' ? Text('Menunggu...',
                 style: TextStyle(
-                color: Colors.white70,
+                color: Colors.black54,
                 fontSize: 12
                 ))
                 : Text('Disetujui',

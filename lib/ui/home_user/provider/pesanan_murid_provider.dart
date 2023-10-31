@@ -6,7 +6,7 @@ import 'package:teach_finder_app/res/url.dart';
 class PesananMuridProvider {
   final Dio _dio = Dio();
 
-  Future<List<PesananModel>> getListPesanan() async {
+  Future<List<PesananModel>> getListPesananMurid() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var muridId = await prefs.getInt('idMurid');
 
