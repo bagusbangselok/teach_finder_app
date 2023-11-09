@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
-import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
 class DetailHome extends StatelessWidget {
   TeacherModel teacher;
   int? idMurid;
 
-  DetailHome({
-    Key? key,
-    required this.teacher,
-    required this.idMurid
-  }) : super(key: key);
+  DetailHome({Key? key, required this.teacher, required this.idMurid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class DetailHome extends StatelessWidget {
               decoration: BoxDecoration(
                 color: primaryColor,
                 borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(20)),
+                    BorderRadius.vertical(bottom: Radius.circular(20)),
               ),
               child: Center(
                   child: Text("Detail Guru Private",
@@ -41,23 +37,21 @@ class DetailHome extends StatelessWidget {
             SizedBox(height: 20),
             Center(
                 child: Column(
-                  children: [
-                    Image.asset("assets/icon/user_icon1.png"),
-                    SizedBox(height: 12),
-                    Text(
-                      "${teacher.name}",
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(height: 12),
-                    // Icon(Icons.star)
-                  ],
-                )),
-            Text("${teacher.jadwal[0].name}",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500
-              ),),
+              children: [
+                Image.asset("assets/icon/user_icon1.png"),
+                SizedBox(height: 12),
+                Text(
+                  "${teacher.name}",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 12),
+                // Icon(Icons.star)
+              ],
+            )),
+            Text(
+              "${teacher.jadwal[0].name}",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
             SizedBox(height: 24),
             Text(
               "Lokasi Guru",
@@ -93,8 +87,7 @@ class DetailHome extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return Acception(context);
-                          }
-                      );
+                          });
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
@@ -106,7 +99,7 @@ class DetailHome extends StatelessWidget {
                     child: Text(
                       "Pengajuan",
                       style:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                     ))),
           ],
         ),
@@ -114,12 +107,10 @@ class DetailHome extends StatelessWidget {
     );
   }
 
-  Widget Acception(context){
+  Widget Acception(context) {
     return AlertDialog(
       title: Text("Peringatan!!", textAlign: TextAlign.center),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       content: SizedBox(
         height: 152,
@@ -128,64 +119,56 @@ class DetailHome extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Apakah anda yakin ingin meminta guru tersebut untuk menjadi gurumu ?",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              )
-            ),
+            Text(
+                "Apakah anda yakin ingin meminta guru tersebut untuk menjadi gurumu ?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                )),
             SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  style: ButtonStyle(
-                      padding: MaterialStatePropertyAll(EdgeInsetsDirectional.symmetric(horizontal: 25, vertical: 10)),
-                    backgroundColor: MaterialStatePropertyAll(dangerColor),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      )
-                    )
-                  ),
-                    onPressed: (){
+                    style: ButtonStyle(
+                        padding: MaterialStatePropertyAll(
+                            EdgeInsetsDirectional.symmetric(
+                                horizontal: 25, vertical: 10)),
+                        backgroundColor: MaterialStatePropertyAll(dangerColor),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)))),
+                    onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: Text("Tidak",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: whiteColor
-                      ))
-                ),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: whiteColor))),
                 ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStatePropertyAll(EdgeInsetsDirectional.symmetric(horizontal: 25, vertical: 10)),
-                    backgroundColor: MaterialStatePropertyAll(primaryColor),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      )
-                    )
-                  ),
-                    onPressed: (){
+                    style: ButtonStyle(
+                        padding: MaterialStatePropertyAll(
+                            EdgeInsetsDirectional.symmetric(
+                                horizontal: 25, vertical: 10)),
+                        backgroundColor: MaterialStatePropertyAll(primaryColor),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)))),
+                    onPressed: () {
                       Navigator.of(context).pop();
-                      RequestTeacher(idMurid, teacher.id, teacher.jadwal[0].id, context);
+                      RequestTeacher(
+                          idMurid, teacher.id, teacher.jadwal[0].id, context);
                       showDialog(
                           context: context,
-                          builder: (BuildContext context){
+                          builder: (BuildContext context) {
                             return Finishing(context);
-                          }
-                      );
+                          });
                     },
                     child: Text("Yakin",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: whiteColor
-                      ))
-                ),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: whiteColor))),
               ],
             )
           ],
@@ -194,7 +177,7 @@ class DetailHome extends StatelessWidget {
     );
   }
 
-  Widget Finishing(context){
+  Widget Finishing(context) {
     return AlertDialog(
       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       content: SizedBox(
@@ -207,39 +190,32 @@ class DetailHome extends StatelessWidget {
             Image.asset("assets/icon/success.png", height: 110),
             SizedBox(height: 8),
             Text("Berhasil !!",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 18,
-                fontWeight: FontWeight.w600
-              )
-            ),
+                style: TextStyle(
+                    color: primaryColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600)),
             SizedBox(height: 46),
             Flexible(
                 child: Text(
-                    "Sukses meminta kepada guru tersebut. Mohon ditunggu hingga guru tersebut menyetujui",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300
-                  ),)),
+              "Sukses meminta kepada guru tersebut. Mohon ditunggu hingga guru tersebut menyetujui",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+            )),
             SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => HomeUser()),
                     );
                   },
                   child: Text("Selesai",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: whiteColor
-                    )
-                  )
-              ),
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: whiteColor))),
             )
           ],
         ),
@@ -251,7 +227,8 @@ class DetailHome extends StatelessWidget {
     Dio dio = Dio();
 
     // Define the API endpoint and request data
-    String apiUrl = 'https://teachfinder.agiftsany-azhar.web.id/api/pesanan/store';
+    String apiUrl =
+        'https://teachfinder.agiftsany-azhar.web.id/api/pesanan/store';
     Map<String, dynamic> postData = {
       'murid_id': muridId,
       'guru_id': guruId,
@@ -263,13 +240,14 @@ class DetailHome extends StatelessWidget {
 
       if (response.statusCode == 200) {
         // Request was successful
-        if(response.data['success']){
+        if (response.data['success']) {
           print("Sukses Memesan");
         }
         print('Response data: ${response.data}');
       } else {
         // Handle errors
-        print('Failed to make the POST request. Status code: ${response.statusCode}');
+        print(
+            'Failed to make the POST request. Status code: ${response.statusCode}');
       }
     } catch (error) {
       // Handle network or request errors

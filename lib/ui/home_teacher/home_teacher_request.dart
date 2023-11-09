@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/pesanan_model.dart';
-import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/detail_home_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
-import 'package:teach_finder_app/ui/home_user/detail_home.dart';
-import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
 import 'package:teach_finder_app/ui/utils/card_list_user.dart';
 
 class HomeTeacherRequest extends StatefulWidget {
@@ -19,7 +16,8 @@ class HomeTeacherRequest extends StatefulWidget {
 class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   bool showCardListUser = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ProfileTeacherController _profileTeacherController = ProfileTeacherController();
+  ProfileTeacherController _profileTeacherController =
+      ProfileTeacherController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("${snapshot.data?.name}",
+                                Text("Halo ${snapshot.data?.name ?? ''}",
                                     style: TextStyle(
                                         color: whiteColor,
                                         fontSize: 20,
@@ -210,7 +208,8 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DetailHomeRequest(pesanan: snapshotPesanan.data![index])),
+                                    builder: (context) => DetailHomeRequest(
+                                        pesanan: snapshotPesanan.data![index])),
                               );
                             },
                             child: CardListUser(
@@ -223,7 +222,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                                   "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
                               time:
                                   "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
-                                      "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
+                                  "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
                               status: snapshotPesanan.data![index].status,
                             ),
                           ),

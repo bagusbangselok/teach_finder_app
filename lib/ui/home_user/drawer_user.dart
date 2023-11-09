@@ -36,14 +36,14 @@ class DrawerUser extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        "${snapshot.data?.name}",
+                        "${snapshot.data?.name ?? ''}",
                         style: TextStyle(
                             fontSize: 24,
                             color: whiteColor,
                             fontWeight: FontWeight.w600),
                       ),
                       SizedBox(height: 4),
-                      Text("${snapshot.data?.email}",
+                      Text("${snapshot.data?.email ?? ''}",
                           style: TextStyle(
                             fontSize: 16,
                             color: whiteColor,

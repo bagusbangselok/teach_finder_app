@@ -73,7 +73,7 @@ class ProfileUser extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${snapshot.data?.name}",
+                        "${snapshot.data?.name ?? ''}",
                         style: TextStyle(
                             fontSize: 18,
                             color: blackColor,
@@ -81,7 +81,7 @@ class ProfileUser extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        "${snapshot.data?.email}",
+                        "${snapshot.data?.email ?? ''}",
                         style: TextStyle(
                             fontSize: 14,
                             color: blackColor,
