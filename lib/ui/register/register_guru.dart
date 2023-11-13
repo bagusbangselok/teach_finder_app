@@ -17,7 +17,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
   final RegisterGuruController _controller = RegisterGuruController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController sklIjazahController = TextEditingController();
@@ -33,10 +34,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
           controller: nameController,
           keyboardType: TextInputType.name,
           decoration: InputDecoration(
-            hintText: "Masukkan Nama Lengkap",
-            prefixIcon: Icon(Icons.person, color: Colors.black87),
-            labelText: "Nama Lengkap"
-          ),
+              hintText: "Masukkan Nama Lengkap",
+              prefixIcon: Icon(Icons.person, color: Colors.black87),
+              labelText: "Nama Lengkap"),
         ),
       ],
     );
@@ -50,17 +50,13 @@ class _RegisterGuruState extends State<RegisterGuru> {
       asyncItems: (text) => _controller.loadKecamatanFromJson(),
       itemAsString: (item) => "${item.name}",
       onChanged: (Kecamatan? data) => print(data),
-        dropdownButtonProps: DropdownButtonProps(
-            icon: Icon(Icons
-                .keyboard_arrow_down_outlined)),
-        dropdownDecoratorProps:
-        DropDownDecoratorProps(
-            dropdownSearchDecoration:InputDecoration(
+      dropdownButtonProps:
+          DropdownButtonProps(icon: Icon(Icons.keyboard_arrow_down_outlined)),
+      dropdownDecoratorProps: DropDownDecoratorProps(
+          dropdownSearchDecoration: InputDecoration(
               prefixIcon: Icon(Icons.school, color: Colors.black87),
-              labelText: "Lokasi"
-            )
-        ),
-      onSaved: (Kecamatan? value){
+              labelText: "Lokasi")),
+      onSaved: (Kecamatan? value) {
         dropdownValue = value;
       },
     );
@@ -72,10 +68,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
       controller: alamatController,
       keyboardType: TextInputType.streetAddress,
       decoration: InputDecoration(
-        hintText: "Masukkan Alamat Lengkap",
-        prefixIcon: Icon(Icons.home, color: Colors.black87),
-        labelText: "Alamat Lengkap"
-      ),
+          hintText: "Masukkan Alamat Lengkap",
+          prefixIcon: Icon(Icons.home, color: Colors.black87),
+          labelText: "Alamat Lengkap"),
     );
   }
 
@@ -121,10 +116,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
       controller: phoneController,
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-        hintText: "Masukkan Nomor Telepon",
-        prefixIcon: Icon(Icons.phone, color: Colors.black87),
-        labelText: "Nomor Telepon"
-      ),
+          hintText: "Masukkan Nomor Telepon",
+          prefixIcon: Icon(Icons.phone, color: Colors.black87),
+          labelText: "Nomor Telepon"),
     );
   }
 
@@ -133,10 +127,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        hintText: "Masukkan Alamat Email",
-        prefixIcon: Icon(Icons.email, color: Colors.black87),
-        labelText: "Email"
-      ),
+          hintText: "Masukkan Alamat Email",
+          prefixIcon: Icon(Icons.email, color: Colors.black87),
+          labelText: "Email"),
     );
   }
 
@@ -145,10 +138,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
       controller: passwordController,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: "Masukkan Password",
-        prefixIcon: Icon(Icons.lock, color: Colors.black87),
-        labelText: "Password"
-      ),
+          hintText: "Masukkan Password",
+          prefixIcon: Icon(Icons.lock, color: Colors.black87),
+          labelText: "Password"),
     );
   }
 
@@ -157,10 +149,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
       controller: confirmPasswordController,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: "Masukkan Konfirmasi Password",
-        prefixIcon: Icon(Icons.lock, color: Colors.black87),
-        labelText: "Konfirmasi password"
-      ),
+          hintText: "Masukkan Konfirmasi Password",
+          prefixIcon: Icon(Icons.lock, color: Colors.black87),
+          labelText: "Konfirmasi password"),
     );
   }
 
@@ -176,17 +167,26 @@ class _RegisterGuruState extends State<RegisterGuru> {
           confirmPasswordController.text;
           phoneController.text;
           alamatController.text;
-          if(nameController.text.isEmpty || emailController.text.isEmpty ||
-              passwordController.text.isEmpty || confirmPasswordController.text.isEmpty ||
-              phoneController.text.isEmpty || alamatController.text.isEmpty){
+          if (nameController.text.isEmpty ||
+              emailController.text.isEmpty ||
+              passwordController.text.isEmpty ||
+              confirmPasswordController.text.isEmpty ||
+              phoneController.text.isEmpty ||
+              alamatController.text.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Semua kolom harus di isi')),
             );
             return;
           } else {
-          _controller.registerUser(nameController.text, passwordController.text,
-              confirmPasswordController.text, emailController.text, phoneController.text,
-              fileName.toString(), alamatController.text, dropdownValue);
+            _controller.registerUser(
+                nameController.text,
+                passwordController.text,
+                confirmPasswordController.text,
+                emailController.text,
+                phoneController.text,
+                fileName.toString(),
+                alamatController.text,
+                dropdownValue);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Login()),

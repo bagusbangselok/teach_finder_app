@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
@@ -10,6 +11,10 @@ import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 String dropdownValue = list.first;
+
+String? selectedValue;
+
+final _formKey = GlobalKey<FormState>();
 
 class HomeUser extends StatefulWidget {
   const HomeUser({super.key});
@@ -26,6 +31,7 @@ class _HomeUser extends State<HomeUser> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         key: _scaffoldKey,
         drawer: DrawerUser(),
@@ -125,20 +131,20 @@ class _HomeUser extends State<HomeUser> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 100,
+                                    width: 0.3 * screenWidth,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border:
-                                            Border.all(color: primaryColor)),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: blackColor),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.location_on_sharp, size: 18),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
+                                        SizedBox(width: 5),
                                         DropdownButton(
+                                          underline:
+                                              Container(), // This line removes the default underline
                                           hint: Text(
                                             "Lokasi",
                                             style: TextStyle(
@@ -164,57 +170,94 @@ class _HomeUser extends State<HomeUser> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 0.01 * screenWidth),
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 110,
+                                    width: 0.31 * screenWidth,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border:
-                                            Border.all(color: primaryColor)),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: blackColor),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.book, size: 18),
                                         SizedBox(width: 5),
-                                        Text(
-                                          "Mata Pelajaran",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400),
+                                        DropdownButton(
+                                          underline:
+                                              Container(), // This line removes the default underline
+                                          hint: Text(
+                                            "Pelajaran",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          icon: Icon(Icons
+                                              .keyboard_arrow_down_outlined),
+                                          items: list
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              dropdownValue = value!;
+                                            });
+                                          },
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 0.01 * screenWidth),
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 110,
+                                    width: 0.3 * screenWidth,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border:
-                                            Border.all(color: primaryColor)),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: blackColor),
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.account_balance_sharp,
-                                            size: 18),
+                                        Icon(Icons.account_balance, size: 18),
                                         SizedBox(width: 5),
-                                        Text(
-                                          "Jenjang",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400),
+                                        DropdownButton(
+                                          underline:
+                                              Container(), // This line removes the default underline
+                                          hint: Text(
+                                            "Jenjang",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          icon: Icon(Icons
+                                              .keyboard_arrow_down_outlined),
+                                          items: list
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              dropdownValue = value!;
+                                            });
+                                          },
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

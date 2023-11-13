@@ -19,8 +19,10 @@ class CardListTeacher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.all(20),
+      padding:
+          EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
       width: double.infinity,
       decoration: BoxDecoration(
           color: whiteColor,
@@ -41,7 +43,7 @@ class CardListTeacher extends StatelessWidget {
             height: 80,
             child: Image.asset(urlImage),
           ),
-          SizedBox(width: 24),
+          SizedBox(width: 0.06 * screenWidth),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -71,7 +73,7 @@ class CardListTeacher extends StatelessWidget {
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
             ],
           ),
-          SizedBox(width: 24),
+          SizedBox(width: 0.06 * screenWidth),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

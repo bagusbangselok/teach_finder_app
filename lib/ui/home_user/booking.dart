@@ -74,7 +74,8 @@ class _Booking extends State<Booking> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("Halo, ${snapshot.data?.name ?? ''} !!",
+                                      Text(
+                                          "Halo, ${snapshot.data?.name ?? ''} !!",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
@@ -157,18 +158,24 @@ class _Booking extends State<Booking> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     print("data pesanan siswa : ${snapshot.data}");
-                    return InkWell(
-                      onTap: () {},
-                      child: CardListBooking(
-                        urlImage: "assets/icon/user_icon1.png",
-                        name: "${snapshot.data![index].guru.name}",
-                        location: "${snapshot.data![index].guru.lokasi.name}",
-                        subject:
-                            "${snapshot.data![index].jadwal.mataPelajaran.name}",
-                        salary: "${snapshot.data![index].jadwal.harga}",
-                        status: "${snapshot.data![index].status}",
-                        phone: "${snapshot.data![index].guru.phone}",
-                      ),
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: CardListBooking(
+                            urlImage: "assets/icon/user_icon1.png",
+                            name: "${snapshot.data![index].guru.name}",
+                            location:
+                                "${snapshot.data![index].guru.lokasi.name}",
+                            subject:
+                                "${snapshot.data![index].jadwal.mataPelajaran.name}",
+                            salary: "${snapshot.data![index].jadwal.harga}",
+                            status: "${snapshot.data![index].status}",
+                            phone: "${snapshot.data![index].guru.phone}",
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
                     );
                   });
         });

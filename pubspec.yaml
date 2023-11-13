@@ -48,6 +48,7 @@ dependencies:
   email_validator: ^2.1.16
   shared_preferences:
   dropdown_search: ^5.0.6
+  dropdown_button2: ^2.3.9
   url_launcher: ^6.2.1
 
 dev_dependencies:
