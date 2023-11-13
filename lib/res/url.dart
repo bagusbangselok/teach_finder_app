@@ -6,4 +6,5 @@ class Url {
   static const PESANAN_URL = '$BASE_URL/pesanan';
   static const PESANAN_BY_GURU = '$PESANAN_URL/pesanan-guru';
   static const PESANAN_BY_MURID = '$PESANAN_URL/pesanan-siswa';
+  static const JADWAL_BY_GURU = '$BASE_URL/jadwal/show';
 }
