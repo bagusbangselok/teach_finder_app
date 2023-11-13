@@ -8,6 +8,7 @@ import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
 import 'package:teach_finder_app/ui/page_not_found/schedule_not_found.dart';
+import 'package:teach_finder_app/ui/utils/card_list_schedule.dart';
 
 class HomeTeacherSchedule extends StatelessWidget {
   bool showCardListSchedule = true;
@@ -182,7 +183,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                         SizedBox(height: 20),
                         // Conditional Function
                         if (showCardListSchedule)
-                          Expanded(child: listSchedule(context))
+                          listSchedule(context)
                         else
                           ScheduleNotFound(),
                         SizedBox(height: 20),
@@ -199,17 +200,29 @@ class HomeTeacherSchedule extends StatelessWidget {
         future: _jadwalController.getListJadwal(),
         builder: (BuildContext context,
             AsyncSnapshot<List<JadwalModel>?> snapshotJadwal) {
-          return ListView.builder(
-              itemCount: snapshotJadwal.data?.length,
-              itemBuilder: (context, index) {
-                // CardListSchedule(
-                //     MataPelajaran: "${snapshotJadwal.data![index].mataPelajaran.name}",
-                //     hari: "${snapshotJadwal.data![index].hari.name}",
-                //     jenjang: "${snapshotJadwal.data![index].jenjang.name}",
-                //     harga: "${snapshotJadwal.data![index].harga} / Jam"
-                // )
-                Center();
-              });
+          print('banyak data : ${snapshotJadwal.data?.length}');
+          return !snapshotJadwal.hasData
+              ? Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshotJadwal.data?.length,
+                      itemBuilder: (context, index) {
+                        SingleChildScrollView(
+                          child: CardListSchedule(
+                              MataPelajaran:
+                                  "${snapshotJadwal.data![index].mataPelajaran.name}",
+                              hari: "${snapshotJadwal.data![index].hari.name}",
+                              jenjang:
+                                  "${snapshotJadwal.data![index].jenjang.name}",
+                              harga:
+                                  "${snapshotJadwal.data![index].harga} / Jam"),
+                        );
+                      }),
+                );
         });
   }
 }

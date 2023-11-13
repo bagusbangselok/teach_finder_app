@@ -49,6 +49,7 @@ dependencies:
   shared_preferences:
   dropdown_search: ^5.0.6
   url_launcher: ^6.2.1
+  money_formatter: ^0.0.5
 
 dev_dependencies:
   flutter_test:
