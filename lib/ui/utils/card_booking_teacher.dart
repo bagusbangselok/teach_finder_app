@@ -23,8 +23,10 @@ class CardListBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      padding:
+          EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
       width: double.infinity,
       decoration: BoxDecoration(
           color: whiteColor,
@@ -47,12 +49,13 @@ class CardListBooking extends StatelessWidget {
                 height: 80,
                 child: Image.asset(urlImage),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 0.04 * screenWidth),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   SizedBox(height: 4),
                   // Row(
                   //   children: [
@@ -68,16 +71,19 @@ class CardListBooking extends StatelessWidget {
                   // ),
                   SizedBox(height: 4),
                   Text(location,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
                   SizedBox(height: 4),
                   Text(subject,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
                   SizedBox(height: 4),
                   Text("Rp $salary/jam",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
                 ],
               ),
-              SizedBox(width: 20),
+              SizedBox(width: 0.04 * screenWidth),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -90,34 +96,35 @@ class CardListBooking extends StatelessWidget {
                               color: status == '0' ? silver : successColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: status == '0' ? Flexible(
-                              child: Text(
-                                "Menunggu\n persetujuan",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: blackColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ) : Row(
-                              children: [
-                                Icon(
-                                  Icons.check,
-                                  color: whiteColor,
-                                  size: 10,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  "Disetujui",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            )
-                        ),
+                            child: status == '0'
+                                ? Flexible(
+                                    child: Text(
+                                      "Menunggu\n persetujuan",
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: blackColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : Row(
+                                    children: [
+                                      Icon(
+                                        Icons.check,
+                                        color: whiteColor,
+                                        size: 10,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        "Disetujui",
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
                       ],
                     ),
                   )
@@ -134,12 +141,9 @@ class CardListBooking extends StatelessWidget {
           status == '0'
               ? Center()
               : Text(
-                "Silahkan hubungi guru anda : +${phone}",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500
-                )
-          )
+                  "Silahkan hubungi guru anda : +${phone}",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
         ],
       ),
     );

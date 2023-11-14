@@ -16,13 +16,15 @@ class CardListUser extends StatelessWidget {
       required this.level,
       required this.time,
       required this.subject,
-      required this.status
-      }) : super(key: key);
+      required this.status})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding:
+            EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
         width: double.infinity,
         decoration: BoxDecoration(
             color: whiteColor,
@@ -34,7 +36,7 @@ class CardListUser extends StatelessWidget {
                   blurRadius: 6,
                   offset: Offset(1, 3)),
             ]),
-        margin: EdgeInsets.symmetric(horizontal: 4),
+        margin: EdgeInsets.symmetric(horizontal: 0.01 * screenWidth),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -61,27 +63,24 @@ class CardListUser extends StatelessWidget {
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               ],
             ),
-            SizedBox(width: 12),
+            SizedBox(width: 0.01 * screenWidth),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                status == '0' ? Text('Menunggu...',
-                style: TextStyle(
-                color: Colors.black54,
-                fontSize: 12
-                ))
-                : Text('Disetujui',
-                  style: TextStyle(
-                    color: successColor,
-                    fontSize: 12
-                  )),
+                status == '0'
+                    ? Text('Menunggu...',
+                        style: TextStyle(color: Colors.black54, fontSize: 12))
+                    : Text('Disetujui',
+                        style: TextStyle(color: successColor, fontSize: 12)),
                 SizedBox(height: 20),
                 Icon(
                   Icons.chevron_right,
                   color: blackColor,
                   size: 24,
                 ),
-                SizedBox(height: 20,)
+                SizedBox(
+                  height: 20,
+                )
               ],
             )
           ],

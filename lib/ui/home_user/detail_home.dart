@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 
 class DetailHome extends StatelessWidget {
@@ -208,7 +209,7 @@ class DetailHome extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeUser()),
+                      MaterialPageRoute(builder: (context) => Booking()),
                     );
                   },
                   child: Text("Selesai",

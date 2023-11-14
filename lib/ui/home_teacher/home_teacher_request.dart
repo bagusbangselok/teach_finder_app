@@ -152,7 +152,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 44),
                     width: double.infinity,
-                    height: 540,
+                    height: 640,
                     decoration: BoxDecoration(
                         color: whiteColor,
                         borderRadius: BorderRadius.only(
@@ -202,30 +202,34 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                   child: ListView.builder(
                       itemCount: snapshotPesanan.data!.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return SingleChildScrollView(
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailHomeRequest(
-                                        pesanan: snapshotPesanan.data![index])),
-                              );
-                            },
-                            child: CardListUser(
-                              urlImage: "assets/icon/user_icon1.png",
-                              name:
-                                  "${snapshotPesanan.data![index].murid.name}",
-                              level:
-                                  "${snapshotPesanan.data![index].murid.jenjang.name}",
-                              subject:
-                                  "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
-                              time:
-                                  "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
-                                  "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
-                              status: snapshotPesanan.data![index].status,
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailHomeRequest(
+                                          pesanan:
+                                              snapshotPesanan.data![index])),
+                                );
+                              },
+                              child: CardListUser(
+                                urlImage: "assets/icon/user_icon1.png",
+                                name:
+                                    "${snapshotPesanan.data![index].murid.name}",
+                                level:
+                                    "${snapshotPesanan.data![index].murid.jenjang.name}",
+                                subject:
+                                    "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
+                                time:
+                                    "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
+                                    "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
+                                status: snapshotPesanan.data![index].status,
+                              ),
                             ),
-                          ),
+                            SizedBox(height: 20),
+                          ],
                         );
                       }),
                 );

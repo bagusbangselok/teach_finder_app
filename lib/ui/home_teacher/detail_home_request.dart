@@ -4,6 +4,7 @@ import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/res/url.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
+import 'package:teach_finder_app/ui/home_teacher/history.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 
 class DetailHomeRequest extends StatelessWidget {
@@ -234,7 +235,7 @@ class DetailHomeRequest extends StatelessWidget {
           print("Sukses menyetujui");
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeTeacherRequest()),
+            MaterialPageRoute(builder: (context) => History()),
           );
         }
         print('Response data: ${response.data}');

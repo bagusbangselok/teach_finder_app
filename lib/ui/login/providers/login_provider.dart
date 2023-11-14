@@ -6,6 +6,7 @@ import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/url.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
+import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 
 class LoginProvider {
@@ -13,14 +14,11 @@ class LoginProvider {
   var currentUser;
   var user;
 
-  Future<UserModel?> loginAccount(BuildContext context, String email, String password) async {
+  Future<UserModel?> loginAccount(
+      BuildContext context, String email, String password) async {
     try {
-      final response = await _dio.post(
-        '${Url.BASE_URL}/user/login',
-        data: {
-          'email': email,
-          'password': password
-        });
+      final response = await _dio.post('${Url.BASE_URL}/user/login',
+          data: {'email': email, 'password': password});
 
       final tokenKey = response.data['user']['secret_token'];
       final id = response.data['user']['id'];
@@ -41,24 +39,25 @@ class LoginProvider {
       print("userr = ${getProfilUser}");
 
       if (response.statusCode == 200) {
-        if(response.data['success']){
+        if (response.data['success']) {
           print('success!!');
           var role = response.data['user']['role_id'];
-          if(role == '2') {
+          if (role == '2') {
             print('role 2');
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomeTeacherRequest(),
+                builder: (context) => HomeTeacherSchedule(),
               ),
             );
-          } else if(role == '3'){
+          } else if (role == '3') {
             print('role 3');
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => HomeUser(),
               ),
             );
-          } else return null;
+          } else
+            return null;
           return UserModel.fromJson(response.data);
         }
       }
@@ -80,7 +79,8 @@ class LoginProvider {
 
   Future<int> getProfileId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int profileId = prefs.getInt('profileId') ?? 0; // Menggunakan 0 sebagai nilai default jika ID tidak tersedia
+    int profileId = prefs.getInt('profileId') ??
+        0; // Menggunakan 0 sebagai nilai default jika ID tidak tersedia
     return profileId;
   }
 
@@ -110,20 +110,17 @@ class LoginProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     print("tokenn : ${prefs.getString('authToken')}");
     try {
-      Options headers = Options(
-        headers: {
-          'Authorization': prefs.getString('authToken'),
-        }
-      );
+      Options headers = Options(headers: {
+        'Authorization': prefs.getString('authToken'),
+      });
       final response = await _dio.get(
           'https://teachfinder.agiftsany-azhar.web.id/api/user/show',
-          options: headers
-      );
-      if(response.data['User']['role_id'] == '2'){
+          options: headers);
+      if (response.data['User']['role_id'] == '2') {
         print("save role 2");
         saveIdGuru(response.data['User']['guru']['id']);
       }
-      if(response.data['User']['role_id'] == '3'){
+      if (response.data['User']['role_id'] == '3') {
         print("save role 3");
         saveIdMurid(response.data['User']['murid']['id']);
       }
@@ -134,7 +131,7 @@ class LoginProvider {
 
       if (response.statusCode == 200) {
         print("dataUser: ${response.data['User']}");
-        if(response.data['success']){
+        if (response.data['success']) {
           print("sukses loh: ${response.data['success']}");
           var json = response.data['User'];
           print("json: ${json}");
@@ -146,5 +143,4 @@ class LoginProvider {
     }
     return null;
   }
-
 }
