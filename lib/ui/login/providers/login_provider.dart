@@ -25,14 +25,17 @@ class LoginProvider {
       final tokenKey = response.data['user']['secret_token'];
       final id = response.data['user']['id'];
       user = response.data['user'];
+      final username = response.data['user']['name'];
 
       print(response.data['success']);
       print(response.data);
       print(response.statusCode);
       print(response.data['user']['role_id']);
+      print('username : ${username}');
 
       saveProfileId(id);
       saveUserSession(tokenKey);
+      saveUsername(username);
 
       print("id = ${getProfileId().toString()}");
       print("userr = ${getProfilUser}");
@@ -89,6 +92,11 @@ class LoginProvider {
   void saveIdGuru(int idGuru) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('idGuru', idGuru);
+  }
+
+  void saveUsername(String username) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', username);
   }
 
   void saveIdMurid(int idMurid) async {

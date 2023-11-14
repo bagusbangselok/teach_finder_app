@@ -66,7 +66,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Halo ${snapshot.data?.name ?? ''}",
+                                Text("Halo ${_profileTeacherController.getUsername().toString()}",
                                     style: TextStyle(
                                         color: whiteColor,
                                         fontSize: 20,

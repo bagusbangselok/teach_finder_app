@@ -19,6 +19,11 @@ class ProfileTeacherController {
     return prefs.getString('profileId');
   }
 
+  Future<String?> getUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('username');
+  }
+
   Future<UserModel?> getProfileByToken() async{
     return await _loginProvider.getProfilUser();
   }
