@@ -152,7 +152,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 44),
                     width: double.infinity,
-                    height: 540,
+                    height: 640,
                     decoration: BoxDecoration(
                         color: whiteColor,
                         borderRadius: BorderRadius.only(
