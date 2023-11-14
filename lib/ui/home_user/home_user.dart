@@ -118,7 +118,7 @@ class _HomeUser extends State<HomeUser> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 44),
                         width: double.infinity,
-                        height: 560,
+                        height: 640,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
