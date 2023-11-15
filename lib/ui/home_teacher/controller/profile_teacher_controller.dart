@@ -21,14 +21,15 @@ class ProfileTeacherController {
 
   Future<String?> getUsername() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('username');
+    final String? username = prefs.getString('username');
+    return username;
   }
 
-  Future<UserModel?> getProfileByToken() async{
+  Future<UserModel?> getProfileByToken() async {
     return await _loginProvider.getProfilUser();
   }
 
-  Future<List<PesananModel>> getListPesananGuru() async{
+  Future<List<PesananModel>> getListPesananGuru() async {
     return await _pesananProvider.getListPesanan();
   }
 }

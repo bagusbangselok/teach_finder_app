@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/jadwal_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/ui/home_teacher/add_schedule.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/jadwal_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
@@ -66,7 +67,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Halo ${_profileTeacherController.getUsername().toString()}",
+                                Text("Halo ${snapshot.data?.name ?? '...'}",
                                     style: TextStyle(
                                         color: whiteColor,
                                         fontSize: 20,
@@ -164,20 +165,20 @@ class HomeTeacherSchedule extends StatelessWidget {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //           builder: (context) => AddSchedule()),
-                                //     );
-                                //   },
-                                //   child: Icon(
-                                //     Icons.add,
-                                //     color: blackColor,
-                                //     size: 30,
-                                //   ),
-                                // ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddSchedule()),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.add,
+                                    color: blackColor,
+                                    size: 30,
+                                  ),
+                                ),
                               ]),
                         ),
                         SizedBox(height: 20),
@@ -207,22 +208,38 @@ class HomeTeacherSchedule extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : Expanded(
-                  child: ListView.builder(
-                      itemCount: snapshotJadwal.data?.length,
-                      itemBuilder: (context, index) {
-                        SingleChildScrollView(
-                          child: CardListSchedule(
-                              MataPelajaran:
-                                  "${snapshotJadwal.data![index].mataPelajaran.name}",
-                              hari: "${snapshotJadwal.data![index].hari.name}",
-                              jenjang:
-                                  "${snapshotJadwal.data![index].jenjang.name}",
-                              harga:
-                                  "${snapshotJadwal.data![index].harga} / Jam"),
-                        );
-                      }),
-                );
+              : snapshotJadwal.data?.length == 0
+                  ? isEmptyData()
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshotJadwal.data?.length,
+                          itemBuilder: (context, index) {
+                            SingleChildScrollView(
+                              child: CardListSchedule(
+                                  MataPelajaran:
+                                      "${snapshotJadwal.data![index].mataPelajaran.name}",
+                                  hari:
+                                      "${snapshotJadwal.data![index].hari.name}",
+                                  jenjang:
+                                      "${snapshotJadwal.data![index].jenjang.name}",
+                                  harga:
+                                      "${snapshotJadwal.data![index].harga} / Jam"),
+                            );
+                          }),
+                    );
         });
+  }
+
+  Widget isEmptyData() {
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        children: <Widget>[
+          Image.asset("/assets/illustration/schedule_empty.png"),
+          Text("Belum ada jadwal",
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16))
+        ],
+      ),
+    );
   }
 }

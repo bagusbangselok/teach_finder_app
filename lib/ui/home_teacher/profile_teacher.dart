@@ -75,7 +75,7 @@ class ProfileTeacher extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${snapshot.data?.name ?? ''}",
+                        "${snapshot.data?.name ?? 'memuat..'}",
                         style: TextStyle(
                             fontSize: 18,
                             color: blackColor,

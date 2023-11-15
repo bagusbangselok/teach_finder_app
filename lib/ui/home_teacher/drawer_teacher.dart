@@ -36,14 +36,14 @@ class DrawerTeacher extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       Text(
-                        "${_profileTeacherController.getUsername()}",
+                        "${snapshot.data?.name ?? 'memuat..'}",
                         style: TextStyle(
                             fontSize: 24,
                             color: whiteColor,
                             fontWeight: FontWeight.w600),
                       ),
                       SizedBox(height: 4),
-                      Text("${snapshot.data?.email ?? ''}",
+                      Text("${snapshot.data?.email ?? 'memuat..'}",
                           style: TextStyle(
                             fontSize: 16,
                             color: whiteColor,
