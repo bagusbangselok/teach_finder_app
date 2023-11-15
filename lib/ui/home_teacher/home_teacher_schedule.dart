@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/jadwal_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/res/responsive.dart';
 import 'package:teach_finder_app/ui/home_teacher/add_schedule.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/jadwal_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
-import 'package:teach_finder_app/ui/page_not_found/schedule_not_found.dart';
 import 'package:teach_finder_app/ui/utils/card_list_schedule.dart';
+import 'package:intl/intl.dart';
 
 class HomeTeacherSchedule extends StatelessWidget {
   bool showCardListSchedule = true;
+  Responsive _responsive = Responsive();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
@@ -144,7 +146,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
                     width: double.infinity,
-                    height: 1000,
+                    height: 0.67 * _responsive.screenHeight(context),
                     decoration: BoxDecoration(
                         color: whiteColor,
                         borderRadius: BorderRadius.only(
@@ -157,7 +159,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                              children: <Widget>[
                                 Text(
                                   "Data Jadwal",
                                   style: TextStyle(
@@ -183,10 +185,13 @@ class HomeTeacherSchedule extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         // Conditional Function
-                        if (showCardListSchedule)
-                          listSchedule(context)
-                        else
-                          ScheduleNotFound(),
+                        !snapshot.hasData
+                        ? Expanded(
+                          child: Center(
+                            // render the loading indicator
+                              child: CircularProgressIndicator()),
+                        )
+                        : listSchedule(context),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -197,11 +202,15 @@ class HomeTeacherSchedule extends StatelessWidget {
   }
 
   Widget listSchedule(BuildContext context) {
-    return FutureBuilder(
+    NumberFormat moneyFormat = NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
+    return FutureBuilder<List<JadwalModel>>(
         future: _jadwalController.getListJadwal(),
         builder: (BuildContext context,
-            AsyncSnapshot<List<JadwalModel>?> snapshotJadwal) {
-          print('banyak data : ${snapshotJadwal.data?.length}');
+            AsyncSnapshot<List<JadwalModel>> snapshotJadwal) {
           return !snapshotJadwal.hasData
               ? Expanded(
                   child: Center(
@@ -214,7 +223,9 @@ class HomeTeacherSchedule extends StatelessWidget {
                       child: ListView.builder(
                           itemCount: snapshotJadwal.data?.length,
                           itemBuilder: (context, index) {
-                            SingleChildScrollView(
+                            var harga = int.parse(snapshotJadwal.data![index].harga);
+                            assert(harga is int);
+                            return SingleChildScrollView(
                               child: CardListSchedule(
                                   MataPelajaran:
                                       "${snapshotJadwal.data![index].mataPelajaran.name}",
@@ -223,7 +234,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                                   jenjang:
                                       "${snapshotJadwal.data![index].jenjang.name}",
                                   harga:
-                                      "${snapshotJadwal.data![index].harga} / Jam"),
+                                      "${moneyFormat.format(harga)} / Jam"),
                             );
                           }),
                     );

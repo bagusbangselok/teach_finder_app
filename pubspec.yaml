@@ -50,7 +50,8 @@ dependencies:
   dropdown_search: ^5.0.6
   dropdown_button2: ^2.3.9
   url_launcher: ^6.2.1
-  money_formatter: ^0.0.5
+  intl: ^0.18.1
+
 
 dev_dependencies:
   flutter_test:
