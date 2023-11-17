@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
+import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
 
 class RegisterUser extends StatefulWidget {
   @override
@@ -8,13 +9,22 @@ class RegisterUser extends StatefulWidget {
 }
 
 class _RegisterUserState extends State<RegisterUser> {
+  RegisterController _registerController = RegisterController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   Widget FormNama() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
+          controller: _nameController,
           keyboardType: TextInputType.name,
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             hintText: "Masukkan Nama Lengkap",
             prefixIcon: Icon(Icons.person, color: Colors.black87),
@@ -27,10 +37,12 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget FormAlamat() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
+          controller: _addressController,
           keyboardType: TextInputType.streetAddress,
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             hintText: "Masukkan Alamat Lengkap",
             prefixIcon: Icon(Icons.home, color: Colors.black87),
@@ -70,10 +82,12 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget FormPhone() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
-          keyboardType: TextInputType.emailAddress,
+          controller: _phoneController,
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             hintText: "Masukkan Nomor Telepon",
             prefixIcon: Icon(Icons.phone, color: Colors.black87),
@@ -89,6 +103,8 @@ class _RegisterUserState extends State<RegisterUser> {
       children: const [
         SizedBox(height: 10),
         TextField(
+          controller: _emailController,
+          textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             hintText: "Masukkan Alamat Email",
@@ -102,9 +118,11 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget FormPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
+          controller: _passwordController,
+          textInputAction: TextInputAction.next,
           obscureText: true,
           decoration: InputDecoration(
             hintText: "Masukkan Password",
@@ -118,9 +136,12 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget FormKonfirmasiPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
+          controller: _confirmPasswordController,
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.text,
           obscureText: true,
           decoration: InputDecoration(
             hintText: "Masukkan Konfirmasi Password",
@@ -131,15 +152,21 @@ class _RegisterUserState extends State<RegisterUser> {
     );
   }
 
-  Widget RegisterUserBtn() {
+  Widget RegisterUserBtn(context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
+          _registerController.registerUserProcess(
+              context,
+              _nameController.text,
+              _passwordController.text,
+              _confirmPasswordController.text,
+              _emailController.text,
+              _phoneController.text,
+              jenjang_id,
+              _addressController.text
           );
         },
         style: ElevatedButton.styleFrom(
@@ -206,7 +233,10 @@ class _RegisterUserState extends State<RegisterUser> {
             SizedBox(height: 20),
             FormKonfirmasiPassword(),
             SizedBox(height: 30),
-            RegisterUserBtn(),
+            RegisterUserBtn(
+              context,
+
+            ),
             SizedBox(height: 30),
           ],
         ),
