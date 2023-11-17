@@ -1,17 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.dart';
-import 'package:teach_finder_app/ui/home_user/detail_home.dart';
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-String dropdownValue = list.first;
+const List<String> list = <String>[' ', '1', '2', '3', '4'];
+// Define variables to store selected values
+String locationDropdownValue = "";
+String pelajaranDropdownValue = "";
+String jenjangDropdownValue = "";
 
 String? selectedValue;
 
@@ -29,8 +32,11 @@ class _HomeUser extends State<HomeUser> {
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
   HomeUserController _homeUserController = HomeUserController();
+  HomeUserController _controller = HomeUserController();
 
   late TeacherModel teacher;
+  late LokasiModel _kecamatan;
+
   int? idMurid;
 
   @override
@@ -167,7 +173,7 @@ class _HomeUser extends State<HomeUser> {
                                           }).toList(),
                                           onChanged: (String? value) {
                                             setState(() {
-                                              dropdownValue = value!;
+                                              locationDropdownValue = value!;
                                             });
                                           },
                                         ),
@@ -211,7 +217,7 @@ class _HomeUser extends State<HomeUser> {
                                           }).toList(),
                                           onChanged: (String? value) {
                                             setState(() {
-                                              dropdownValue = value!;
+                                              pelajaranDropdownValue = value!;
                                             });
                                           },
                                         ),
@@ -255,7 +261,7 @@ class _HomeUser extends State<HomeUser> {
                                           }).toList(),
                                           onChanged: (String? value) {
                                             setState(() {
-                                              dropdownValue = value!;
+                                              jenjangDropdownValue = value!;
                                             });
                                           },
                                         ),
@@ -266,7 +272,14 @@ class _HomeUser extends State<HomeUser> {
                               ),
                             ),
                             SizedBox(height: 24),
-                            Expanded(child: ListGuru(snapshot.data?.murid?.id))
+                            Expanded(
+                              child: ListGuru(
+                                idMurid: snapshot.data?.murid?.id,
+                                location: locationDropdownValue,
+                                pelajaran: pelajaranDropdownValue,
+                                jenjang: jenjangDropdownValue,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -277,9 +290,15 @@ class _HomeUser extends State<HomeUser> {
             }));
   }
 
-  Widget ListGuru(int? idMurid) {
+  Widget ListGuru(
+      {int? idMurid, String? location, String? pelajaran, String? jenjang}) {
+    print("halo bagong");
     return FutureBuilder<List<TeacherModel>?>(
-        future: _homeUserController.getListPesananGuru(),
+        future: _homeUserController.getListGuru(
+          location: location,
+          pelajaran: pelajaran,
+          jenjang: jenjang,
+        ),
         builder: (BuildContext context,
             AsyncSnapshot<List<TeacherModel>?> snapshot) {
           return !snapshot.hasData
@@ -298,8 +317,10 @@ class _HomeUser extends State<HomeUser> {
                             urlImage: "assets/icon/user_icon1.png",
                             name: "${snapshot.data?[index].name}",
                             location: "${snapshot.data?[index].lokasi.name}",
-                            subject: "${snapshot.data?[index].jadwal[0].name}",
-                            salary: "${snapshot.data?[index].jadwal[0].harga}",
+                            subject:
+                                "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].name) : '-'}",
+                            salary:
+                                "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].harga) : '-'}",
                           ),
                         ),
                         SizedBox(

@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:teach_finder_app/models/kecamatan.dart';
-import 'package:teach_finder_app/ui/register/providers/register_provider.dart';
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:teach_finder_app/models/lokasi_model.dart';
+import 'package:teach_finder_app/ui/register/providers/register_provider.dart';
 
 class RegisterGuruController {
   final RegisterProvider _registerProvider = RegisterProvider();
-
 
   Future<bool> registerUser(
       String name,
@@ -16,8 +15,7 @@ class RegisterGuruController {
       String phone,
       String skl_ijazah,
       String alamat,
-      String alamat_id
-    ) async {
+      String alamat_id) async {
     final success = await _registerProvider.registerUser(
       name: name,
       password: password,
@@ -32,14 +30,14 @@ class RegisterGuruController {
     return success;
   }
 
-  Future<List<Kecamatan>> loadKecamatanFromJson() async {
-    return await rootBundle.loadString('assets/json/kecamatan.json')
+  Future<List<LokasiModel>> loadKecamatanFromJson() async {
+    return await rootBundle
+        .loadString('assets/json/kecamatan.json')
         .then((String news) => json.decode(news) as List)
         .then((List value) {
-      List<Kecamatan> listKecamatan = [];
-      value.forEach((index)=> listKecamatan.add(Kecamatan.fromJson(index)));
+      List<LokasiModel> listKecamatan = [];
+      value.forEach((index) => listKecamatan.add(LokasiModel.fromJson(index)));
       return listKecamatan;
     });
   }
-
 }
