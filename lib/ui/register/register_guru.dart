@@ -5,7 +5,7 @@ import 'package:teach_finder_app/models/kecamatan.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:teach_finder_app/ui/register/controller/register_guru_controller.dart';
+import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
 import 'package:teach_finder_app/ui/register/data/data_kecamatan.dart';
 
 class RegisterGuru extends StatefulWidget {
@@ -14,7 +14,7 @@ class RegisterGuru extends StatefulWidget {
 }
 
 class _RegisterGuruState extends State<RegisterGuru> {
-  final RegisterGuruController _controller = RegisterGuruController();
+  final RegisterController _controller = RegisterController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -178,7 +178,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
             );
             return;
           } else {
-            _controller.registerUser(
+            _controller.registerTeacherProcess(
                 nameController.text,
                 passwordController.text,
                 confirmPasswordController.text,
