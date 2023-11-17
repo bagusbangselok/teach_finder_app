@@ -8,7 +8,7 @@ class RegisterGuruController {
   final RegisterProvider _registerProvider = RegisterProvider();
 
 
-  Future<bool> registerUser(
+  Future<bool> registerTeacher(
       String name,
       String password,
       String confirm_password,
@@ -18,7 +18,7 @@ class RegisterGuruController {
       String alamat,
       String alamat_id
     ) async {
-    final success = await _registerProvider.registerUser(
+    final success = await _registerProvider.registerTeacher(
       name: name,
       password: password,
       confirm_password: confirm_password,
