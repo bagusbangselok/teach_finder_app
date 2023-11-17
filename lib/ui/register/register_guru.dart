@@ -4,13 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
-<<<<<<< HEAD
-import 'package:file_picker/file_picker.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
-import 'package:teach_finder_app/ui/register/data/data_kecamatan.dart';
-=======
-import 'package:teach_finder_app/ui/register/controller/register_guru_controller.dart';
->>>>>>> e3bdfd1d0b1893a47aeb1460267987451502a014
+
 
 class RegisterGuru extends StatefulWidget {
   @override
@@ -170,6 +165,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
           passwordController.text;
           confirmPasswordController.text;
           phoneController.text;
+          dropdownValue;
           alamatController.text;
           if (nameController.text.isEmpty ||
               emailController.text.isEmpty ||

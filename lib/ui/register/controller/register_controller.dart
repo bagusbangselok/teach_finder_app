@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:teach_finder_app/models/kecamatan.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
+import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/providers/register_provider.dart';
@@ -128,12 +129,22 @@ class RegisterController {
     return success;
   }
 
-  Future<List<Kecamatan>> loadKecamatanFromJson() async {
+  Future<List<JenjangModel>> loadJenjangFromJson() async {
+    return await rootBundle.loadString('assets/json/jenjang.json')
+        .then((String news) => json.decode(news) as List)
+        .then((List value) {
+      List<JenjangModel> listJenjang = [];
+      value.forEach((index)=> listJenjang.add(JenjangModel.fromJson(index)));
+      return listJenjang;
+    });
+  }
+
+  Future<List<LokasiModel>> loadKecamatanFromJson() async {
     return await rootBundle.loadString('assets/json/kecamatan.json')
         .then((String news) => json.decode(news) as List)
         .then((List value) {
-      List<Kecamatan> listKecamatan = [];
-      value.forEach((index)=> listKecamatan.add(Kecamatan.fromJson(index)));
+      List<LokasiModel> listKecamatan = [];
+      value.forEach((index)=> listKecamatan.add(LokasiModel.fromJson(index)));
       return listKecamatan;
     });
   }

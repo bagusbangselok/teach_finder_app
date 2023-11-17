@@ -1,5 +1,8 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
+import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
 
@@ -53,28 +56,21 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   // Dropdown Widget
-  String dropdownJenjangValue = 'Pilih Jenjang Sekolah';
-  // List Item dropdown menu
-  var jenjang = ['Pilih Jenjang Sekolah', 'SD', 'SMP', 'SMA/SMK'];
+  var dropdownJenjangValue;
+
   Widget JenjangSekolah() {
-    return DropdownButtonFormField(
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.school, color: Colors.black87)
-      ),
-      isExpanded: true,
-      value: dropdownJenjangValue,
-      icon: const Icon(Icons.keyboard_arrow_down),
-      items: jenjang.map((String items) {
-        return DropdownMenuItem(
-          value: items,
-          child: Text(items),
-        );
-      }).toList(),
-      // After select
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownJenjangValue = newValue!;
-        });
+    return DropdownSearch<JenjangModel>(
+      asyncItems: (text) => _registerController.loadJenjangFromJson(),
+      itemAsString: (item) => "${item.name}",
+      onChanged: (JenjangModel? data) => print(data),
+      dropdownButtonProps:
+      DropdownButtonProps(icon: Icon(Icons.keyboard_arrow_down_outlined)),
+      dropdownDecoratorProps: DropDownDecoratorProps(
+          dropdownSearchDecoration: InputDecoration(
+              prefixIcon: Icon(Icons.school, color: Colors.black87),
+              labelText: "Pilih Jenjang")),
+      onSaved: (JenjangModel? value) {
+        dropdownJenjangValue = value;
       },
     );
   }
@@ -100,7 +96,7 @@ class _RegisterUserState extends State<RegisterUser> {
   Widget FormEmail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         SizedBox(height: 10),
         TextField(
           controller: _emailController,
@@ -165,7 +161,7 @@ class _RegisterUserState extends State<RegisterUser> {
               _confirmPasswordController.text,
               _emailController.text,
               _phoneController.text,
-              jenjang_id,
+              dropdownJenjangValue.id.toString(),
               _addressController.text
           );
         },

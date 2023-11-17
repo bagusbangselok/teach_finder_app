@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/res/url.dart';
 
 class RegisterProvider {
