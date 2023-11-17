@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
+import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 
 class HomeUserProvider {
@@ -13,6 +15,30 @@ class HomeUserProvider {
 
     final list = List<LokasiModel>.from(
         response.data["data"].map((data) => LokasiModel.fromJson(data)));
+
+    return list;
+  }
+
+  Future<List<MataPelajaranModel>> getListMapel() async {
+    final response = await _dio
+        .get('https://teachfinder.agiftsany-azhar.web.id/api/mata-pelajaran');
+    print('dataPesanan: ${response.data["data"]}');
+    print(response.statusCode);
+
+    final list = List<MataPelajaranModel>.from(
+        response.data["data"].map((data) => MataPelajaranModel.fromJson(data)));
+
+    return list;
+  }
+
+  Future<List<JenjangModel>> getListJenjang() async {
+    final response = await _dio
+        .get('https://teachfinder.agiftsany-azhar.web.id/api/jenjang');
+    print('dataPesanan: ${response.data["data"]}');
+    print(response.statusCode);
+
+    final list = List<JenjangModel>.from(
+        response.data["data"].map((data) => JenjangModel.fromJson(data)));
 
     return list;
   }

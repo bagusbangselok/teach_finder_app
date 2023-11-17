@@ -1,6 +1,8 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' show Dio, Response;
 import 'package:flutter/material.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
+import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
@@ -10,7 +12,11 @@ import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.da
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
-const List<String> list = <String>[' ', '1', '2', '3', '4'];
+HomeUserController _homeUserController = HomeUserController();
+
+Future<List<LokasiModel>> lokasi = _homeUserController.getListLokasi();
+Future<List<MataPelajaranModel>> mapel = _homeUserController.getListMapel();
+Future<List<JenjangModel>> jenjang = _homeUserController.getListJenjang();
 // Define variables to store selected values
 String locationDropdownValue = "";
 String pelajaranDropdownValue = "";
@@ -31,11 +37,9 @@ class _HomeUser extends State<HomeUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
-  HomeUserController _homeUserController = HomeUserController();
-  HomeUserController _controller = HomeUserController();
 
   late TeacherModel teacher;
-  late LokasiModel _kecamatan;
+  late List<LokasiModel> lokasiList = [];
 
   int? idMurid;
 
@@ -152,75 +156,60 @@ class _HomeUser extends State<HomeUser> {
                                       children: [
                                         Icon(Icons.location_on_sharp, size: 18),
                                         SizedBox(width: 5),
-                                        DropdownButton(
-                                          underline:
-                                              Container(), // This line removes the default underline
-                                          hint: Text(
-                                            "Lokasi",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          icon: Icon(Icons
-                                              .keyboard_arrow_down_outlined),
-                                          items: list
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? value) {
-                                            setState(() {
-                                              locationDropdownValue = value!;
-                                            });
+                                        FutureBuilder<List<LokasiModel>>(
+                                          future: lokasi,
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<List<LokasiModel>>
+                                                  snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              // Return a loading indicator or an empty widget while data is loading
+                                              return CircularProgressIndicator();
+                                            } else if (snapshot.hasError) {
+                                              // Handle error state
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              List<DropdownMenuItem<String>>
+                                                  dropdownItems =
+                                                  snapshot.data!.map((lokasi) {
+                                                return DropdownMenuItem<String>(
+                                                  value: lokasi.id.toString(),
+                                                  child: Text(lokasi.name),
+                                                );
+                                              }).toList();
+                                              // Add an item for "All" or an empty string
+                                              dropdownItems.insert(
+                                                  0,
+                                                  DropdownMenuItem<String>(
+                                                    value:
+                                                        '', // Use an empty string as the value for "All"
+                                                    child: Text(
+                                                        'All'), // Display "All" as the dropdown item
+                                                  ));
+
+                                              return DropdownButton<String>(
+                                                underline: Container(),
+                                                hint: Text(
+                                                  "Lokasi",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                icon: Icon(Icons
+                                                    .keyboard_arrow_down_outlined),
+                                                items: dropdownItems,
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    locationDropdownValue =
+                                                        value!;
+                                                  });
+                                                },
+                                              );
+                                            }
                                           },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 0.01 * screenWidth),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 5),
-                                    height: 35,
-                                    width: 0.31 * screenWidth,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: blackColor),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.book, size: 18),
-                                        SizedBox(width: 5),
-                                        DropdownButton(
-                                          underline:
-                                              Container(), // This line removes the default underline
-                                          hint: Text(
-                                            "Pelajaran",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          icon: Icon(Icons
-                                              .keyboard_arrow_down_outlined),
-                                          items: list
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? value) {
-                                            setState(() {
-                                              pelajaranDropdownValue = value!;
-                                            });
-                                          },
-                                        ),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -238,33 +227,136 @@ class _HomeUser extends State<HomeUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.account_balance, size: 18),
+                                        Icon(Icons.location_on_sharp, size: 18),
                                         SizedBox(width: 5),
-                                        DropdownButton(
-                                          underline:
-                                              Container(), // This line removes the default underline
-                                          hint: Text(
-                                            "Jenjang",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          icon: Icon(Icons
-                                              .keyboard_arrow_down_outlined),
-                                          items: list
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String? value) {
-                                            setState(() {
-                                              jenjangDropdownValue = value!;
-                                            });
+                                        FutureBuilder<List<JenjangModel>>(
+                                          future: jenjang,
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<List<JenjangModel>>
+                                                  snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              // Return a loading indicator or an empty widget while data is loading
+                                              return CircularProgressIndicator();
+                                            } else if (snapshot.hasError) {
+                                              // Handle error state
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              List<DropdownMenuItem<String>>
+                                                  dropdownItems =
+                                                  snapshot.data!.map((jenjang) {
+                                                return DropdownMenuItem<String>(
+                                                  value: jenjang.id.toString(),
+                                                  child: Text(jenjang.name),
+                                                );
+                                              }).toList();
+                                              // Add an item for "All" or an empty string
+                                              dropdownItems.insert(
+                                                  0,
+                                                  DropdownMenuItem<String>(
+                                                    value:
+                                                        '', // Use an empty string as the value for "All"
+                                                    child: Text(
+                                                        'All'), // Display "All" as the dropdown item
+                                                  ));
+
+                                              return DropdownButton<String>(
+                                                underline: Container(),
+                                                hint: Text(
+                                                  "Jenjang",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                icon: Icon(Icons
+                                                    .keyboard_arrow_down_outlined),
+                                                items: dropdownItems,
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    jenjangDropdownValue =
+                                                        value!;
+                                                  });
+                                                },
+                                              );
+                                            }
                                           },
-                                        ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(width: 0.01 * screenWidth),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 5),
+                                    height: 35,
+                                    width: 0.3 * screenWidth,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: blackColor),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.location_on_sharp, size: 18),
+                                        SizedBox(width: 5),
+                                        FutureBuilder<List<MataPelajaranModel>>(
+                                          future: mapel,
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<
+                                                      List<MataPelajaranModel>>
+                                                  snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              // Return a loading indicator or an empty widget while data is loading
+                                              return CircularProgressIndicator();
+                                            } else if (snapshot.hasError) {
+                                              // Handle error state
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              List<DropdownMenuItem<String>>
+                                                  dropdownItems =
+                                                  snapshot.data!.map((mapel) {
+                                                return DropdownMenuItem<String>(
+                                                  value: mapel.id.toString(),
+                                                  child: Text(mapel.name),
+                                                );
+                                              }).toList();
+                                              // Add an item for "All" or an empty string
+                                              dropdownItems.insert(
+                                                  0,
+                                                  DropdownMenuItem<String>(
+                                                    value:
+                                                        '', // Use an empty string as the value for "All"
+                                                    child: Text(
+                                                        'All'), // Display "All" as the dropdown item
+                                                  ));
+
+                                              return DropdownButton<String>(
+                                                underline: Container(),
+                                                hint: Text(
+                                                  "Mapel",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                icon: Icon(Icons
+                                                    .keyboard_arrow_down_outlined),
+                                                items: dropdownItems,
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    jenjangDropdownValue =
+                                                        value!;
+                                                  });
+                                                },
+                                              );
+                                            }
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),

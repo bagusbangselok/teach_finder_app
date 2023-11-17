@@ -7,19 +7,25 @@ String jenjangModelToJson(MataPelajaranModel data) =>
     json.encode(data.toJson());
 
 class MataPelajaranModel {
-  int? id;
-  String? name;
-  String? createdAt;
-  String? updatedAt;
+  final int id;
+  final String name;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  MataPelajaranModel({this.id, this.name, this.createdAt, this.updatedAt});
+  MataPelajaranModel({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-  MataPelajaranModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
+  factory MataPelajaranModel.fromJson(Map<String, dynamic> json) =>
+      MataPelajaranModel(
+        id: json["id"],
+        name: json["name"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

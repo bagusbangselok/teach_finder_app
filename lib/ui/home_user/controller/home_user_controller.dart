@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
+import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/ui/home_user/provider/home_user_provider.dart';
@@ -12,7 +14,18 @@ class HomeUserController {
   PesananMuridProvider _pesananMuridProvider = PesananMuridProvider();
 
   Future<List<LokasiModel>> getListLokasi() async {
+    print("halo bagong");
     return await _homeUserProvider.getListLokasi();
+  }
+
+  Future<List<MataPelajaranModel>> getListMapel() async {
+    print("halo bagong");
+    return await _homeUserProvider.getListMapel();
+  }
+
+  Future<List<JenjangModel>> getListJenjang() async {
+    print("halo bagong");
+    return await _homeUserProvider.getListJenjang();
   }
 
   Future<List<TeacherModel>> getListGuru(

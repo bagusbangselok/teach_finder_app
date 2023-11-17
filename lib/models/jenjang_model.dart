@@ -1,24 +1,30 @@
 import 'dart:convert';
 
-JenjangModel jenjangModelFromJson(String str) =>
-    JenjangModel.fromJson(json.decode(str));
+List<JenjangModel> jenjangModelFromJson(String str) => List<JenjangModel>.from(
+    json.decode(str).map((x) => JenjangModel.fromJson(x)));
 
-String jenjangModelToJson(JenjangModel data) => json.encode(data.toJson());
+String jenjangModelToJson(List<JenjangModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class JenjangModel {
   int? id;
-  String? name;
-  String? createdAt;
-  String? updatedAt;
+  final String name;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  JenjangModel({this.id, this.name, this.createdAt, this.updatedAt});
+  JenjangModel({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-  JenjangModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
+  factory JenjangModel.fromJson(Map<String, dynamic> json) => JenjangModel(
+        id: json["id"],
+        name: json["name"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
