@@ -1,12 +1,16 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:teach_finder_app/models/kecamatan.dart';
+import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
+<<<<<<< HEAD
 import 'package:file_picker/file_picker.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
 import 'package:teach_finder_app/ui/register/data/data_kecamatan.dart';
+=======
+import 'package:teach_finder_app/ui/register/controller/register_guru_controller.dart';
+>>>>>>> e3bdfd1d0b1893a47aeb1460267987451502a014
 
 class RegisterGuru extends StatefulWidget {
   @override
@@ -24,7 +28,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
   final TextEditingController sklIjazahController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final GlobalKey dropdownKey = GlobalKey();
-  late Kecamatan _kecamatan;
+  late LokasiModel _kecamatan;
 
   Widget FormNama() {
     return Column(
@@ -46,17 +50,17 @@ class _RegisterGuruState extends State<RegisterGuru> {
   // List<String> kecamatan = DataKecamatan().dataKecamatan();
   var dropdownValue;
   Widget LokasiAlamat() {
-    return DropdownSearch<Kecamatan>(
+    return DropdownSearch<LokasiModel>(
       asyncItems: (text) => _controller.loadKecamatanFromJson(),
       itemAsString: (item) => "${item.name}",
-      onChanged: (Kecamatan? data) => print(data),
+      onChanged: (LokasiModel? data) => print(data),
       dropdownButtonProps:
           DropdownButtonProps(icon: Icon(Icons.keyboard_arrow_down_outlined)),
       dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
               prefixIcon: Icon(Icons.school, color: Colors.black87),
               labelText: "Lokasi")),
-      onSaved: (Kecamatan? value) {
+      onSaved: (LokasiModel? value) {
         dropdownValue = value;
       },
     );
