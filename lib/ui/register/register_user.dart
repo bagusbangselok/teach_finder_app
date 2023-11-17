@@ -41,7 +41,7 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   // Dropdown Widget
-  String dropdownvalue = 'Pilih Jenjang Sekolah';
+  String dropdownJenjangValue = 'Pilih Jenjang Sekolah';
   // List Item dropdown menu
   var jenjang = ['Pilih Jenjang Sekolah', 'SD', 'SMP', 'SMA/SMK'];
   Widget JenjangSekolah() {
@@ -50,7 +50,7 @@ class _RegisterUserState extends State<RegisterUser> {
         prefixIcon: Icon(Icons.school, color: Colors.black87)
       ),
       isExpanded: true,
-      value: dropdownvalue,
+      value: dropdownJenjangValue,
       icon: const Icon(Icons.keyboard_arrow_down),
       items: jenjang.map((String items) {
         return DropdownMenuItem(
@@ -61,7 +61,7 @@ class _RegisterUserState extends State<RegisterUser> {
       // After select
       onChanged: (String? newValue) {
         setState(() {
-          dropdownvalue = newValue!;
+          dropdownJenjangValue = newValue!;
         });
       },
     );

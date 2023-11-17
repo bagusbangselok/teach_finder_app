@@ -153,34 +153,44 @@ class DetailHomeRequest extends StatelessWidget {
                                           color: blackColor))
                                 ]))),
                     SizedBox(height: 40),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 12),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          AcceptRequest(pesanan.id, context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 5,
-                          padding: EdgeInsets.all(18),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          primary: primaryColor,
-                        ),
-                        child: Text(
-                          "Terima",
-                          style: TextStyle(
-                            color: whiteColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Column(
+                    pesanan.status == '1'
+                    ? Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text("Anda telah menerima permintaan pengguna tersebut",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: successColor
+                        )),
+                    )
+                    : Column(
                       children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 12),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              AcceptRequest(pesanan.id, context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 5,
+                              padding: EdgeInsets.all(18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              primary: primaryColor,
+                            ),
+                            child: Text(
+                              "Terima",
+                              style: TextStyle(
+                                color: whiteColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         Container(
                             margin: EdgeInsets.symmetric(horizontal: 12),
                             width: double.infinity,
@@ -211,7 +221,8 @@ class DetailHomeRequest extends StatelessWidget {
                               ),
                             ))
                       ],
-                    )
+                    ),
+
                   ]))
                 ])));
   }

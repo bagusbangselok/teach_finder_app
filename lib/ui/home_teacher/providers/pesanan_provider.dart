@@ -10,11 +10,14 @@ class PesananProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var guruId = await prefs.getInt('idGuru');
 
-    final response = await _dio.get('${Url.PESANAN_BY_GURU}/${guruId}');
+    final response = await _dio.get(
+      '${Url.PESANAN_BY_GURU}/${guruId}'
+    );
     print("id guru: ${guruId}");
     print('${Url.PESANAN_BY_GURU}/${guruId}');
     print('dataPesanan: ${response.data["data"]}');
     print(response.statusCode);
+
 
     final list = List<PesananModel>.from(
       response.data["data"].map((data) => PesananModel.fromJson(data))

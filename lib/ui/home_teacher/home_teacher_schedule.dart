@@ -33,7 +33,7 @@ class HomeTeacherSchedule extends StatelessWidget {
             return SingleChildScrollView(
                 child: Column(children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
+                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 48.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -144,7 +144,7 @@ class HomeTeacherSchedule extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+                    padding: EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 0),
                     width: double.infinity,
                     height: 0.67 * _responsive.screenHeight(context),
                     decoration: BoxDecoration(
