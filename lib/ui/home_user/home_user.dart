@@ -217,7 +217,7 @@ class _HomeUser extends State<HomeUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.account_balance_outlined,
+                                        Icon(Icons.school,
                                             size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<JenjangModel>>(
@@ -225,16 +225,16 @@ class _HomeUser extends State<HomeUser> {
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<JenjangModel>>
                                                   snapshot) {
-                                              List<DropdownMenuItem<String>>
+                                              List<DropdownMenuItem<String>>?
                                                   dropdownItems =
-                                                  snapshot.data!.map((jenjang) {
+                                                  snapshot.data?.map((jenjang) {
                                                 return DropdownMenuItem<String>(
                                                   value: jenjang.id.toString(),
                                                   child: Text(jenjang.name),
                                                 );
                                               }).toList();
                                               // Add an item for "All" or an empty string
-                                              dropdownItems.insert(
+                                              dropdownItems?.insert(
                                                   0,
                                                   DropdownMenuItem<String>(
                                                     value:
@@ -289,16 +289,16 @@ class _HomeUser extends State<HomeUser> {
                                               AsyncSnapshot<
                                                       List<MataPelajaranModel>>
                                                   snapshot) {
-                                              List<DropdownMenuItem<String>>
+                                              List<DropdownMenuItem<String>>?
                                                   dropdownItems =
-                                                  snapshot.data!.map((mapel) {
+                                                  snapshot.data?.map((mapel) {
                                                 return DropdownMenuItem<String>(
                                                   value: mapel.id.toString(),
                                                   child: Text(mapel.name),
                                                 );
                                               }).toList();
                                               // Add an item for "All" or an empty string
-                                              dropdownItems.insert(
+                                              dropdownItems?.insert(
                                                   0,
                                                   DropdownMenuItem<String>(
                                                     value:

@@ -55,7 +55,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
           isExpanded: true,
           icon: const Icon(Icons.keyboard_arrow_down),
           hint: Text("Pilih Kecamatan"),
-          items: snapshotLokasi.data!.map((lokasi) {
+          items: snapshotLokasi.data?.map((lokasi) {
             return DropdownMenuItem<String>(
               value: lokasi.id.toString(),
               child: Text(lokasi.name),
@@ -181,6 +181,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
               passwordController.text.isEmpty ||
               confirmPasswordController.text.isEmpty ||
               fileName!.isEmpty ||
+              dropdownLokasiValue.isEmpty ||
               phoneController.text.isEmpty ||
               alamatController.text.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
