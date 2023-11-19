@@ -8,4 +8,6 @@ class Url {
   static const PESANAN_BY_MURID = '$PESANAN_URL/pesanan-siswa';
   static const JADWAL_BY_GURU = '$BASE_URL/jadwal/show';
   static const REGISTER_USER = '$BASE_URL/user/register';
+  static const JENJANG_URL = '$BASE_URL/jenjang';
+  static const LOKASI_URL = '$BASE_URL/lokasi';
 }

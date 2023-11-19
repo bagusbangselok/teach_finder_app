@@ -43,20 +43,30 @@ class _RegisterGuruState extends State<RegisterGuru> {
 
   // Dropdown Widget
   // List<String> kecamatan = DataKecamatan().dataKecamatan();
-  var dropdownValue;
+  String dropdownLokasiValue = "Pilih Kecamatan";
   Widget LokasiAlamat() {
-    return DropdownSearch<LokasiModel>(
-      asyncItems: (text) => _controller.loadKecamatanFromJson(),
-      itemAsString: (item) => "${item.name}",
-      onChanged: (LokasiModel? data) => print(data),
-      dropdownButtonProps:
-          DropdownButtonProps(icon: Icon(Icons.keyboard_arrow_down_outlined)),
-      dropdownDecoratorProps: DropDownDecoratorProps(
-          dropdownSearchDecoration: InputDecoration(
-              prefixIcon: Icon(Icons.school, color: Colors.black87),
-              labelText: "Lokasi")),
-      onSaved: (LokasiModel? value) {
-        dropdownValue = value;
+    return FutureBuilder<List<LokasiModel>>(
+      future: _controller.getListKecamatan(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<LokasiModel>> snapshotLokasi) {
+        return DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+              prefixIcon: Icon(Icons.location_on, color: Colors.black87)),
+          isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down),
+          hint: Text("Pilih Kecamatan"),
+          items: snapshotLokasi.data!.map((lokasi) {
+            return DropdownMenuItem<String>(
+              value: lokasi.id.toString(),
+              child: Text(lokasi.name),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownLokasiValue = newValue!;
+            });
+          },
+        );
       },
     );
   }
@@ -75,6 +85,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
 
   String? filePath;
   String? fileName;
+  late int fileSizeInBytes;
+  late double fileSizeInMB;
 
   void _openFileExplorer() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -82,6 +94,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
       setState(() {
         filePath = result.files.single.path;
         fileName = result.files.single.name;
+        fileSizeInBytes = result.files.single.size;
+        fileSizeInMB = (fileSizeInBytes / (1024 * 1024));
       });
     }
   }
@@ -105,7 +119,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
                 color: Colors.black87),
           ),
         ),
-        if (filePath != null) Text("File Terpilih : $filePath"),
+        if (filePath != null) Text("File Terpilih : $filePath ($fileSizeInMB MB)"),
       ],
     );
   }
@@ -160,37 +174,80 @@ class _RegisterGuruState extends State<RegisterGuru> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          nameController.text;
-          emailController.text;
-          passwordController.text;
-          confirmPasswordController.text;
-          phoneController.text;
-          dropdownValue;
-          alamatController.text;
           if (nameController.text.isEmpty ||
               emailController.text.isEmpty ||
               passwordController.text.isEmpty ||
               confirmPasswordController.text.isEmpty ||
+              fileName!.isEmpty ||
               phoneController.text.isEmpty ||
               alamatController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Semua kolom harus di isi')),
-            );
-            return;
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                'Daftar gagal. Harap lengkapi data anda.',
+                style: TextStyle(
+                    color: dangerColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
+              ),
+            ));
           } else {
-            _controller.registerTeacherProcess(
-                nameController.text,
-                passwordController.text,
-                confirmPasswordController.text,
-                emailController.text,
-                phoneController.text,
-                fileName.toString(),
-                alamatController.text,
-                dropdownValue);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Login()),
-            );
+            if (passwordController.text.length < 8) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Password minimal 8 karakter',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if (confirmPasswordController.text !=
+                passwordController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Password tidak cocok',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if (phoneController.text.length > 12) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'No. Telpon maksimal 12 angka',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if(fileSizeInMB > 2.0) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Ukuran file maksimal 2MB',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else {
+              _controller.registerTeacherProcess(
+                  nameController.text,
+                  passwordController.text,
+                  confirmPasswordController.text,
+                  emailController.text,
+                  phoneController.text,
+                  filePath.toString(),
+                  fileName.toString(),
+                  alamatController.text,
+                  dropdownLokasiValue);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            }
           }
         },
         style: ElevatedButton.styleFrom(

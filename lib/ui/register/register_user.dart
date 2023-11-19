@@ -1,7 +1,10 @@
-import 'package:dropdown_search/dropdown_search.dart';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:teach_finder_app/models/jenjang_model.dart';
+import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
@@ -16,15 +19,17 @@ class _RegisterUserState extends State<RegisterUser> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
   Widget FormNama() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: _nameController,
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
@@ -42,7 +47,7 @@ class _RegisterUserState extends State<RegisterUser> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: _addressController,
           keyboardType: TextInputType.streetAddress,
           textInputAction: TextInputAction.next,
@@ -56,21 +61,33 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   // Dropdown Widget
-  var dropdownJenjangValue;
+  String dropdownJenjangValue = "Pilih Jenjang";
+
+  // List Item dropdown menu
 
   Widget JenjangSekolah() {
-    return DropdownSearch<JenjangModel>(
-      asyncItems: (text) => _registerController.loadJenjangFromJson(),
-      itemAsString: (item) => "${item.name}",
-      onChanged: (JenjangModel? data) => print(data),
-      dropdownButtonProps:
-      DropdownButtonProps(icon: Icon(Icons.keyboard_arrow_down_outlined)),
-      dropdownDecoratorProps: DropDownDecoratorProps(
-          dropdownSearchDecoration: InputDecoration(
-              prefixIcon: Icon(Icons.school, color: Colors.black87),
-              labelText: "Pilih Jenjang")),
-      onSaved: (JenjangModel? value) {
-        dropdownJenjangValue = value;
+    return FutureBuilder<List<JenjangModel>>(
+      future: _registerController.getListJenjang(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<JenjangModel>> snapshotJenjang) {
+        return DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+              prefixIcon: Icon(Icons.school, color: Colors.black87)),
+          isExpanded: true,
+          icon: const Icon(Icons.keyboard_arrow_down),
+          hint: Text("Pilih Jenjang"),
+          items: snapshotJenjang.data!.map((jenjang) {
+            return DropdownMenuItem<String>(
+              value: jenjang.id.toString(),
+              child: Text(jenjang.name),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownJenjangValue = newValue!;
+            });
+          },
+        );
       },
     );
   }
@@ -80,7 +97,7 @@ class _RegisterUserState extends State<RegisterUser> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: _phoneController,
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.next,
@@ -98,7 +115,13 @@ class _RegisterUserState extends State<RegisterUser> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Harap masukkan email anda';
+            }
+            return null;
+          },
           controller: _emailController,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.emailAddress,
@@ -116,7 +139,7 @@ class _RegisterUserState extends State<RegisterUser> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: _passwordController,
           textInputAction: TextInputAction.next,
           obscureText: true,
@@ -134,7 +157,7 @@ class _RegisterUserState extends State<RegisterUser> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
           controller: _confirmPasswordController,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.text,
@@ -154,16 +177,67 @@ class _RegisterUserState extends State<RegisterUser> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          _registerController.registerUserProcess(
-              context,
-              _nameController.text,
-              _passwordController.text,
-              _confirmPasswordController.text,
-              _emailController.text,
-              _phoneController.text,
-              dropdownJenjangValue.id.toString(),
-              _addressController.text
-          );
+          print("dropdown: ${dropdownJenjangValue}");
+          if (_nameController.text.isEmpty ||
+              _passwordController.text.isEmpty ||
+              _confirmPasswordController.text.isEmpty ||
+              _emailController.text.isEmpty ||
+              _phoneController.text.isEmpty ||
+              dropdownJenjangValue.isEmpty ||
+              _addressController.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                'Daftar gagal. Silahkan cek isian anda kembali.',
+                style: TextStyle(
+                    color: dangerColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
+              ),
+            ));
+          } else {
+            if (_passwordController.text.length < 8) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Password minimal 8 karakter',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if (_confirmPasswordController.text !=
+                _passwordController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Password tidak cocok',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if (_phoneController.text.length > 12) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'No. Telpon maksimal 12 angka',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else {
+              _registerController.registerUserProcess(
+                  context,
+                  _nameController.text,
+                  _passwordController.text,
+                  _confirmPasswordController.text,
+                  _emailController.text,
+                  _phoneController.text,
+                  dropdownJenjangValue,
+                  _addressController.text);
+            }
+          }
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,
@@ -231,7 +305,6 @@ class _RegisterUserState extends State<RegisterUser> {
             SizedBox(height: 30),
             RegisterUserBtn(
               context,
-
             ),
             SizedBox(height: 30),
           ],
