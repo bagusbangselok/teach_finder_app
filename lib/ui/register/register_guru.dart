@@ -85,6 +85,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
 
   String? filePath;
   String? fileName;
+  String? fileFormat;
   late int fileSizeInBytes;
   late double fileSizeInMB;
 
@@ -96,6 +97,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
         fileName = result.files.single.name;
         fileSizeInBytes = result.files.single.size;
         fileSizeInMB = (fileSizeInBytes / (1024 * 1024));
+        fileFormat = fileName?.split('.').last;
       });
     }
   }
@@ -119,7 +121,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
                 color: Colors.black87),
           ),
         ),
-        if (filePath != null) Text("File Terpilih : $filePath ($fileSizeInMB MB)"),
+        if (filePath != null) Text("File Terpilih : $filePath ($fileSizeInMB MB) $fileFormat"),
       ],
     );
   }
@@ -168,7 +170,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
     );
   }
 
-  Widget RegisterGuruBtn() {
+  Widget RegisterGuruBtn(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25),
       width: double.infinity,
@@ -222,7 +224,17 @@ class _RegisterGuruState extends State<RegisterGuru> {
                       fontWeight: FontWeight.w400),
                 ),
               ));
-            } else if(fileSizeInMB > 2.0) {
+            } else if(fileFormat != 'png' && fileFormat != 'jpg' && fileFormat != 'jpeg'){
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Format file harus png/jpg/jpeg',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if(fileSizeInMB > 2.048) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   'Ukuran file maksimal 2MB',
@@ -234,6 +246,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
               ));
             } else {
               _controller.registerTeacherProcess(
+                  context,
                   nameController.text,
                   passwordController.text,
                   confirmPasswordController.text,
@@ -243,10 +256,6 @@ class _RegisterGuruState extends State<RegisterGuru> {
                   fileName.toString(),
                   alamatController.text,
                   dropdownLokasiValue);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Login()),
-              );
             }
           }
         },
@@ -315,7 +324,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
             SizedBox(height: 20),
             FormKonfirmasiPassword(),
             SizedBox(height: 30),
-            RegisterGuruBtn(),
+            RegisterGuruBtn(context),
             SizedBox(height: 30),
           ],
         ),

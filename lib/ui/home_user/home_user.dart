@@ -161,15 +161,6 @@ class _HomeUser extends State<HomeUser> {
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<LokasiModel>>
                                                   snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              // Return a loading indicator or an empty widget while data is loading
-                                              return CircularProgressIndicator();
-                                            } else if (snapshot.hasError) {
-                                              // Handle error state
-                                              return Text(
-                                                  'Error: ${snapshot.error}');
-                                            } else {
                                               List<DropdownMenuItem<String>>
                                                   dropdownItems =
                                                   snapshot.data!.map((lokasi) {
@@ -208,7 +199,6 @@ class _HomeUser extends State<HomeUser> {
                                                 },
                                               );
                                             }
-                                          },
                                         )
                                       ],
                                     ),
@@ -235,15 +225,6 @@ class _HomeUser extends State<HomeUser> {
                                           builder: (BuildContext context,
                                               AsyncSnapshot<List<JenjangModel>>
                                                   snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              // Return a loading indicator or an empty widget while data is loading
-                                              return CircularProgressIndicator();
-                                            } else if (snapshot.hasError) {
-                                              // Handle error state
-                                              return Text(
-                                                  'Error: ${snapshot.error}');
-                                            } else {
                                               List<DropdownMenuItem<String>>
                                                   dropdownItems =
                                                   snapshot.data!.map((jenjang) {
@@ -282,7 +263,6 @@ class _HomeUser extends State<HomeUser> {
                                                 },
                                               );
                                             }
-                                          },
                                         )
                                       ],
                                     ),
@@ -309,15 +289,6 @@ class _HomeUser extends State<HomeUser> {
                                               AsyncSnapshot<
                                                       List<MataPelajaranModel>>
                                                   snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              // Return a loading indicator or an empty widget while data is loading
-                                              return CircularProgressIndicator();
-                                            } else if (snapshot.hasError) {
-                                              // Handle error state
-                                              return Text(
-                                                  'Error: ${snapshot.error}');
-                                            } else {
                                               List<DropdownMenuItem<String>>
                                                   dropdownItems =
                                                   snapshot.data!.map((mapel) {
@@ -356,7 +327,6 @@ class _HomeUser extends State<HomeUser> {
                                                 },
                                               );
                                             }
-                                          },
                                         )
                                       ],
                                     ),

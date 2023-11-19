@@ -9,6 +9,7 @@ class RegisterController {
   final RegisterProvider _registerProvider = RegisterProvider();
 
   Future<dynamic> registerTeacherProcess(
+      BuildContext context,
       String name,
       String password,
       String confirm_password,
@@ -17,8 +18,10 @@ class RegisterController {
       String filePath,
       String fileName,
       String alamat,
-      String alamat_id) async {
+      String lokasi_id
+    ) async {
     final success = await _registerProvider.registerTeacher(
+      context: context,
       name: name,
       password: password,
       confirm_password: confirm_password,
@@ -27,7 +30,7 @@ class RegisterController {
       filePath: filePath,
       fileName: fileName,
       alamat: alamat,
-      alamat_id: alamat_id,
+      lokasi_id: lokasi_id,
     );
     print('sukses: $success');
     return success;

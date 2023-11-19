@@ -14,23 +14,19 @@ class HomeUserController {
   PesananMuridProvider _pesananMuridProvider = PesananMuridProvider();
 
   Future<List<LokasiModel>> getListLokasi() async {
-    print("halo bagong");
     return await _homeUserProvider.getListLokasi();
   }
 
   Future<List<MataPelajaranModel>> getListMapel() async {
-    print("halo bagong");
     return await _homeUserProvider.getListMapel();
   }
 
   Future<List<JenjangModel>> getListJenjang() async {
-    print("halo bagong");
     return await _homeUserProvider.getListJenjang();
   }
 
   Future<List<TeacherModel>> getListGuru(
       {String? location, String? pelajaran, String? jenjang}) async {
-    print("halo bagong");
     return await _homeUserProvider.getListGuru(
         location: location, pelajaran: pelajaran, jenjang: jenjang);
   }
