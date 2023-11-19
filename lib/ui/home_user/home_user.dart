@@ -227,7 +227,8 @@ class _HomeUser extends State<HomeUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.location_on_sharp, size: 18),
+                                        Icon(Icons.account_balance_outlined,
+                                            size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<JenjangModel>>(
                                           future: jenjang,
@@ -300,7 +301,7 @@ class _HomeUser extends State<HomeUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.location_on_sharp, size: 18),
+                                        Icon(Icons.menu_book, size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<MataPelajaranModel>>(
                                           future: mapel,
@@ -338,7 +339,7 @@ class _HomeUser extends State<HomeUser> {
                                               return DropdownButton<String>(
                                                 underline: Container(),
                                                 hint: Text(
-                                                  "Mapel",
+                                                  "Pelajaran",
                                                   style: TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w400,

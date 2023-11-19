@@ -54,7 +54,7 @@ class HomeUserProvider {
       'jenjang_id': jenjang,
     };
     final response = await _dio.get(
-      'http://192.168.1.15:8000/api/guru/filter-guru',
+      'https://teachfinder.agiftsany-azhar.web.id/api/guru/filter-guru',
       queryParameters: params,
     );
     print("params: ${params}");
