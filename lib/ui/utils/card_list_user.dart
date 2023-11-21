@@ -27,15 +27,10 @@ class CardListUser extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: whiteColor,
+            color: whiteColor,   
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                  color: blackColor.withOpacity(0.4),
-                  spreadRadius: 0.5,
-                  blurRadius: 6,
-                  offset: Offset(1, 3)),
-            ]),
+            border: Border.all(color: blackColor),
+            ),
         margin: EdgeInsets.symmetric(horizontal: 0.01 * screenWidth),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

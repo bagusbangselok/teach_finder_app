@@ -27,13 +27,8 @@ class CardListTeacher extends StatelessWidget {
       decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                color: blackColor.withOpacity(0.4),
-                spreadRadius: 0.5,
-                blurRadius: 6,
-                offset: Offset(1, 3)),
-          ]),
+          border: Border.all(color: blackColor),
+      ),
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
