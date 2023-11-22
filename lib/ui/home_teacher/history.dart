@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/page_not_found/history_not_found.dart';
+import 'package:teach_finder_app/ui/utils/card_history_user.dart';
 
-class TerimaContent extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return HistoryNotFound();
-  }
-}
+// Operasi statis boolean tampil atau hide data
+bool hashDataTerima = true;
+bool hashDataTolak = false;
 
 class TolakContent extends StatelessWidget {
   @override
@@ -46,11 +44,55 @@ class _HistoryState extends State<History> {
                 )),
             body: TabBarView(
               children: [
-                // Component 1
-                TerimaContent(),
+                // Terima
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                        child: hashDataTerima
+                            ? CardHistoryUser(
+                                urlImage: "assets/icon/user_icon1.png",
+                                name: "Jonathan Steven",
+                                level: "SMA",
+                                time: "Sabtu, 10.00 - 12.00 wib",
+                                subject: "Bahasa indonesia",
+                                status: "1")
+                            : Center(
+                                child: HistoryNotFound(),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
 
-                // Component 2
-                TolakContent(),
+                // Tolak
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+                        child: hashDataTolak
+                            ? CardHistoryUser(
+                                urlImage: "assets/icon/user_icon1.png",
+                                name: "Jonathan Steven",
+                                level: "SMA",
+                                time: "Sabtu, 10.00 - 12.00 wib",
+                                subject: "Bahasa indonesia",
+                                status: "0")
+                            : Center(
+                                child: HistoryNotFound(),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             )));
   }

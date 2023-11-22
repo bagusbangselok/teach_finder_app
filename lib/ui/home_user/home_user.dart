@@ -157,10 +157,10 @@ class _HomeUser extends State<HomeUser> {
                                         Icon(Icons.location_on_sharp, size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<LokasiModel>>(
-                                          future: lokasi,
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<List<LokasiModel>>
-                                                  snapshot) {
+                                            future: lokasi,
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<List<LokasiModel>>
+                                                    snapshot) {
                                               List<DropdownMenuItem<String>>
                                                   dropdownItems =
                                                   snapshot.data!.map((lokasi) {
@@ -198,8 +198,7 @@ class _HomeUser extends State<HomeUser> {
                                                   });
                                                 },
                                               );
-                                            }
-                                        )
+                                            })
                                       ],
                                     ),
                                   ),
@@ -217,14 +216,14 @@ class _HomeUser extends State<HomeUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.school,
-                                            size: 18),
+                                        Icon(Icons.school, size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<JenjangModel>>(
-                                          future: jenjang,
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<List<JenjangModel>>
-                                                  snapshot) {
+                                            future: jenjang,
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<
+                                                        List<JenjangModel>>
+                                                    snapshot) {
                                               List<DropdownMenuItem<String>>?
                                                   dropdownItems =
                                                   snapshot.data?.map((jenjang) {
@@ -262,8 +261,7 @@ class _HomeUser extends State<HomeUser> {
                                                   });
                                                 },
                                               );
-                                            }
-                                        )
+                                            })
                                       ],
                                     ),
                                   ),
@@ -284,11 +282,12 @@ class _HomeUser extends State<HomeUser> {
                                         Icon(Icons.menu_book, size: 18),
                                         SizedBox(width: 5),
                                         FutureBuilder<List<MataPelajaranModel>>(
-                                          future: mapel,
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<
-                                                      List<MataPelajaranModel>>
-                                                  snapshot) {
+                                            future: mapel,
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<
+                                                        List<
+                                                            MataPelajaranModel>>
+                                                    snapshot) {
                                               List<DropdownMenuItem<String>>?
                                                   dropdownItems =
                                                   snapshot.data?.map((mapel) {
@@ -326,8 +325,7 @@ class _HomeUser extends State<HomeUser> {
                                                   });
                                                 },
                                               );
-                                            }
-                                        )
+                                            })
                                       ],
                                     ),
                                   ),

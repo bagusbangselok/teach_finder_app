@@ -58,6 +58,17 @@ class CardHistoryUser extends StatelessWidget {
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               ],
             ),
+            SizedBox(width: 0.01 * screenWidth),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                status == '0'
+                    ? Text('Ditolak',
+                        style: TextStyle(color: dangerColor, fontSize: 12))
+                    : Text('Disetujui',
+                        style: TextStyle(color: successColor, fontSize: 12)),
+              ],
+            )
           ],
         ));
   }
