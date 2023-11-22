@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/page_not_found/history_not_found.dart';
-//
-// class HistoryTerima extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context){
-//     return History(title: 'Terima');
-//   }
-// }
-//
-// class HistoryTolak extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context){
-//     return History(title: 'Tolak')z
-//   }
-// }
+
+class TerimaContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return HistoryNotFound();
+  }
+}
+
+class TolakContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return HistoryNotFound();
+  }
+}
 
 class History extends StatefulWidget {
   @override
@@ -47,10 +47,10 @@ class _HistoryState extends State<History> {
             body: TabBarView(
               children: [
                 // Component 1
-                HistoryNotFound(),
+                TerimaContent(),
 
                 // Component 2
-                HistoryNotFound()
+                TolakContent(),
               ],
             )));
   }
