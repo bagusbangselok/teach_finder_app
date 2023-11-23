@@ -395,8 +395,9 @@ class _HomeUser extends State<HomeUser> {
 
   Future<void> _displayBottomSheet(
       BuildContext context, int? idMurid, TeacherModel teacher) async {
-    await showModalBottomSheet(
+    await showModalBottomSheet<dynamic>(
       context: context,
+      isScrollControlled: true,
       barrierColor: blackColor.withOpacity(0.5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -449,8 +450,11 @@ class _HomeUser extends State<HomeUser> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8),
-                    // Jadwal
-
+                    Text(
+                      "${teacher.jadwal[0].name}",
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    ),
                     SizedBox(height: 20),
                     Text(
                       "Lokasi Guru",
@@ -470,8 +474,6 @@ class _HomeUser extends State<HomeUser> {
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                        "${teacher.jadwal[0].waktuMulai} - ${teacher.jadwal[0].waktuAkhir}"),
                   ],
                 ),
                 SizedBox(
