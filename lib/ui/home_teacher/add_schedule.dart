@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:teach_finder_app/models/jenjang_model.dart';
+import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/ui/home_teacher/controller/jadwal_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 
 class AddSchedule extends StatefulWidget {
@@ -9,7 +12,8 @@ class AddSchedule extends StatefulWidget {
 }
 
 class _AddScheduleState extends State<AddSchedule> {
-  String dropdownvalueMapel = 'Pilih Mata Pelajaran';
+  JadwalController _jadwalController = JadwalController();
+  String dropdownvalueMapel = '';
   List<String> MataPelajaran = ['Pilih Mata Pelajaran', 'Matematika'];
   Widget FormMataPelajaran() {
     return Column(
@@ -24,25 +28,29 @@ class _AddScheduleState extends State<AddSchedule> {
           ),
         ),
         SizedBox(height: 8),
-        DropdownButton(
-          isExpanded: true,
-          value: dropdownvalueMapel,
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: MataPelajaran.map((String items) {
-            return DropdownMenuItem(
-              value: items,
-              child: Text(items),
+        FutureBuilder(
+          future: _jadwalController.getListMapel(),
+          builder: (BuildContext context, AsyncSnapshot<List<MataPelajaranModel>> snapshotMapel) {
+            return DropdownButtonFormField<String>(
+              isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down),
+              hint: Text("Pilih Mata Pelajaran"),
+              items: snapshotMapel.data?.map((mapel) {
+                return DropdownMenuItem(
+                  value: mapel.id.toString(),
+                  child: Text(mapel.name),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalueMapel = newValue!;
+                });
+              },
+              decoration: InputDecoration(
+                border: UnderlineInputBorder()
+              ),
             );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              dropdownvalueMapel = newValue!;
-            });
-          },
-          underline: Container(
-            height: 1,
-            color: blackColor,
-          ),
+          }
         ),
         SizedBox(height: 20),
       ],
@@ -51,7 +59,6 @@ class _AddScheduleState extends State<AddSchedule> {
 
   String dropdownvalueHari = 'Pilih Hari';
   List<String> Hari = [
-    'Pilih Hari',
     'Senin',
     'Selasa',
     'Rabu',
@@ -73,7 +80,7 @@ class _AddScheduleState extends State<AddSchedule> {
           ),
         ),
         SizedBox(height: 8),
-        DropdownButton(
+        DropdownButtonFormField(
           isExpanded: true,
           value: dropdownvalueHari,
           icon: const Icon(Icons.keyboard_arrow_down),
@@ -88,9 +95,8 @@ class _AddScheduleState extends State<AddSchedule> {
               dropdownvalueHari = newValue!;
             });
           },
-          underline: Container(
-            height: 1,
-            color: blackColor,
+          decoration: InputDecoration(
+            border: UnderlineInputBorder()
           ),
         ),
         SizedBox(height: 20),
@@ -166,25 +172,29 @@ class _AddScheduleState extends State<AddSchedule> {
           ),
         ),
         SizedBox(height: 8),
-        DropdownButton(
-            isExpanded: true,
-            value: dropdownvalueJenjang,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            items: Jenjang.map((String items) {
-              return DropdownMenuItem(
-                value: items,
-                child: Text(items),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownvalueJenjang = newValue!;
-              });
-            },
-            underline: Container(
-              height: 1,
-              color: blackColor,
-            )),
+        FutureBuilder(
+          future: _jadwalController.getListJenjang(),
+          builder: (context, AsyncSnapshot<List<JenjangModel>> snapshotJenjang) {
+            return DropdownButtonFormField<String>(
+                isExpanded: true,
+                hint: Text("Pilih Jenjang"),
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: snapshotJenjang.data?.map((jenjang) {
+                  return DropdownMenuItem(
+                    value: jenjang.id.toString(),
+                    child: Text(jenjang.name),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownvalueJenjang = newValue!;
+                  });
+                },
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder()
+                ));
+          }
+        ),
         SizedBox(height: 20),
       ],
     );

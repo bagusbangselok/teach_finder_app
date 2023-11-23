@@ -221,7 +221,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                                 level:
                                     "${snapshotPesanan.data![index].murid.jenjang.name}",
                                 subject:
-                                    "${snapshotPesanan.data![index].jadwal.mataPelajaran.name}",
+                                    "${snapshotPesanan.data![index].guru.mataPelajaran.name}",
                                 time:
                                     "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
                                     "${snapshotPesanan.data![index].jadwal.waktuAkhir}",

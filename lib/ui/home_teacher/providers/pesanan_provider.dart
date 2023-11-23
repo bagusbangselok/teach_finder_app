@@ -11,10 +11,10 @@ class PesananProvider {
     var guruId = await prefs.getInt('idGuru');
 
     final response = await _dio.get(
-      '${Url.PESANAN_BY_GURU}/${guruId}'
+      '${Url.PESANAN_BY_GURU}?id=${guruId}&status=0'
     );
     print("id guru: ${guruId}");
-    print('${Url.PESANAN_BY_GURU}/${guruId}');
+    print('${Url.PESANAN_BY_GURU}?id=${guruId}&status=0');
     print('dataPesanan: ${response.data["data"]}');
     print(response.statusCode);
 

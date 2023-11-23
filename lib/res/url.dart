@@ -10,4 +10,5 @@ class Url {
   static const REGISTER_USER = '$BASE_URL/user/register';
   static const JENJANG_URL = '$BASE_URL/jenjang';
   static const LOKASI_URL = '$BASE_URL/lokasi';
+  static const MAPEL_URL = '$BASE_URL/mata-pelajaran';
 }

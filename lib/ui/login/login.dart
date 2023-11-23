@@ -85,31 +85,6 @@ class _LoginState extends State<Login> {
                       SizedBox(height: 10),
                       TextFormField(
                         controller: _emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                'Email tidak boleh kosong',
-                                style: TextStyle(
-                                    color: dangerColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ));
-                          } else if (value != null &&
-                              !EmailValidator.validate(value)) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                'Masukkan email yang valid',
-                                style: TextStyle(
-                                    color: dangerColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ));
-                          } else
-                            return null;
-                        },
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
@@ -152,7 +127,7 @@ class _LoginState extends State<Login> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
-                        _emailController.value;
+
                         _loginController.loginProcess(
                           context,
                           _emailController.text,

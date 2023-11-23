@@ -49,7 +49,10 @@ class LoginController {
 
   Future<void> logoutUser() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('authToken'); // atau sesuaikan dengan data sesi lainnya yang perlu dihapus
+    await prefs.remove('authToken');
+    await prefs.remove('idMurid');
+    await prefs.remove('username');
+    await prefs.remove('profileId');
   }
 
   Future<void> saveLoginStatus(bool isLoggedIn) async {

@@ -168,7 +168,7 @@ class _Booking extends State<Booking> {
                             location:
                                 "${snapshot.data![index].guru.lokasi.name}",
                             subject:
-                                "${snapshot.data![index].jadwal.mataPelajaran.name}",
+                                "${snapshot.data![index].guru.mataPelajaran.name}",
                             salary: "${snapshot.data![index].jadwal.harga}",
                             status: "${snapshot.data![index].status}",
                             phone: "${snapshot.data![index].guru.phone}",

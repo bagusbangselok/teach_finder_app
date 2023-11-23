@@ -128,7 +128,7 @@ class LoginProvider {
       print('id guru shared_preference: ${prefs.getInt('idGuru')}');
       print(response.data);
       print(response.statusCode);
-
+      var roleIdVar = response.data['User']['role_id'];
       if (response.statusCode == 200) {
         print("dataUser: ${response.data['User']}");
         if (response.data['success']) {

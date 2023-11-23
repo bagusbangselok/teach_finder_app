@@ -5,7 +5,7 @@ class JadwalProvider {
   final Dio _dio = Dio();
 
   Future<List<JadwalModel>> getJadwalGuru() async {
-    final response = await _dio.get('https://teachfinder.agiftsany-azhar.web.id/api/jadwal');
+    final response = await _dio.get('https://teachfinder.agiftsany-azhar.web.id/api/jadwal/filter-jadwal');
     print('dataPesanan: ${response.data["data"]}');
     print(response.statusCode);
 

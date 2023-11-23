@@ -27,6 +27,9 @@ class HomeUserController {
 
   Future<List<TeacherModel>> getListGuru(
       {String? location, String? pelajaran, String? jenjang}) async {
+    print("Test");
+    print(
+        "data guru dari controller: \n${_homeUserProvider.getListGuru()}");
     return await _homeUserProvider.getListGuru(
         location: location, pelajaran: pelajaran, jenjang: jenjang);
   }

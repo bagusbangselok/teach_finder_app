@@ -228,7 +228,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                             return SingleChildScrollView(
                               child: CardListSchedule(
                                   MataPelajaran:
-                                      "${snapshotJadwal.data![index].mataPelajaran.name}",
+                                      "${snapshotJadwal.data![index].guru.mataPelajaran.name}",
                                   hari:
                                       "${snapshotJadwal.data![index].hari.name}",
                                   jenjang:

@@ -1,11 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
-
 
 class RegisterGuru extends StatefulWidget {
   @override
@@ -44,6 +44,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
   // Dropdown Widget
   // List<String> kecamatan = DataKecamatan().dataKecamatan();
   String dropdownLokasiValue = "Pilih Kecamatan";
+
   Widget LokasiAlamat() {
     return FutureBuilder<List<LokasiModel>>(
       future: _controller.getListKecamatan(),
@@ -121,7 +122,8 @@ class _RegisterGuruState extends State<RegisterGuru> {
                 color: Colors.black87),
           ),
         ),
-        if (filePath != null) Text("File Terpilih : $filePath ($fileSizeInMB MB) $fileFormat"),
+        if (filePath != null)
+          Text("File Terpilih : $filePath ($fileSizeInMB MB) $fileFormat"),
       ],
     );
   }
@@ -194,7 +196,17 @@ class _RegisterGuruState extends State<RegisterGuru> {
               ),
             ));
           } else {
-            if (passwordController.text.length < 8) {
+            if (EmailValidator.validate(emailController.text)) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Email tidak valid',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if (passwordController.text.length < 8) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   'Password minimal 8 karakter',
@@ -225,7 +237,9 @@ class _RegisterGuruState extends State<RegisterGuru> {
                       fontWeight: FontWeight.w400),
                 ),
               ));
-            } else if(fileFormat != 'png' && fileFormat != 'jpg' && fileFormat != 'jpeg'){
+            } else if (fileFormat != 'png' &&
+                fileFormat != 'jpg' &&
+                fileFormat != 'jpeg') {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   'Format file harus png/jpg/jpeg',
@@ -235,7 +249,7 @@ class _RegisterGuruState extends State<RegisterGuru> {
                       fontWeight: FontWeight.w400),
                 ),
               ));
-            } else if(fileSizeInMB > 2.048) {
+            } else if (fileSizeInMB > 2.048) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   'Ukuran file maksimal 2MB',

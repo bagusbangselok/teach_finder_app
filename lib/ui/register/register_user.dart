@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   RegisterController _registerController = RegisterController();
+  final TextInputFormatter _phoneNumberFormatter = FilteringTextInputFormatter.digitsOnly;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -99,6 +101,7 @@ class _RegisterUserState extends State<RegisterUser> {
         SizedBox(height: 10),
         TextFormField(
           controller: _phoneController,
+          inputFormatters: [_phoneNumberFormatter],
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
@@ -220,6 +223,16 @@ class _RegisterUserState extends State<RegisterUser> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   'No. Telpon maksimal 12 angka',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+            } else if(EmailValidator.validate(_emailController.text)) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Email tidak valid',
                   style: TextStyle(
                       color: dangerColor,
                       fontSize: 14,

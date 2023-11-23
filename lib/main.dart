@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
 import 'package:teach_finder_app/ui/login/controllers/login_controller.dart';
@@ -13,6 +14,8 @@ void main() async {
   LoginProvider _loginProvider = LoginProvider();
   bool isLoggedIn = await _loginController.getIsLoggedIn();
   final user = await _loginProvider.getProfilUser();
+  final prefs = await SharedPreferences.getInstance();
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarColor: Colors.transparent));
   runApp(
@@ -44,5 +47,5 @@ Widget loginRole(isLoggedIn, user) {
   } else if (!isLoggedIn) {
     return Welcome();
   }
-  return loginRole(isLoggedIn, user);
+  return Welcome();
 }
