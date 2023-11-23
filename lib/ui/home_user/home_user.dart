@@ -145,7 +145,7 @@ class _HomeUser extends State<HomeUser> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 0.3 * screenWidth,
+                                    // width: 0.9 * screenWidth,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: blackColor),
@@ -270,7 +270,7 @@ class _HomeUser extends State<HomeUser> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 0.3 * screenWidth,
+                                    // width: 0.3 * screenWidth,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: blackColor),
@@ -332,7 +332,7 @@ class _HomeUser extends State<HomeUser> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 10),
                             Expanded(
                               child: ListGuru(
                                 idMurid: snapshot.data?.murid?.id,
@@ -449,11 +449,8 @@ class _HomeUser extends State<HomeUser> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      "${teacher.jadwal[0].name}",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                    ),
+                    // Jadwal
+
                     SizedBox(height: 20),
                     Text(
                       "Lokasi Guru",

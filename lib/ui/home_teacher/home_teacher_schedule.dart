@@ -144,7 +144,8 @@ class HomeTeacherSchedule extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: Container(
-                    padding: EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 0),
+                    padding: EdgeInsets.only(
+                        left: 10, right: 10, top: 40, bottom: 0),
                     width: double.infinity,
                     height: 0.67 * _responsive.screenHeight(context),
                     decoration: BoxDecoration(
@@ -183,15 +184,15 @@ class HomeTeacherSchedule extends StatelessWidget {
                                 ),
                               ]),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         // Conditional Function
                         !snapshot.hasData
-                        ? Expanded(
-                          child: Center(
-                            // render the loading indicator
-                              child: CircularProgressIndicator()),
-                        )
-                        : listSchedule(context),
+                            ? Expanded(
+                                child: Center(
+                                    // render the loading indicator
+                                    child: CircularProgressIndicator()),
+                              )
+                            : listSchedule(context),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -223,7 +224,8 @@ class HomeTeacherSchedule extends StatelessWidget {
                       child: ListView.builder(
                           itemCount: snapshotJadwal.data?.length,
                           itemBuilder: (context, index) {
-                            var harga = int.parse(snapshotJadwal.data![index].harga);
+                            var harga =
+                                int.parse(snapshotJadwal.data![index].harga);
                             assert(harga is int);
                             return SingleChildScrollView(
                               child: CardListSchedule(
@@ -233,8 +235,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                                       "${snapshotJadwal.data![index].hari.name}",
                                   jenjang:
                                       "${snapshotJadwal.data![index].jenjang.name}",
-                                  harga:
-                                      "${moneyFormat.format(harga)} / Jam"),
+                                  harga: "${moneyFormat.format(harga)} / Jam"),
                             );
                           }),
                     );
