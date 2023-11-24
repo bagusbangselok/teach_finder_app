@@ -23,8 +23,8 @@ class TeacherModel {
   final String userId;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final int? avgPrice;
-  final int? ratingAverage;
+  final dynamic avgPrice;
+  final dynamic ratingAverage;
   final List<Testimonial> testimonials;
   final List<Jadwal> jadwal;
   final Lokasi lokasi;

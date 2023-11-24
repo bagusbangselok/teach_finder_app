@@ -45,85 +45,99 @@ class CardListBooking extends StatelessWidget {
                 child: Image.asset(urlImage),
               ),
               SizedBox(width: 0.04 * screenWidth),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                  SizedBox(height: 4),
-                  // Row(
-                  //   children: [
-                  //     Icon(
-                  //       Icons.star,
-                  //       color: Color(0xFFFFCB17),
-                  //     ),
-                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-                  //   ],
-                  // ),
-                  SizedBox(height: 4),
-                  Text(location,
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                  SizedBox(height: 4),
-                  Text(subject,
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                  SizedBox(height: 4),
-                  Text("Rp $salary/jam",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                ],
+              Flexible(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                        style:
+                            TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                    SizedBox(height: 4),
+                    // Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.star,
+                    //       color: Color(0xFFFFCB17),
+                    //     ),
+                    //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                    //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                    //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                    //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                    //   ],
+                    // ),
+                    SizedBox(height: 4),
+                    Text(location,
+                        style:
+                            TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                    SizedBox(height: 4),
+                    Text(subject,
+                        style:
+                            TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                    SizedBox(height: 4),
+                    Text("Rp $salary/jam",
+                        style:
+                            TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  ],
+                ),
               ),
               SizedBox(width: 0.04 * screenWidth),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  InkWell(
-                    child: Row(
-                      children: [
-                        Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: status == '0' ? silver : successColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: status == '0'
-                                ? Flexible(
-                                    child: Text(
-                                      "Menunggu\n persetujuan",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: blackColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  )
-                                : Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check,
-                                        color: whiteColor,
-                                        size: 10,
-                                      ),
-                                      SizedBox(width: 4),
-                                      Text(
-                                        "Disetujui",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                      ],
+              Flexible(
+                child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: status == '0' ? silver : status == '1' ? successColor : dangerColor,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  )
-                ],
+                    child: status == '0'
+                        ? Flexible(
+                            child: Text(
+                              "Menunggu persetujuan",
+                              style: TextStyle(
+                                fontSize: 8,
+                                color: blackColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : status == '1' ? Row(
+                            children: [
+                              Icon(
+                                Icons.check,
+                                color: whiteColor,
+                                size: 10,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                "Disetujui",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                      children: [
+                        Icon(
+                          Icons.cancel_outlined,
+                          color: whiteColor,
+                          size: 10,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          "Ditolak",
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )
+                ),
               )
             ],
           ),
@@ -133,12 +147,12 @@ class CardListBooking extends StatelessWidget {
             height: 1,
           ),
           SizedBox(height: 10),
-          status == '0'
-              ? Center()
-              : Text(
+          status == '1'
+              ? Text(
                   "Silahkan hubungi guru anda : +${phone}",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
+                )
+              :Center()
         ],
       ),
     );

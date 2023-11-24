@@ -126,6 +126,7 @@ class LoginProvider {
       }
       // print('id guru: ${response.data['User']['guru']['id']}');
       print('id guru shared_preference: ${prefs.getInt('idGuru')}');
+      print('id murid shared_preference: ${prefs.getInt('idMurid')}');
       print(response.data);
       print(response.statusCode);
       var roleIdVar = response.data['User']['role_id'];
