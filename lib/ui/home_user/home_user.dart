@@ -141,30 +141,6 @@ class _HomeUser extends State<HomeUser> {
                               ),
                               Image.asset("assets/illustration/user.png",
                                   height: 100),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailHome()),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: secondaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 10),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                child: Text(
-                                  "Detail",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ],

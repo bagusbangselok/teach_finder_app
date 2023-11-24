@@ -61,33 +61,33 @@ class _HistoryState extends State<History> {
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : snapshotPesananTerima.data!.isEmpty ?
-                                Center(
-                                  child: HistoryNotFound(),
-                                )
-                              :ListView.builder(
-                                itemCount:
-                                    snapshotPesananTerima.data?.length,
-                                itemBuilder: (context, index) {
-                                  print(
-                                      "ada data ? : ${snapshotPesananTerima.hasData}");
-                                  return CardHistoryUser(
-                                      urlImage:
-                                          "assets/icon/user_icon1.png",
-                                      name: snapshotPesananTerima
-                                          .data![index].murid.name,
-                                      level: snapshotPesananTerima
-                                          .data![index].murid.jenjang.name,
-                                      time:
-                                          "${snapshotPesananTerima.data![index].jadwal.hari.name}, ${snapshotPesananTerima.data![index].jadwal.waktuMulai} - ${snapshotPesananTerima.data![index].jadwal.waktuAkhir} WIB",
-                                      subject: snapshotPesananTerima
-                                          .data![index]
-                                          .guru
-                                          .mataPelajaran
-                                          .name,
-                                      status: snapshotPesananTerima
-                                          .data![index].status);
-                                });
+                            : snapshotPesananTerima.data!.isEmpty
+                                ? Center(
+                                    child: HistoryNotFound(),
+                                  )
+                                : ListView.builder(
+                                    itemCount:
+                                        snapshotPesananTerima.data?.length,
+                                    itemBuilder: (context, index) {
+                                      print(
+                                          "ada data ? : ${snapshotPesananTerima.hasData}");
+                                      return CardHistoryUser(
+                                          urlImage:
+                                              "assets/icon/user_icon1.png",
+                                          name: snapshotPesananTerima
+                                              .data![index].murid.name,
+                                          level: snapshotPesananTerima
+                                              .data![index].murid.jenjang.name,
+                                          time:
+                                              "${snapshotPesananTerima.data![index].jadwal.hari.name}, ${snapshotPesananTerima.data![index].jadwal.waktuMulai} - ${snapshotPesananTerima.data![index].jadwal.waktuAkhir} WIB",
+                                          subject: snapshotPesananTerima
+                                              .data![index]
+                                              .guru
+                                              .mataPelajaran
+                                              .name,
+                                          status: snapshotPesananTerima
+                                              .data![index].status);
+                                    });
                       }),
 
                   // Tolak
@@ -104,35 +104,32 @@ class _HistoryState extends State<History> {
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : snapshotTolakPesanan.data!.isEmpty ?
-                            Center(
-                              child: HistoryNotFound(),
-                            )
-                            :ListView.builder(
-                                itemCount:
-                                    snapshotTolakPesanan.data?.length,
-                                itemBuilder: (context, index) {
-                                  return CardHistoryUser(
-                                    urlImage:
-                                        "assets/icon/user_icon1.png",
-                                    name: snapshotTolakPesanan
-                                        .data![index].murid.name,
-                                    level: snapshotTolakPesanan
-                                        .data![index]
-                                        .murid
-                                        .jenjang
-                                        .name,
-                                    time: "${snapshotTolakPesanan.data![index].jadwal.hari.name}," +
-                                        "${snapshotTolakPesanan.data![index].jadwal.waktuMulai}" +
-                                        "- ${snapshotTolakPesanan.data![index].jadwal.waktuAkhir} WIB",
-                                    subject: snapshotTolakPesanan
-                                        .data![index]
-                                        .guru
-                                        .mataPelajaran
-                                        .name,
-                                    status: snapshotTolakPesanan
-                                        .data![index].status);
-                                });
+                            : snapshotTolakPesanan.data!.isEmpty
+                                ? Center(
+                                    child: HistoryNotFound(),
+                                  )
+                                : ListView.builder(
+                                    itemCount:
+                                        snapshotTolakPesanan.data?.length,
+                                    itemBuilder: (context, index) {
+                                      return CardHistoryUser(
+                                          urlImage:
+                                              "assets/icon/user_icon1.png",
+                                          name: snapshotTolakPesanan
+                                              .data![index].murid.name,
+                                          level: snapshotTolakPesanan
+                                              .data![index].murid.jenjang.name,
+                                          time: "${snapshotTolakPesanan.data![index].jadwal.hari.name}," +
+                                              "${snapshotTolakPesanan.data![index].jadwal.waktuMulai}" +
+                                              "- ${snapshotTolakPesanan.data![index].jadwal.waktuAkhir} WIB",
+                                          subject: snapshotTolakPesanan
+                                              .data![index]
+                                              .guru
+                                              .mataPelajaran
+                                              .name,
+                                          status: snapshotTolakPesanan
+                                              .data![index].status);
+                                    });
                       }),
                 ],
               ),
