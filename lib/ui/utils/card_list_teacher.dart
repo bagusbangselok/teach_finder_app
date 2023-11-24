@@ -38,7 +38,7 @@ class CardListTeacher extends StatelessWidget {
             height: 80,
             child: Image.asset(urlImage),
           ),
-          SizedBox(width: 0.06 * screenWidth),
+          SizedBox(width: 0.04 * screenWidth),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
