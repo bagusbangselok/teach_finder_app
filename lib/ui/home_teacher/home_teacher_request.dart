@@ -11,8 +11,10 @@ import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
 import 'package:teach_finder_app/ui/utils/card_list_user.dart';
 
 class HomeTeacherRequest extends StatefulWidget {
+  const HomeTeacherRequest({super.key});
+
   @override
-  _HomeTeacherRequestState createState() => _HomeTeacherRequestState();
+  State<HomeTeacherRequest> createState() => _HomeTeacherRequestState();
 }
 
 class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
@@ -91,11 +93,11 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                         ElevatedButton(
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeTeacherSchedule()),
-                                    (route) => false
-                            );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomeTeacherSchedule()),
+                                (route) => false);
                           },
                           style: ElevatedButton.styleFrom(
                             primary: whiteColor,
@@ -195,48 +197,50 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : snapshotPesanan.data!.isEmpty ?
-          Container(
-            padding: EdgeInsets.only(top: 0.2 * Responsive().screenHeight(context)),
-            child: Center(
-              child: RequestNotFound(),
-            ),
-          )
-              : Expanded(
-                  child: ListView.builder(
-                      itemCount: snapshotPesanan.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailHomeRequest(
-                                          pesanan:
-                                              snapshotPesanan.data![index])),
-                                );
-                              },
-                              child: CardListUser(
-                                urlImage: "assets/icon/user_icon1.png",
-                                name:
-                                    "${snapshotPesanan.data![index].murid.name}",
-                                level:
-                                    "${snapshotPesanan.data![index].murid.jenjang.name}",
-                                subject:
-                                    "${snapshotPesanan.data![index].guru.mataPelajaran.name}",
-                                time:
-                                    "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
-                                    "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
-                                status: snapshotPesanan.data![index].status,
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                          ],
-                        );
-                      }),
-                );
+              : snapshotPesanan.data!.isEmpty
+                  ? Container(
+                      padding: EdgeInsets.only(
+                          top: 0.2 * Responsive().screenHeight(context)),
+                      child: Center(
+                        child: RequestNotFound(),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshotPesanan.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailHomeRequest(
+                                                  pesanan: snapshotPesanan
+                                                      .data![index])),
+                                    );
+                                  },
+                                  child: CardListUser(
+                                    urlImage: "assets/icon/user_icon1.png",
+                                    name:
+                                        "${snapshotPesanan.data![index].murid.name}",
+                                    level:
+                                        "${snapshotPesanan.data![index].murid.jenjang.name}",
+                                    subject:
+                                        "${snapshotPesanan.data![index].guru.mataPelajaran.name}",
+                                    time:
+                                        "${snapshotPesanan.data![index].jadwal.hari.name}: ${snapshotPesanan.data![index].jadwal.waktuMulai} - "
+                                        "${snapshotPesanan.data![index].jadwal.waktuAkhir}",
+                                    status: snapshotPesanan.data![index].status,
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                              ],
+                            );
+                          }),
+                    );
         });
   }
 }

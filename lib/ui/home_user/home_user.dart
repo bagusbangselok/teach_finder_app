@@ -9,10 +9,29 @@ import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.dart';
+import 'package:teach_finder_app/ui/home_user/detail_home.dart';
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
 import 'package:teach_finder_app/ui/utils/card_jadwal.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
+int selectedIndex = -1;
+List<Map<String, dynamic>> listJadwal = [
+  {
+    'isChecked': true,
+    'hari': 'Senin',
+    'time': '08.00 - 11.00',
+  },
+  {
+    'isChecked': false,
+    'hari': 'Selasa',
+    'time': '10.00 - 11.00',
+  },
+  {
+    'isChecked': false,
+    'hari': 'Rabu',
+    'time': '10.00 - 11.00',
+  },
+];
 HomeUserController _homeUserController = HomeUserController();
 Future<List<LokasiModel>> lokasi = _homeUserController.getListLokasi();
 Future<List<MataPelajaranModel>> mapel = _homeUserController.getListMapel();
@@ -34,24 +53,13 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUser extends State<HomeUser> {
-  int selectedIndex = -1;
-  List<Map<String, dynamic>> listJadwal = [
-    {
-      'isChecked': true,
-      'hari': 'Senin',
-      'time': '08.00 - 11.00',
-    },
-    {
-      'isChecked': false,
-      'hari': 'Selasa',
-      'time': '10.00 - 11.00',
-    },
-    {
-      'isChecked': false,
-      'hari': 'Rabu',
-      'time': '10.00 - 11.00',
-    },
-  ];
+  int? selectedIndex;
+
+  void handleSelection(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
@@ -132,7 +140,31 @@ class _HomeUser extends State<HomeUser> {
                                 ),
                               ),
                               Image.asset("assets/illustration/user.png",
-                                  height: 100)
+                                  height: 100),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailHome()),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: secondaryColor,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Detail",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -389,8 +421,11 @@ class _HomeUser extends State<HomeUser> {
                       children: [
                         InkWell(
                           onTap: () {
-                            _displayBottomSheet(
-                                context, idMurid, snapshot.data![index]);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailHome()),
+                            );
                           },
                           child: CardListTeacher(
                             urlImage: "assets/icon/user_icon1.png",

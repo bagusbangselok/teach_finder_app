@@ -4,104 +4,188 @@ import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/utils/card_jadwal.dart';
 
-class DetailHome extends StatelessWidget {
-  TeacherModel teacher;
-  int? idMurid;
+int selectedIndex = -1;
+List<Map<String, dynamic>> listJadwal = [
+  {
+    'isChecked': true,
+    'hari': 'Senin',
+    'time': '08.00 - 11.00',
+  },
+  {
+    'isChecked': false,
+    'hari': 'Selasa',
+    'time': '10.00 - 11.00',
+  },
+  {
+    'isChecked': false,
+    'hari': 'Rabu',
+    'time': '10.00 - 11.00',
+  },
+];
 
-  DetailHome({Key? key, required this.teacher, required this.idMurid})
-      : super(key: key);
+class DetailHome extends StatefulWidget {
+  const DetailHome({super.key});
+
+  @override
+  State<DetailHome> createState() => _DetailHome();
+}
+
+class _DetailHome extends State<DetailHome> {
+  // TeacherModel? Steacher;
+  // int? idMurid;
+  //
+  // DetailHome({Key? key, /*required this.teacher, required this.idMurid*/ W})
+  //     : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 40),
+              padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
               decoration: BoxDecoration(
                 color: primaryColor,
                 borderRadius:
-                    BorderRadius.vertical(bottom: Radius.circular(20)),
+                    BorderRadius.vertical(bottom: Radius.circular(28)),
               ),
-              child: Center(
-                  child: Text("Detail Guru Private",
-                      style: TextStyle(
-                          fontSize: 20,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: whiteColor,
+                        size: 28,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Text("Detail Guru Private",
+                        style: TextStyle(
+                          fontSize: 24,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white))),
+                          color: whiteColor,
+                        ))
+                  ])
+                ],
+              ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 12),
             Center(
-                child: Column(
-              children: [
-                Image.asset("assets/icon/user_icon1.png"),
-                SizedBox(height: 12),
-                Text(
-                  "${teacher.name}",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 12),
-                // Icon(Icons.star)
-              ],
-            )),
-            Text(
-              "${teacher.jadwal[0].name}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/icon/guru_male.png",
+                    height: 150,
+                    width: 150,
+                  ),
+                  Text(
+                    "Steven Lee",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Color(0xFFFFCB17),
+                      ),
+                      Icon(Icons.star, color: Color(0xFFFFCB17)),
+                      Icon(Icons.star, color: Color(0xFFFFCB17)),
+                      Icon(Icons.star, color: Color(0xFFFFCB17)),
+                      Icon(Icons.star, color: Color(0xFFFFCB17)),
+                    ],
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 24),
-            Text(
-              "Lokasi Guru",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 14),
-            Text(
-              "${teacher.lokasi.name}",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Jadwal",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            Text(
-              "${teacher.jadwal[0].waktuMulai} - ${teacher.jadwal[0].waktuAkhir}",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              height: 70,
-            ),
-            SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Deskripsi :",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                      "Pernah Mengajar Di Sekolah MI Miftachul Ulum Sebagai Guru Bahasa Inggris",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                  SizedBox(height: 24),
+                  Text("Pilih Mata Pelajaran : ",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: ListView.builder(
+                      itemCount: listJadwal.length,
+                      itemBuilder: (context, index) {
+                        final jadwal = listJadwal[index];
+                        return CardJadwal(
+                          isChecked: jadwal['isChecked'] ?? false,
+                          hari: jadwal['hari'] ?? '',
+                          time: jadwal['time'] ?? '',
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                              for (int i = 0; i < listJadwal.length; i++) {
+                                listJadwal[i]['isChecked'] = (i == index);
+                              }
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return Acception(context);
-                          });
-                    },
-                    style: ElevatedButton.styleFrom(
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 20),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                        )),
-                    child: Text(
-                      "Pengajuan",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                    ))),
+                        ),
+                      ),
+                      child: Text(
+                        "Pengajuan",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -157,8 +241,8 @@ class DetailHome extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)))),
                     onPressed: () {
                       Navigator.of(context).pop();
-                      RequestTeacher(
-                          idMurid, teacher.id, teacher.jadwal[0].id, context);
+                      // RequestTeacher(
+                      //     idMurid, teacher.id, teacher.jadwal[0].id, context);
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {

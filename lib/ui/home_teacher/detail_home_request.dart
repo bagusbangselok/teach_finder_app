@@ -30,7 +30,7 @@ class DetailHomeRequest extends StatelessWidget {
           children: <Widget>[
             TextFormField(
               validator: (value) {
-                if(value == null || value.isEmpty){
+                if (value == null || value.isEmpty) {
                   return "Silahkan tinggalkan catatan kepada murid";
                 }
               },
@@ -60,17 +60,16 @@ class DetailHomeRequest extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              if(_commentController.text.isNotEmpty){
-                _profileTeacherController.ignoreRequest(idPesanan, _commentController.text, context);
+              if (_commentController.text.isNotEmpty) {
+                _profileTeacherController.ignoreRequest(
+                    idPesanan, _commentController.text, context);
                 Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => History()),
-                    (route) => false
-                );
+                    context,
+                    MaterialPageRoute(builder: (context) => History()),
+                    (route) => false);
               } else {
                 null;
-            }
-
+              }
             }
           },
           child: Text("Simpan"),
@@ -178,75 +177,76 @@ class DetailHomeRequest extends StatelessWidget {
                                 ]))),
                     SizedBox(height: 40),
                     pesanan.status == '1'
-                    ? Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text("Anda telah menerima permintaan pengguna tersebut",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: successColor
-                        )),
-                    )
-                    : Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 12),
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              AcceptRequest(pesanan.id, context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                              padding: EdgeInsets.all(18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              primary: primaryColor,
-                            ),
+                        ? Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              "Terima",
-                              style: TextStyle(
-                                color: whiteColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                            margin: EdgeInsets.symmetric(horizontal: 12),
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return CommentDialog(context, pesanan.id);
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: whiteColor,
-                                side: BorderSide(color: primaryColor, width: 1),
-                                padding: EdgeInsets.all(18),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "Tolak",
+                                "Anda telah menerima permintaan pengguna tersebut",
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: primaryColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: successColor)),
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 12),
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    AcceptRequest(pesanan.id, context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 5,
+                                    padding: EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    primary: primaryColor,
+                                  ),
+                                  child: Text(
+                                    "Terima",
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ))
-                      ],
-                    ),
-
+                              SizedBox(height: 20),
+                              Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 12),
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return CommentDialog(
+                                              context, pesanan.id);
+                                        },
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: whiteColor,
+                                      side: BorderSide(
+                                          color: primaryColor, width: 1),
+                                      padding: EdgeInsets.all(18),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Tolak",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                        color: primaryColor,
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          ),
                   ]))
                 ])));
   }

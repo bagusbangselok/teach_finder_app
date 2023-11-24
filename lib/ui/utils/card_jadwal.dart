@@ -19,10 +19,10 @@ class CardJadwal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap, // Menggunakan onTap sebagai aksi ketika dipilih
       child: Container(
-        padding: EdgeInsets.all(14.0),
-        margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
         decoration: BoxDecoration(
           color: isChecked ? Colors.blue.withOpacity(0.2) : Colors.white,
           borderRadius: BorderRadius.circular(10.0),
@@ -31,17 +31,31 @@ class CardJadwal extends StatelessWidget {
             width: isChecked ? 2.0 : 1.0,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              hari,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              right: 5,
+              child: Icon(
+                isChecked ? Icons.check_circle : null,
+                color: isChecked ? Colors.green : whiteColor,
+              ),
             ),
-            SizedBox(height: 8),
-            Text(
-              time,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  hari,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  time,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
           ],
         ),
