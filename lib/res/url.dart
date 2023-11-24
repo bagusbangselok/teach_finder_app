@@ -11,4 +11,6 @@ class Url {
   static const JENJANG_URL = '$BASE_URL/jenjang';
   static const LOKASI_URL = '$BASE_URL/lokasi';
   static const MAPEL_URL = '$BASE_URL/mata-pelajaran';
+  static const HARI_URL = '$BASE_URL/hari';
+  static const TAMBAH_JADWAL_URL = '$BASE_URL/jadwal/store';
 }

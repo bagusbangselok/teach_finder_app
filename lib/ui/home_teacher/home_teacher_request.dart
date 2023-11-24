@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/res/responsive.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_teacher/detail_home_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/drawer_teacher.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
+import 'package:teach_finder_app/ui/page_not_found/request_not_found.dart';
 import 'package:teach_finder_app/ui/utils/card_list_user.dart';
 
 class HomeTeacherRequest extends StatefulWidget {
@@ -88,10 +90,11 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomeTeacherSchedule()),
+                                    (route) => false
                             );
                           },
                           style: ElevatedButton.styleFrom(
@@ -113,13 +116,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                         ),
                         SizedBox(width: 12),
                         ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeTeacherRequest()),
-                              );
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               primary: secondaryColor,
                               padding: const EdgeInsets.symmetric(
@@ -134,7 +131,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                                 color: whiteColor,
                               ),
                               SizedBox(width: 4),
-                              Text("User Request",
+                              Text("Permintaan",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
@@ -188,16 +185,23 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
 
   Widget listRequest(BuildContext context) {
     return FutureBuilder<List<PesananModel>>(
-        future: _profileTeacherController.getListPesananGuru(),
+        future: _profileTeacherController.getListPesananMenungguGuru(),
         builder: (BuildContext context,
             AsyncSnapshot<List<PesananModel>> snapshotPesanan) {
-          print('dataaa : ${snapshotPesanan.data}');
+          print('dataaa : ${snapshotPesanan.data?.isEmpty}');
           return !snapshotPesanan.hasData
               ? Expanded(
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 )
+              : snapshotPesanan.data!.isEmpty ?
+          Container(
+            padding: EdgeInsets.only(top: 0.2 * Responsive().screenHeight(context)),
+            child: Center(
+              child: RequestNotFound(),
+            ),
+          )
               : Expanded(
                   child: ListView.builder(
                       itemCount: snapshotPesanan.data!.length,

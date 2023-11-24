@@ -41,34 +41,35 @@ class CardHistoryUser extends StatelessWidget {
               child: Image.asset(urlImage),
             ),
             SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name,
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Text(level,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                Text(subject,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                Text(time,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              ],
+            Flexible(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  SizedBox(height: 8),
+                  Text(level,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  SizedBox(height: 5),
+                  Text(subject,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  SizedBox(height: 5),
+                  Text(time,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                ],
+              ),
             ),
             SizedBox(width: 0.01 * screenWidth),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                status == '0'
-                    ? Text('Ditolak',
-                        style: TextStyle(color: dangerColor, fontSize: 12))
-                    : Text('Disetujui',
-                        style: TextStyle(color: successColor, fontSize: 12)),
-              ],
-            )
+            status == '2'
+                ? Text('Ditolak',
+                    style: TextStyle(color: dangerColor, fontSize: 12))
+                : Text('Disetujui',
+                    style: TextStyle(color: successColor, fontSize: 12))
           ],
         ));
   }

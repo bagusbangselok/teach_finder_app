@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 
 class CardListSchedule extends StatelessWidget {
+  final String name;
   final String MataPelajaran;
   final String hari;
   final String jenjang;
@@ -9,6 +10,7 @@ class CardListSchedule extends StatelessWidget {
 
   const CardListSchedule({
     Key? key,
+    required this.name,
     required this.MataPelajaran,
     required this.hari,
     required this.jenjang,
@@ -27,9 +29,16 @@ class CardListSchedule extends StatelessWidget {
                 border: Border.all(color: primaryColor)),
             margin: EdgeInsets.symmetric(horizontal: 8),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(MataPelajaran,
+              Text(name,
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: primaryColor,
+                  )),
+              SizedBox(height: 4),
+              Text(MataPelajaran,
+                  style: TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: primaryColor,
                   )),

@@ -68,6 +68,7 @@ class Guru {
   final String? phone;
   final dynamic description;
   final String? isActive;
+  final String? mataPelajaranId;
   final String? lokasiId;
   final String? isVerified;
   final String? sklIjazah;
@@ -80,6 +81,7 @@ class Guru {
     required this.phone,
     required this.description,
     required this.isActive,
+    required this.mataPelajaranId,
     required this.lokasiId,
     required this.isVerified,
     required this.sklIjazah,
@@ -93,6 +95,7 @@ class Guru {
     phone: json["phone"],
     description: json["description"],
     isActive: json["is_active"],
+    mataPelajaranId: json["mata_pelajaran_id"],
     lokasiId: json["lokasi_id"],
     isVerified: json["is_verified"],
     sklIjazah: json["skl_ijazah"],
@@ -106,6 +109,7 @@ class Guru {
     "phone": phone,
     "description": description,
     "is_active": isActive,
+    "mata_pelajaran_id": mataPelajaranId,
     "lokasi_id": lokasiId,
     "is_verified": isVerified,
     "skl_ijazah": sklIjazah,

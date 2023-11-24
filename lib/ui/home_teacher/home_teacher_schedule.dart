@@ -107,11 +107,11 @@ class HomeTeacherSchedule extends StatelessWidget {
                         SizedBox(width: 12),
                         ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeTeacherRequest(),
-                                ),
+                                  builder: (context) => HomeTeacherRequest()),
+                                      (route) => false
                               );
                             },
                             style: ElevatedButton.styleFrom(
@@ -128,7 +128,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                                 color: secondaryColor,
                               ),
                               SizedBox(width: 4),
-                              Text("User Request",
+                              Text("Permintaan",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
@@ -172,7 +172,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => AddSchedule()),
+                                          builder: (context) => AddSchedule(userModel: snapshot.data!)),
                                     );
                                   },
                                   child: Icon(
@@ -217,7 +217,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : snapshotJadwal.data?.length == 0
+              : snapshotJadwal.data!.isEmpty
                   ? isEmptyData()
                   : Expanded(
                       child: ListView.builder(
@@ -227,6 +227,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                             assert(harga is int);
                             return SingleChildScrollView(
                               child: CardListSchedule(
+                                  name: "${snapshotJadwal.data![index].name}",
                                   MataPelajaran:
                                       "${snapshotJadwal.data![index].guru.mataPelajaran.name}",
                                   hari:
@@ -250,7 +251,7 @@ class HomeTeacherSchedule extends StatelessWidget {
           Text("Belum ada jadwal",
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16))
         ],
-      ),
+      )
     );
   }
 }
