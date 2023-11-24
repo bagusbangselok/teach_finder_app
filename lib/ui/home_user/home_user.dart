@@ -35,8 +35,26 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUser extends State<HomeUser> {
-  // To track choice select index
-  int selectedIndex = -1;
+  int? selectedIndex;
+
+  // Static data in a map array
+  final List<Map<String, dynamic>> staticData = [
+    {
+      "isChecked": false,
+      "hari": "Senin",
+      "time": "08.00 - 11.00",
+    },
+    {
+      "isChecked": true,
+      "hari": "Selasa",
+      "time": "09.00 - 12.00",
+    },
+    {
+      "isChecked": false,
+      "hari": "Rabu",
+      "time": "10.00 - 13.00",
+    },
+  ];
 
   void handleSelection(int index) {
     setState(() {
@@ -52,7 +70,6 @@ class _HomeUser extends State<HomeUser> {
   late List<LokasiModel> lokasiList = [];
 
   int? idMurid;
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -492,7 +509,6 @@ class _HomeUser extends State<HomeUser> {
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
-
                     SizedBox(height: 20),
                     Text(
                       "Pilih Jadwal : ",
@@ -500,26 +516,25 @@ class _HomeUser extends State<HomeUser> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8),
-                    CardJadwal(
-                        IsChecked: false, hari: "Senin", time: "08.00 - 11.00"),
-                    CardJadwal(
-                        IsChecked: true, hari: "Selasa", time: "10.00 - 11.00"),
-
                     // ListView.builder(
-                    //   itemCount: 2,
-                    //   itemBuilder: (context, index){
-                    //     // Data Statis
-                    //     List<Map<String, String>> DataJadwal = [
-                    //       {"hari": "Senin", "time": "09.00 - 11.00"},
-                    //       {"hari": "Selasa", "time": "10.00 - 13.00"},
-                    //     ];
+                    //   itemCount: staticData.length,
+                    //   itemBuilder: (context, index) {
+                    //     final item = staticData[index];
                     //     return CardJadwal(
-                    //         IsChecked: ,
-                    //         hari: hari,
-                    //         time: time,
-                    //         onTap: onTap)
+                    //       isChecked: selectedIndex == index,
+                    //       hari: item['hari'],
+                    //       time: item['time'],
+                    //       onChanged: (bool newValue) {
+                    //         handleSelection(index);
+                    //       },
+                    //     );
                     //   },
-                    // )
+                    // ),
+
+                    CardJadwal(
+                        isChecked: true, hari: "Senin", time: "08.00 - 11.00"),
+                    // CardJadwal(
+                    //     IsChecked: true, hari: "Selasa", time: "10.00 - 11.00"),
                   ],
                 ),
                 SizedBox(
