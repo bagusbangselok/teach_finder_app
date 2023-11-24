@@ -51,6 +51,7 @@ class LoginController {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('authToken');
     await prefs.remove('idMurid');
+    await prefs.remove('idGuru');
     await prefs.remove('username');
     await prefs.remove('profileId');
   }

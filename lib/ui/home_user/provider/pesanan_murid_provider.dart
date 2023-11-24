@@ -10,7 +10,7 @@ class PesananMuridProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var muridId = await prefs.getInt('idMurid');
 
-    final response = await _dio.get('${Url.PESANAN_BY_MURID}/${muridId}');
+    final response = await _dio.get('${Url.PESANAN_BY_MURID}?id=${muridId}');
     print("id murid: ${muridId}");
     print('${Url.PESANAN_BY_MURID}/${muridId}');
     print('dataPesanan: ${response.data["data"]}');
