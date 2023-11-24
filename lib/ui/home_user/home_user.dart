@@ -10,6 +10,7 @@ import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_cont
 import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.dart';
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
+import 'package:teach_finder_app/ui/utils/card_jadwal.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
 HomeUserController _homeUserController = HomeUserController();
@@ -34,6 +35,33 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUser extends State<HomeUser> {
+  int? selectedIndex;
+
+  // Static data in a map array
+  final List<Map<String, dynamic>> staticData = [
+    {
+      "isChecked": false,
+      "hari": "Senin",
+      "time": "08.00 - 11.00",
+    },
+    {
+      "isChecked": true,
+      "hari": "Selasa",
+      "time": "09.00 - 12.00",
+    },
+    {
+      "isChecked": false,
+      "hari": "Rabu",
+      "time": "10.00 - 13.00",
+    },
+  ];
+
+  void handleSelection(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
@@ -42,7 +70,6 @@ class _HomeUser extends State<HomeUser> {
   late List<LokasiModel> lokasiList = [];
 
   int? idMurid;
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -145,7 +172,7 @@ class _HomeUser extends State<HomeUser> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 0.3 * screenWidth,
+                                    // width: 0.9 * screenWidth,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: blackColor),
@@ -270,7 +297,7 @@ class _HomeUser extends State<HomeUser> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 5),
                                     height: 35,
-                                    width: 0.3 * screenWidth,
+                                    // width: 0.3 * screenWidth,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: blackColor),
@@ -332,7 +359,7 @@ class _HomeUser extends State<HomeUser> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 10),
                             Expanded(
                               child: ListGuru(
                                 idMurid: snapshot.data?.murid?.id,
@@ -393,10 +420,12 @@ class _HomeUser extends State<HomeUser> {
         });
   }
 
+  // Detail Session ShowModalBottomSheet
   Future<void> _displayBottomSheet(
       BuildContext context, int? idMurid, TeacherModel teacher) async {
-    await showModalBottomSheet(
+    await showModalBottomSheet<dynamic>(
       context: context,
+      isScrollControlled: true,
       barrierColor: blackColor.withOpacity(0.5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -407,34 +436,60 @@ class _HomeUser extends State<HomeUser> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             padding: EdgeInsets.all(10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                    width: 150,
+                    child: Center(
+                      child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(20),
+                          )),
+                    )),
+                SizedBox(height: 16),
                 Center(
                   child: Text(
                     "Detail Guru Private",
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       color: blackColor,
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 16),
                 Center(
                   child: Column(
                     children: [
                       Container(
-                        width: 70,
-                        height: 70,
-                        child: Image.asset("assets/icon/user_icon1.png"),
+                        width: 100,
+                        height: 100,
+                        child: Image.asset("assets/icon/guru_male.png"),
                       ),
                       SizedBox(height: 12),
                       Text(
                         "${teacher.name}",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Color(0xFFFFCB17),
+                          ),
+                          Icon(Icons.star, color: Color(0xFFFFCB17)),
+                          Icon(Icons.star, color: Color(0xFFFFCB17)),
+                          Icon(Icons.star, color: Color(0xFFFFCB17)),
+                          Icon(Icons.star, color: Color(0xFFFFCB17)),
+                        ],
                       ),
                     ],
                   ),
@@ -452,29 +507,34 @@ class _HomeUser extends State<HomeUser> {
                     Text(
                       "${teacher.jadwal[0].name}",
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Lokasi Guru",
+                      "Pilih Jadwal : ",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8),
-                    Text(
-                      "${teacher.lokasi.name}",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Jadwal : ",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                        "${teacher.jadwal[0].waktuMulai} - ${teacher.jadwal[0].waktuAkhir}"),
+                    // ListView.builder(
+                    //   itemCount: staticData.length,
+                    //   itemBuilder: (context, index) {
+                    //     final item = staticData[index];
+                    //     return CardJadwal(
+                    //       isChecked: selectedIndex == index,
+                    //       hari: item['hari'],
+                    //       time: item['time'],
+                    //       onChanged: (bool newValue) {
+                    //         handleSelection(index);
+                    //       },
+                    //     );
+                    //   },
+                    // ),
+
+                    CardJadwal(
+                        isChecked: true, hari: "Senin", time: "08.00 - 11.00"),
+                    // CardJadwal(
+                    //     IsChecked: true, hari: "Selasa", time: "10.00 - 11.00"),
                   ],
                 ),
                 SizedBox(

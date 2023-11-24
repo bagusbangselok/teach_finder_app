@@ -166,7 +166,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                               fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         // Conditional
                         !snapshot.hasData
                             ? Expanded(
