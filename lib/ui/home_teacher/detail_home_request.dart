@@ -11,10 +11,11 @@ class DetailHomeRequest extends StatelessWidget {
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
   final PesananModel pesanan;
-
+  final TextEditingController _commentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   DetailHomeRequest({Key? key, required this.pesanan}) : super(key: key);
 
-  Widget CommentDialog(BuildContext context) {
+  Widget CommentDialog(BuildContext context, int idPesanan) {
     return AlertDialog(
       title: Text(
         "Catatan",
@@ -22,11 +23,20 @@ class DetailHomeRequest extends StatelessWidget {
             fontSize: 20, color: blackColor, fontWeight: FontWeight.w600),
         textAlign: TextAlign.center,
       ),
-      content: SingleChildScrollView(
+      content: Form(
+        key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            TextField(decoration: InputDecoration(hintText: "Masukkan Saran")),
+            TextFormField(
+              validator: (value) {
+                if(value == null || value.isEmpty){
+                  return "Silahkan tinggalkan catatan kepada murid";
+                }
+              },
+              controller: _commentController,
+              decoration: InputDecoration(hintText: "Masukkan Saran"),
+            ),
           ],
         ),
       ),
@@ -48,7 +58,21 @@ class DetailHomeRequest extends StatelessWidget {
               ),
             )),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              if(_commentController.text.isNotEmpty){
+                _profileTeacherController.ignoreRequest(idPesanan, _commentController.text, context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => History()),
+                    (route) => false
+                );
+              } else {
+                null;
+            }
+
+            }
+          },
           child: Text("Simpan"),
         )
       ],
@@ -199,7 +223,7 @@ class DetailHomeRequest extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return CommentDialog(context);
+                                    return CommentDialog(context, pesanan.id);
                                   },
                                 );
                               },
