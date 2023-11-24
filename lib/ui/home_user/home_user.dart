@@ -14,7 +14,6 @@ import 'package:teach_finder_app/ui/utils/card_jadwal.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
 HomeUserController _homeUserController = HomeUserController();
-
 Future<List<LokasiModel>> lokasi = _homeUserController.getListLokasi();
 Future<List<MataPelajaranModel>> mapel = _homeUserController.getListMapel();
 Future<List<JenjangModel>> jenjang = _homeUserController.getListJenjang();
@@ -35,32 +34,24 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUser extends State<HomeUser> {
-  int? selectedIndex;
-
-  // Static data in a map array
-  final List<Map<String, dynamic>> staticData = [
+  int selectedIndex = -1;
+  List<Map<String, dynamic>> listJadwal = [
     {
-      "isChecked": false,
-      "hari": "Senin",
-      "time": "08.00 - 11.00",
+      'isChecked': true,
+      'hari': 'Senin',
+      'time': '08.00 - 11.00',
     },
     {
-      "isChecked": true,
-      "hari": "Selasa",
-      "time": "09.00 - 12.00",
+      'isChecked': false,
+      'hari': 'Selasa',
+      'time': '10.00 - 11.00',
     },
     {
-      "isChecked": false,
-      "hari": "Rabu",
-      "time": "10.00 - 13.00",
+      'isChecked': false,
+      'hari': 'Rabu',
+      'time': '10.00 - 11.00',
     },
   ];
-
-  void handleSelection(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
@@ -420,7 +411,6 @@ class _HomeUser extends State<HomeUser> {
         });
   }
 
-  // Detail Session ShowModalBottomSheet
   Future<void> _displayBottomSheet(
       BuildContext context, int? idMurid, TeacherModel teacher) async {
     await showModalBottomSheet<dynamic>(
@@ -495,73 +485,60 @@ class _HomeUser extends State<HomeUser> {
                   ),
                 ),
                 SizedBox(height: 24),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Deskripsi :",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "${teacher.jadwal[0].name}",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Pilih Jadwal : ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: 8),
-                    // ListView.builder(
-                    //   itemCount: staticData.length,
-                    //   itemBuilder: (context, index) {
-                    //     final item = staticData[index];
-                    //     return CardJadwal(
-                    //       isChecked: selectedIndex == index,
-                    //       hari: item['hari'],
-                    //       time: item['time'],
-                    //       onChanged: (bool newValue) {
-                    //         handleSelection(index);
-                    //       },
-                    //     );
-                    //   },
-                    // ),
-
-                    CardJadwal(
-                        isChecked: true, hari: "Senin", time: "08.00 - 11.00"),
-                    // CardJadwal(
-                    //     IsChecked: true, hari: "Selasa", time: "10.00 - 11.00"),
-                  ],
+                Text(
+                  "Pilih Jadwal : ",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
-                SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Acception(context);
-                              });
+                SizedBox(height: 8),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: ListView.builder(
+                    itemCount: listJadwal.length,
+                    itemBuilder: (context, index) {
+                      final jadwal = listJadwal[index];
+                      return CardJadwal(
+                        isChecked: jadwal['isChecked'] ?? false,
+                        hari: jadwal['hari'] ?? '',
+                        time: jadwal['time'] ?? '',
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = index;
+                            for (int i = 0; i < listJadwal.length; i++) {
+                              listJadwal[i]['isChecked'] = (i == index);
+                            }
+                          });
                         },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                        child: Text(
-                          "Pengajuan",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
-                        ))),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Acception(context);
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "Pengajuan",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
