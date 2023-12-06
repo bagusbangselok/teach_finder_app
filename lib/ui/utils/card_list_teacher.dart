@@ -38,6 +38,7 @@ class CardListTeacher extends StatelessWidget {
             height: 80,
             child: Image.asset(urlImage),
           ),
+<<<<<<< HEAD
           SizedBox(width: 0.06 * screenWidth),
           Flexible(
             flex: 3,
@@ -70,6 +71,37 @@ class CardListTeacher extends StatelessWidget {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               ],
             ),
+=======
+          SizedBox(width: 0.04 * screenWidth),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(name,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              SizedBox(height: 4),
+              // Row(
+              //   children: [
+              //     Icon(
+              //       Icons.star,
+              //       color: Color(0xFFFFCB17),
+              //     ),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+              //   ],
+              // ),
+              SizedBox(height: 4),
+              Text(location,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+              SizedBox(height: 4),
+              Text(subject,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+              SizedBox(height: 4),
+              Text("Rp $salary/jam",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+            ],
+>>>>>>> 4b9bbe307c9d5d1ef72f8fa14c929fb45856bf49
           ),
           SizedBox(width: 0.065 * screenWidth),
           Flexible(

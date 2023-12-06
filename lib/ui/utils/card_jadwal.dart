@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 
+// sesi
 class CardJadwal extends StatelessWidget {
   final bool isChecked;
   final String hari;
