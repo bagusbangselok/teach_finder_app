@@ -436,7 +436,6 @@ class _HomeUser extends State<HomeUser> {
         });
   }
 
-<<<<<<< HEAD
   Future<void> _displayBottomSheet(
       BuildContext context, int? idMurid, TeacherModel teacher) async {
     await showModalBottomSheet<dynamic>(
@@ -690,8 +689,6 @@ class _HomeUser extends State<HomeUser> {
     );
   }
 
-=======
->>>>>>> 4b9bbe307c9d5d1ef72f8fa14c929fb45856bf49
   void RequestTeacher(int? muridId, int guruId, int jadwalId, context) async {
     Dio dio = Dio();
 
