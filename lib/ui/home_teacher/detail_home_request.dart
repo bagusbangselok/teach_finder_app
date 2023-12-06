@@ -124,7 +124,7 @@ class DetailHomeRequest extends StatelessWidget {
                   SizedBox(height: 32),
                   Center(
                       child: Column(children: [
-                    Image.asset("assets/icon/user_icon1.png", height: 120),
+                    Image.asset("assets/icon/icon_murid.png", height: 120),
                     SizedBox(height: 20),
                     Align(
                         alignment: Alignment.centerLeft,

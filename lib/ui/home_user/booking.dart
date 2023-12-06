@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/res/responsive.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.dart';
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
@@ -21,6 +22,7 @@ class _Booking extends State<Booking> {
       ProfileTeacherController();
   HomeUserController _homeUserController = HomeUserController();
   bool ShowCardListBooking = true;
+  Responsive _responsive = Responsive();
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +104,12 @@ class _Booking extends State<Booking> {
                     SizedBox(
                       width: double.infinity,
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 44),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 40, bottom: 0),
                         width: double.infinity,
-                        height: 1000,
+                        height: 0.69 * _responsive.screenHeight(context),
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: whiteColor,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(40),
                                 topRight: Radius.circular(40)),
@@ -131,11 +133,7 @@ class _Booking extends State<Booking> {
                                   ]),
                             ),
                             SizedBox(height: 20),
-                            // Conditional Function
-                            if (ShowCardListBooking)
-                              Expanded(child: ListPemesanan())
-                            else
-                              ScheduleNotFound(),
+                            ListPemesanan(),
                             SizedBox(height: 20),
                           ],
                         ),
@@ -155,30 +153,32 @@ class _Booking extends State<Booking> {
           print("psnMurd: ${snapshot}");
           return !snapshot.hasData
               ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    print("data pesanan siswa : ${snapshot.data}");
-                    return Column(
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: CardListBooking(
-                            urlImage: "assets/icon/user_icon1.png",
-                            name: "${snapshot.data![index].guru.name}",
-                            location:
-                                "${snapshot.data![index].guru.lokasi.name}",
-                            subject:
-                                "${snapshot.data![index].guru.mataPelajaran.name}",
-                            salary: "${snapshot.data![index].jadwal.harga}",
-                            status: "${snapshot.data![index].status}",
-                            phone: "${snapshot.data![index].guru.phone}",
+              : Expanded(
+                child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      print("data pesanan siswa : ${snapshot.data}");
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: CardListBooking(
+                              urlImage: "assets/icon/icon_guru.png",
+                              name: "${snapshot.data![index].guru.name}",
+                              location:
+                                  "${snapshot.data![index].guru.lokasi.name}",
+                              subject:
+                                  "${snapshot.data![index].guru.mataPelajaran.name}",
+                              salary: "${snapshot.data![index].jadwal.harga}",
+                              status: "${snapshot.data![index].status}",
+                              phone: "${snapshot.data![index].guru.phone}",
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 20),
-                      ],
-                    );
-                  });
+                          SizedBox(height: 20),
+                        ],
+                      );
+                    }),
+              );
         });
   }
 }

@@ -1,17 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:teach_finder_app/models/jadwal_model.dart';
 import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
 import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/models/pesanan_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/ui/home_user/provider/home_user_provider.dart';
+import 'package:teach_finder_app/ui/home_user/provider/jadwal_provider.dart';
 import 'package:teach_finder_app/ui/home_user/provider/pesanan_murid_provider.dart';
 
 class HomeUserController {
   HomeUserProvider _homeUserProvider = HomeUserProvider();
   PesananMuridProvider _pesananMuridProvider = PesananMuridProvider();
+  JadwalProvider _jadwalProvider = JadwalProvider();
 
   Future<List<LokasiModel>> getListLokasi() async {
     return await _homeUserProvider.getListLokasi();
@@ -51,5 +54,9 @@ class HomeUserController {
 
   Future<List<PesananModel>> getListPesananMurid() async {
     return await _pesananMuridProvider.getListPesananMurid();
+  }
+
+  Future<List<JadwalModel>> getListJadwal(int idGuru) async {
+    return await _jadwalProvider.getJadwalGuru(idGuru);
   }
 }

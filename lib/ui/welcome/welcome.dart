@@ -81,7 +81,7 @@ class Welcome extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                             child: Text(
-                              "Daftar sebagai pengguna",
+                              "Daftar sebagai murid",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,

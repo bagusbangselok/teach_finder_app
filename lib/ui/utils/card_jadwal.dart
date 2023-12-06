@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 
 class CardJadwal extends StatelessWidget {
   final bool isChecked;
   final String hari;
-  final String time;
+  final String time_start;
+  final String time_end;
   final VoidCallback onTap;
 
   const CardJadwal({
     Key? key,
     required this.isChecked,
     required this.hari,
-    required this.time,
+    required this.time_start,
+    required this.time_end,
     required this.onTap,
   }) : super(key: key);
 
@@ -52,7 +53,7 @@ class CardJadwal extends StatelessWidget {
                 ),
                 SizedBox(height: 6),
                 Text(
-                  time,
+                  "${time_start} - ${time_end}",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ],

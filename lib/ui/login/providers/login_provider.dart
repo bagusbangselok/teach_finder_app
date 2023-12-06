@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
+import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/res/url.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_request.dart';
 import 'package:teach_finder_app/ui/home_teacher/home_teacher_schedule.dart';
 import 'package:teach_finder_app/ui/home_user/home_user.dart';
+import 'package:teach_finder_app/ui/welcome/welcome.dart';
 
 class LoginProvider {
   final Dio _dio = Dio();
@@ -39,6 +41,7 @@ class LoginProvider {
       print("userr = ${getProfilUser}");
 
       if (response.statusCode == 200) {
+        print(response.data['success']);
         if (response.data['success']) {
           print('success!!');
           var role = response.data['user']['role_id'];
@@ -59,6 +62,24 @@ class LoginProvider {
           } else
             return null;
           return UserModel.fromJson(response.data);
+        } else {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.remove('authToken');
+          await prefs.remove('idMurid');
+          await prefs.remove('idGuru');
+          await prefs.remove('username');
+          await prefs.remove('profileId');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  'Sesi anda habis. Silahkan login lagi',
+                  style: TextStyle(
+                      color: dangerColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
+                ),
+              ));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => Welcome()));
         }
       }
     } on DioError catch (e) {

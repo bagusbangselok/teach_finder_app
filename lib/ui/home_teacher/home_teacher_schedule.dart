@@ -147,7 +147,7 @@ class HomeTeacherSchedule extends StatelessWidget {
                     padding: EdgeInsets.only(
                         left: 10, right: 10, top: 40, bottom: 0),
                     width: double.infinity,
-                    height: 0.67 * _responsive.screenHeight(context),
+                    height: 0.69 * _responsive.screenHeight(context),
                     decoration: BoxDecoration(
                         color: whiteColor,
                         borderRadius: BorderRadius.only(

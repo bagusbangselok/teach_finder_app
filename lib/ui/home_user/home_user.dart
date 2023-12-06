@@ -6,11 +6,13 @@ import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/models/teacher_model.dart';
 import 'package:teach_finder_app/models/user_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
+import 'package:teach_finder_app/res/responsive.dart';
 import 'package:teach_finder_app/ui/home_teacher/controller/profile_teacher_controller.dart';
 import 'package:teach_finder_app/ui/home_user/booking.dart';
 import 'package:teach_finder_app/ui/home_user/controller/home_user_controller.dart';
 import 'package:teach_finder_app/ui/home_user/detail_home.dart';
 import 'package:teach_finder_app/ui/home_user/drawer_user.dart';
+import 'package:teach_finder_app/ui/page_not_found/list_teacher_empty.dart';
 import 'package:teach_finder_app/ui/utils/card_jadwal.dart';
 import 'package:teach_finder_app/ui/utils/card_list_teacher.dart';
 
@@ -67,8 +69,9 @@ class _HomeUser extends State<HomeUser> {
 
   late TeacherModel teacher;
   late List<LokasiModel> lokasiList = [];
-
+  Responsive _responsive = Responsive();
   int? idMurid;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -150,12 +153,12 @@ class _HomeUser extends State<HomeUser> {
                     SizedBox(
                       width: double.infinity,
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 44),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 40, bottom: 0),
                         width: double.infinity,
-                        height: 640,
+                        height: 0.69 * _responsive.screenHeight(context),
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: whiteColor,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(40),
                                 topRight: Radius.circular(40)),
@@ -199,14 +202,15 @@ class _HomeUser extends State<HomeUser> {
                                               dropdownItems.insert(
                                                   0,
                                                   DropdownMenuItem<String>(
-                                                    value:
-                                                        '', // Use an empty string as the value for "All"
+                                                    value: '',
+                                                    // Use an empty string as the value for "All"
                                                     child: Text(
                                                         'All'), // Display "All" as the dropdown item
                                                   ));
 
                                               return DropdownButton<String>(
                                                 underline: Container(),
+                                                value: locationDropdownValue,
                                                 hint: Text(
                                                   "Lokasi",
                                                   style: TextStyle(
@@ -262,14 +266,15 @@ class _HomeUser extends State<HomeUser> {
                                               dropdownItems?.insert(
                                                   0,
                                                   DropdownMenuItem<String>(
-                                                    value:
-                                                        '', // Use an empty string as the value for "All"
+                                                    value: '',
+                                                    // Use an empty string as the value for "All"
                                                     child: Text(
                                                         'All'), // Display "All" as the dropdown item
                                                   ));
 
                                               return DropdownButton<String>(
                                                 underline: Container(),
+                                                value: jenjangDropdownValue,
                                                 hint: Text(
                                                   "Jenjang",
                                                   style: TextStyle(
@@ -326,14 +331,15 @@ class _HomeUser extends State<HomeUser> {
                                               dropdownItems?.insert(
                                                   0,
                                                   DropdownMenuItem<String>(
-                                                    value:
-                                                        '', // Use an empty string as the value for "All"
+                                                    value: '',
+                                                    // Use an empty string as the value for "All"
                                                     child: Text(
                                                         'All'), // Display "All" as the dropdown item
                                                   ));
 
                                               return DropdownButton<String>(
                                                 underline: Container(),
+                                                value: pelajaranDropdownValue,
                                                 hint: Text(
                                                   "Pelajaran",
                                                   style: TextStyle(
@@ -379,7 +385,6 @@ class _HomeUser extends State<HomeUser> {
 
   Widget ListGuru(
       {int? idMurid, String? location, String? pelajaran, String? jenjang}) {
-    print("halo bagong");
     return FutureBuilder<List<TeacherModel>?>(
         future: _homeUserController.getListGuru(
           location: location,
@@ -390,35 +395,43 @@ class _HomeUser extends State<HomeUser> {
             AsyncSnapshot<List<TeacherModel>?> snapshot) {
           return !snapshot.hasData
               ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailHome()),
-                            );
-                          },
-                          child: CardListTeacher(
-                            urlImage: "assets/icon/user_icon1.png",
-                            name: "${snapshot.data?[index].name}",
-                            location: "${snapshot.data?[index].lokasi.name}",
-                            subject:
-                                "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].name) : '-'}",
-                            salary:
-                                "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].harga) : '-'}",
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    );
-                  });
+              : snapshot.data!.isEmpty
+                  ? Center(
+                      child: ListTeacherEmpty(),
+                    )
+                  : ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailHome(
+                                          teacher: snapshot.data![index],
+                                          idMurid: idMurid,
+                                          idGuru: snapshot.data![index].id)),
+                                );
+                              },
+                              child: CardListTeacher(
+                                urlImage: "assets/icon/icon_guru.png",
+                                name: "${snapshot.data?[index].name}",
+                                location:
+                                    "${snapshot.data?[index].lokasi.name}",
+                                subject:
+                                    "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].name) : '-'}",
+                                salary:
+                                    "${(snapshot.data?[index].jadwal.length ?? 0) > 0 ? (snapshot.data?[index].jadwal[0].harga) : '-'}",
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        );
+                      });
         });
   }
 
@@ -509,8 +522,9 @@ class _HomeUser extends State<HomeUser> {
                       final jadwal = listJadwal[index];
                       return CardJadwal(
                         isChecked: jadwal['isChecked'] ?? false,
-                        hari: jadwal['hari'] ?? '',
-                        time: jadwal['time'] ?? '',
+                        hari: jadwal['day'] ?? '',
+                        time_start: jadwal['time_start'] ?? '',
+                        time_end: jadwal['time_end'] ?? '',
                         onTap: () {
                           setState(() {
                             selectedIndex = index;

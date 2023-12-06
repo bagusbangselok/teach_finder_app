@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:teach_finder_app/models/hari_model.dart';
 import 'package:teach_finder_app/models/jenjang_model.dart';
@@ -333,6 +332,15 @@ class _AddScheduleState extends State<AddSchedule> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return "Harap masukkan harga";
+            }
+            try {
+              int intValue = int.parse(value);
+
+              if (intValue < 10000) {
+                return 'Harga minimal harus Rp 10.000.';
+              }
+            } catch (e) {
+              return 'Masukkan inputan yang benar';
             }
           },
           inputFormatters: [],

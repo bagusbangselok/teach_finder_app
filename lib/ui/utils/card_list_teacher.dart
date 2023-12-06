@@ -22,7 +22,7 @@ class CardListTeacher extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       padding:
-          EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
+          EdgeInsets.only(left: 0.08 *screenWidth, right: 0.02 * screenWidth, top: 20, bottom: 20),
       width: double.infinity,
       decoration: BoxDecoration(
         color: whiteColor,
@@ -31,7 +31,7 @@ class CardListTeacher extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             width: 80,
@@ -39,45 +39,51 @@ class CardListTeacher extends StatelessWidget {
             child: Image.asset(urlImage),
           ),
           SizedBox(width: 0.06 * screenWidth),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              SizedBox(height: 4),
-              // Row(
-              //   children: [
-              //     Icon(
-              //       Icons.star,
-              //       color: Color(0xFFFFCB17),
-              //     ),
-              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-              //     Icon(Icons.star, color: Color(0xFFFFCB17)),
-              //   ],
-              // ),
-              SizedBox(height: 4),
-              Text(location,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              SizedBox(height: 4),
-              Text(subject,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              SizedBox(height: 4),
-              Text("Rp $salary/jam",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-            ],
+          Flexible(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                SizedBox(height: 4),
+                // Row(
+                //   children: [
+                //     Icon(
+                //       Icons.star,
+                //       color: Color(0xFFFFCB17),
+                //     ),
+                //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                //     Icon(Icons.star, color: Color(0xFFFFCB17)),
+                //   ],
+                // ),
+                SizedBox(height: 4),
+                Text(location,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                SizedBox(height: 4),
+                Text(subject,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                SizedBox(height: 4),
+                Text("Rp $salary/jam",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+              ],
+            ),
           ),
-          SizedBox(width: 0.06 * screenWidth),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(
-                Icons.chevron_right,
-                color: blackColor,
-                size: 24,
-              )
-            ],
+          SizedBox(width: 0.065 * screenWidth),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.chevron_right,
+                  color: blackColor,
+                  size: 24,
+                )
+              ],
+            ),
           )
         ],
       ),

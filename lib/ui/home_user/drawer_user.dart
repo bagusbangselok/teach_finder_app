@@ -31,8 +31,9 @@ class DrawerUser extends StatelessWidget {
                     ),
                     child: Column(children: [
                       CircleAvatar(
+                        backgroundColor: Colors.white,
                         radius: 40,
-                        backgroundImage: AssetImage('assets/icon/user_icon1.png'),
+                        backgroundImage: AssetImage('assets/icon/icon_murid.png'),
                       ),
                       SizedBox(height: 16),
                       Text(

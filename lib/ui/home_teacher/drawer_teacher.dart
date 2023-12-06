@@ -32,7 +32,7 @@ class DrawerTeacher extends StatelessWidget {
                     child: Column(children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage('assets/icon/user_icon2.png'),
+                        backgroundImage: AssetImage('assets/icon/icon_guru.png'),
                       ),
                       SizedBox(height: 16),
                       Text(

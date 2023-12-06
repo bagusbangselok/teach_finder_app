@@ -17,10 +17,13 @@ class ProfileTeacher extends StatelessWidget {
         body: FutureBuilder<UserModel?>(
             future: _profileTeacherController.getProfileByToken(),
             builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
+              print(snapshot.data?.guru?.isVerified);
             return SingleChildScrollView(
                 child: Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-      child: Column(children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Row(
               children: [
                 GestureDetector(
@@ -68,56 +71,58 @@ class ProfileTeacher extends StatelessWidget {
                   Container(
                     width: 80,
                     height: 80,
-                    child: Image.asset('assets/icon/user_icon1.png'),
+                    child: Image.asset('assets/icon/icon_guru.png'),
                   ),
                   SizedBox(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${snapshot.data?.name ?? 'memuat..'}",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: blackColor,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(height: 10),
-                      InkWell(
-                        child: Row(
-                          children: [
-                        snapshot.data?.guru?.isActive == '0' ? Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.blueGrey,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                "Not Verified",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${snapshot.data?.name ?? 'memuat..'}",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: blackColor,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(height: 10),
+                        InkWell(
+                          child: Row(
+                            children: [
+                          snapshot.data?.guru?.isVerified == '0' ? Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.blueGrey,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ),
-                              ) : Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 12),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            "Verified",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                                child: Text(
+                                  "Not Verified",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                ) : Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
+                            child: Text(
+                              "Verified",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                            ],
                           ),
                         )
-                          ],
-                        ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 ])),
             SizedBox(height: 32),
@@ -128,8 +133,10 @@ class ProfileTeacher extends StatelessWidget {
                     onPressed: () {
                       _loginController.logoutUser();
                       _loginController.saveLoginStatus(false);
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Welcome()));
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) => Welcome()),
+                        (route) => false,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 5,

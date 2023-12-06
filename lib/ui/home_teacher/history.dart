@@ -73,7 +73,7 @@ class _HistoryState extends State<History> {
                                           "ada data ? : ${snapshotPesananTerima.hasData}");
                                       return CardHistoryUser(
                                           urlImage:
-                                              "assets/icon/user_icon1.png",
+                                              "assets/icon/icon_murid.png",
                                           name: snapshotPesananTerima
                                               .data![index].murid.name,
                                           level: snapshotPesananTerima
@@ -114,7 +114,7 @@ class _HistoryState extends State<History> {
                                     itemBuilder: (context, index) {
                                       return CardHistoryUser(
                                           urlImage:
-                                              "assets/icon/user_icon1.png",
+                                              "assets/icon/icon_murid.png",
                                           name: snapshotTolakPesanan
                                               .data![index].murid.name,
                                           level: snapshotTolakPesanan

@@ -1,8 +1,8 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:teach_finder_app/models/lokasi_model.dart';
+import 'package:teach_finder_app/models/mata_pelajaran_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
 import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
@@ -24,12 +24,18 @@ class _RegisterGuruState extends State<RegisterGuru> {
   final TextEditingController alamatController = TextEditingController();
   final GlobalKey dropdownKey = GlobalKey();
   late LokasiModel _kecamatan;
+  final _formKey = GlobalKey<FormState>();
 
   Widget FormNama() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextField(
+        TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Nama tidak boleh kosong";
+            }
+          },
           controller: nameController,
           keyboardType: TextInputType.name,
           decoration: InputDecoration(
@@ -51,6 +57,11 @@ class _RegisterGuruState extends State<RegisterGuru> {
       builder: (BuildContext context,
           AsyncSnapshot<List<LokasiModel>> snapshotLokasi) {
         return DropdownButtonFormField<String>(
+          validator: (value) {
+            if (value == null) {
+              return "Silahkan pilih alamat anda";
+            }
+          },
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.location_on, color: Colors.black87)),
           isExpanded: true,
@@ -74,7 +85,12 @@ class _RegisterGuruState extends State<RegisterGuru> {
 
   // Widget Form Alamat
   Widget FormAlamat() {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || alamatController.text.isEmpty) {
+          return "Alamat tidak boleh kosong";
+        }
+      },
       controller: alamatController,
       keyboardType: TextInputType.streetAddress,
       decoration: InputDecoration(
@@ -82,6 +98,37 @@ class _RegisterGuruState extends State<RegisterGuru> {
           prefixIcon: Icon(Icons.home, color: Colors.black87),
           labelText: "Alamat Lengkap"),
     );
+  }
+
+  String dropdownMapelValue = "Pilih Mata Pelajaran";
+  Widget FormMapel() {
+    return FutureBuilder(
+        future: _controller.getListMapel(),
+        builder:
+            (context, AsyncSnapshot<List<MataPelajaranModel>> snapshotMapel) {
+          return DropdownButtonFormField<String>(
+              validator: (value) {
+                if(value == null || value.isEmpty){
+                  return "Harap pilih mata pelajaran";
+                }
+              },
+              isExpanded: true,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.book_outlined, color: Colors.black87)),
+              hint: Text("Pilih Mata Pelajaran"),
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: snapshotMapel.data?.map((mapel) {
+                return DropdownMenuItem(
+                  value: mapel.id.toString(),
+                  child: Text(mapel.name),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownMapelValue = newValue!;
+                });
+              });
+        });
   }
 
   String? filePath;
@@ -108,7 +155,18 @@ class _RegisterGuruState extends State<RegisterGuru> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 10),
-        TextField(
+        TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "Silahkkan upload skl/ijazah anda";
+            } else if (fileFormat != 'png' &&
+                fileFormat != 'jpg' &&
+                fileFormat != 'jpeg') {
+              return "Format file harus png/jpg/jpeg";
+            } else if (fileSizeInMB > 2.048) {
+              return "Ukuran file maksimal 2 MB";
+            }
+          },
           onTap: () => _openFileExplorer(),
           enableInteractiveSelection: false,
           readOnly: true,
@@ -122,14 +180,19 @@ class _RegisterGuruState extends State<RegisterGuru> {
                 color: Colors.black87),
           ),
         ),
-        if (filePath != null)
-          Text("File Terpilih : $filePath ($fileSizeInMB MB) $fileFormat"),
+        // if (filePath != null)
+        //   Text("File Terpilih : $filePath ($fileSizeInMB MB) $fileFormat"),
       ],
     );
   }
 
   Widget FormPhone() {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || phoneController.text.isEmpty) {
+          return "No. telpon tidak boleh kosong";
+        }
+      },
       controller: phoneController,
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
@@ -140,7 +203,14 @@ class _RegisterGuruState extends State<RegisterGuru> {
   }
 
   Widget FormEmail() {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || emailController.text.isEmpty) {
+          return "Email tidak boleh kosong";
+        } else if (!EmailValidator.validate(value!)) {
+          return "Email tidak valid";
+        }
+      },
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -151,7 +221,14 @@ class _RegisterGuruState extends State<RegisterGuru> {
   }
 
   Widget FormPassword() {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || passwordController.text.isEmpty) {
+          return "Password tidak boleh kosong";
+        } else if (value.length < 8) {
+          return "Password minimal 8 karakter";
+        }
+      },
       controller: passwordController,
       obscureText: true,
       decoration: InputDecoration(
@@ -162,7 +239,14 @@ class _RegisterGuruState extends State<RegisterGuru> {
   }
 
   Widget FormKonfirmasiPassword() {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || confirmPasswordController.text.isEmpty) {
+          return "Password tidak boleh kosong";
+        } else if (confirmPasswordController.text != passwordController.text) {
+          return "Password tidak cocok";
+        }
+      },
       controller: confirmPasswordController,
       obscureText: true,
       decoration: InputDecoration(
@@ -178,81 +262,19 @@ class _RegisterGuruState extends State<RegisterGuru> {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          if (nameController.text.isEmpty ||
-              emailController.text.isEmpty ||
-              passwordController.text.isEmpty ||
-              confirmPasswordController.text.isEmpty ||
-              fileName!.isEmpty ||
-              dropdownLokasiValue.isEmpty ||
-              phoneController.text.isEmpty ||
-              alamatController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                'Daftar gagal. Harap lengkapi data anda.',
-                style: TextStyle(
-                    color: dangerColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
-              ),
-            ));
-          } else {
-            if (EmailValidator.validate(emailController.text)) {
+          print("${nameController.text}, ${emailController.text}, ${passwordController.text}, ${confirmPasswordController.text}, ${fileName}, ${dropdownLokasiValue}, ${phoneController.text}, ${alamatController.text}");
+          if (_formKey.currentState!.validate()) {
+            if (nameController.text.isEmpty ||
+                emailController.text.isEmpty ||
+                passwordController.text.isEmpty ||
+                confirmPasswordController.text.isEmpty ||
+                fileName!.isEmpty ||
+                dropdownLokasiValue.isEmpty ||
+                phoneController.text.isEmpty ||
+                alamatController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-                  'Email tidak valid',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (passwordController.text.length < 8) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Password minimal 8 karakter',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (confirmPasswordController.text !=
-                passwordController.text) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Password tidak cocok',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (phoneController.text.length > 12) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'No. Telpon maksimal 12 angka',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (fileFormat != 'png' &&
-                fileFormat != 'jpg' &&
-                fileFormat != 'jpeg') {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Format file harus png/jpg/jpeg',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (fileSizeInMB > 2.048) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Ukuran file maksimal 2MB',
+                  'Daftar gagal. Harap lengkapi data anda.',
                   style: TextStyle(
                       color: dangerColor,
                       fontSize: 14,
@@ -260,6 +282,70 @@ class _RegisterGuruState extends State<RegisterGuru> {
                 ),
               ));
             } else {
+              // if (EmailValidator.validate(emailController.text)) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Email tidak valid',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (passwordController.text.length < 8) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Password minimal 8 karakter',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (confirmPasswordController.text !=
+              //     passwordController.text) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Password tidak cocok',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (phoneController.text.length > 12) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'No. Telpon maksimal 12 angka',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (fileFormat != 'png' &&
+              //     fileFormat != 'jpg' &&
+              //     fileFormat != 'jpeg') {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Format file harus png/jpg/jpeg',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (fileSizeInMB > 2.048) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Ukuran file maksimal 2MB',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else {
               _controller.registerTeacherProcess(
                   context,
                   nameController.text,
@@ -267,10 +353,12 @@ class _RegisterGuruState extends State<RegisterGuru> {
                   confirmPasswordController.text,
                   emailController.text,
                   phoneController.text,
+                  dropdownMapelValue,
                   filePath.toString(),
                   fileName.toString(),
                   alamatController.text,
                   dropdownLokasiValue);
+              // }
             }
           }
         },
@@ -300,48 +388,53 @@ class _RegisterGuruState extends State<RegisterGuru> {
         body: SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 10),
-            Image.asset("assets/icon/icon_color.png", height: 50),
-            Text(
-              'Register Guru',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Halo Silahkan Registrasi Sebagai Guru.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 20),
-            ),
-            SizedBox(height: 40),
-            FormNama(),
-            SizedBox(height: 20),
-            LokasiAlamat(),
-            SizedBox(height: 20),
-            FormAlamat(),
-            SizedBox(height: 20),
-            FormInputFile(),
-            SizedBox(height: 20),
-            FormPhone(),
-            SizedBox(height: 20),
-            FormEmail(),
-            SizedBox(height: 20),
-            FormPassword(),
-            SizedBox(height: 20),
-            FormKonfirmasiPassword(),
-            SizedBox(height: 30),
-            RegisterGuruBtn(context),
-            SizedBox(height: 30),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 10),
+              Image.asset("assets/icon/icon_color.png", height: 50),
+              Text(
+                'Register Guru',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Halo Silahkan Registrasi Sebagai Guru.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 20),
+              ),
+              SizedBox(height: 40),
+              FormNama(),
+              SizedBox(height: 20),
+              LokasiAlamat(),
+              SizedBox(height: 20),
+              FormAlamat(),
+              SizedBox(height: 20),
+              FormMapel(),
+              SizedBox(height: 20),
+              FormInputFile(),
+              SizedBox(height: 20),
+              FormPhone(),
+              SizedBox(height: 20),
+              FormEmail(),
+              SizedBox(height: 20),
+              FormPassword(),
+              SizedBox(height: 20),
+              FormKonfirmasiPassword(),
+              SizedBox(height: 30),
+              RegisterGuruBtn(context),
+              SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     ));

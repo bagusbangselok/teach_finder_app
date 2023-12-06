@@ -92,7 +92,7 @@ class ProfileUser extends StatelessWidget {
                             Container(
                               width: 80,
                               height: 80,
-                              child: Image.asset('assets/icon/user_icon1.png'),
+                              child: Image.asset('assets/icon/icon_murid.png'),
                             ),
                             SizedBox(width: 24),
                             Column(
@@ -132,10 +132,12 @@ class ProfileUser extends StatelessWidget {
                           onPressed: () {
                             _loginController.logoutUser();
                             _loginController.saveLoginStatus(false);
-                            Navigator.pushReplacement(
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Welcome()));
+                                    builder: (context) => Welcome()),
+                              (route) => false,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 5,

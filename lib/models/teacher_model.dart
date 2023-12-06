@@ -262,7 +262,7 @@ class User {
   final String name;
   final String email;
   final String emailVerified;
-  final DateTime emailVerifiedAt;
+  final dynamic emailVerifiedAt;
   final String roleId;
   final dynamic image;
   final String secretToken;
@@ -299,7 +299,7 @@ class User {
     name: json["name"],
     email: json["email"],
     emailVerified: json["email_verified"],
-    emailVerifiedAt: DateTime.parse(json["email_verified_at"]),
+    emailVerifiedAt: json["email_verified_at"],
     roleId: json["role_id"],
     image: json["image"],
     secretToken: json["secret_token"],

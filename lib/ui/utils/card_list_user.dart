@@ -24,7 +24,7 @@ class CardListUser extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
         padding:
-            EdgeInsets.symmetric(horizontal: 0.02 * screenWidth, vertical: 20),
+            EdgeInsets.symmetric(vertical: 0.03 * screenWidth, horizontal: 10),
         width: double.infinity,
         decoration: BoxDecoration(
             color: whiteColor,   
@@ -41,22 +41,24 @@ class CardListUser extends StatelessWidget {
               child: Image.asset(urlImage),
             ),
             SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name,
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Text(level,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                Text(subject,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                Text(time,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name,
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  Text(level,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                  Text(subject,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  Text(time,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                ],
+              ),
             ),
             SizedBox(width: 0.01 * screenWidth),
             Column(

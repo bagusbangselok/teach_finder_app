@@ -3,11 +3,8 @@ import 'dart:ffi';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:teach_finder_app/models/jenjang_model.dart';
 import 'package:teach_finder_app/res/colors/colors.dart';
-import 'package:teach_finder_app/ui/home_user/home_user.dart';
-import 'package:teach_finder_app/ui/login/login.dart';
 import 'package:teach_finder_app/ui/register/controller/register_controller.dart';
 
 class RegisterUser extends StatefulWidget {
@@ -17,7 +14,8 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   RegisterController _registerController = RegisterController();
-  final TextInputFormatter _phoneNumberFormatter = FilteringTextInputFormatter.digitsOnly;
+  final TextInputFormatter _phoneNumberFormatter =
+      FilteringTextInputFormatter.digitsOnly;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -25,6 +23,7 @@ class _RegisterUserState extends State<RegisterUser> {
       TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   Widget FormNama() {
     return Column(
@@ -32,6 +31,11 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Nama tidak boleh kosong";
+            }
+          },
           controller: _nameController,
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
@@ -50,6 +54,11 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Alamat tidak boleh kosong";
+            }
+          },
           controller: _addressController,
           keyboardType: TextInputType.streetAddress,
           textInputAction: TextInputAction.next,
@@ -73,6 +82,11 @@ class _RegisterUserState extends State<RegisterUser> {
       builder: (BuildContext context,
           AsyncSnapshot<List<JenjangModel>> snapshotJenjang) {
         return DropdownButtonFormField<String>(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Silahkan pilih jenjang";
+            }
+          },
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.school, color: Colors.black87)),
           isExpanded: true,
@@ -100,6 +114,13 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "No. telpon tidak boleh kosong";
+            } else if (value.length > 12) {
+              return "No. telpon maksimal 12 angka";
+            }
+          },
           controller: _phoneController,
           inputFormatters: [_phoneNumberFormatter],
           keyboardType: TextInputType.number,
@@ -120,10 +141,11 @@ class _RegisterUserState extends State<RegisterUser> {
         SizedBox(height: 10),
         TextFormField(
           validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Harap masukkan email anda';
+            if (!EmailValidator.validate(value!)) {
+              return "Email tidak valid";
+            } else if (value.isEmpty) {
+              return "Email tidak boleh kosong";
             }
-            return null;
           },
           controller: _emailController,
           textInputAction: TextInputAction.next,
@@ -143,6 +165,13 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Password tidak boleh kosong";
+            } else if (value.length < 8) {
+              return "Password minimal 8 karakter";
+            }
+          },
           controller: _passwordController,
           textInputAction: TextInputAction.next,
           obscureText: true,
@@ -161,6 +190,13 @@ class _RegisterUserState extends State<RegisterUser> {
       children: [
         SizedBox(height: 10),
         TextFormField(
+          validator: (value) {
+            if (value!.isEmpty || value == null) {
+              return "Password tidak boleh kosong";
+            } else if (_confirmPasswordController.text != _passwordController.text) {
+              return "Password tidak cocok";
+            }
+          },
           controller: _confirmPasswordController,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.text,
@@ -181,58 +217,17 @@ class _RegisterUserState extends State<RegisterUser> {
       child: ElevatedButton(
         onPressed: () {
           print("dropdown: ${dropdownJenjangValue}");
-          if (_nameController.text.isEmpty ||
-              _passwordController.text.isEmpty ||
-              _confirmPasswordController.text.isEmpty ||
-              _emailController.text.isEmpty ||
-              _phoneController.text.isEmpty ||
-              dropdownJenjangValue.isEmpty ||
-              _addressController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                'Daftar gagal. Silahkan cek isian anda kembali.',
-                style: TextStyle(
-                    color: dangerColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400),
-              ),
-            ));
-          } else {
-            if (_passwordController.text.length < 8) {
+          if (_formKey.currentState!.validate()) {
+            if (_nameController.text.isEmpty ||
+                _passwordController.text.isEmpty ||
+                _confirmPasswordController.text.isEmpty ||
+                _emailController.text.isEmpty ||
+                _phoneController.text.isEmpty ||
+                dropdownJenjangValue.isEmpty ||
+                _addressController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-                  'Password minimal 8 karakter',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (_confirmPasswordController.text !=
-                _passwordController.text) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Password tidak cocok',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if (_phoneController.text.length > 12) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'No. Telpon maksimal 12 angka',
-                  style: TextStyle(
-                      color: dangerColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-              ));
-            } else if(EmailValidator.validate(_emailController.text)) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  'Email tidak valid',
+                  'Daftar gagal. Silahkan cek isian anda kembali.',
                   style: TextStyle(
                       color: dangerColor,
                       fontSize: 14,
@@ -240,6 +235,48 @@ class _RegisterUserState extends State<RegisterUser> {
                 ),
               ));
             } else {
+              // if (_passwordController.text.length < 8) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Password minimal 8 karakter',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (_confirmPasswordController.text !=
+              //     _passwordController.text) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Password tidak cocok',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if (_phoneController.text.length > 12) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'No. Telpon maksimal 12 angka',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else if(EmailValidator.validate(_emailController.text)) {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text(
+              //       'Email tidak valid',
+              //       style: TextStyle(
+              //           color: dangerColor,
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400),
+              //     ),
+              //   ));
+              // } else {
               _registerController.registerUserProcess(
                   context,
                   _nameController.text,
@@ -249,6 +286,7 @@ class _RegisterUserState extends State<RegisterUser> {
                   _phoneController.text,
                   dropdownJenjangValue,
                   _addressController.text);
+              // }
             }
           }
         },
@@ -278,49 +316,52 @@ class _RegisterUserState extends State<RegisterUser> {
         body: SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 40),
-            Image.asset("assets/icon/icon_color.png", height: 50),
-            SizedBox(height: 10),
-            Text(
-              'Register User',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 40,
-                  fontWeight: FontWeight.w600),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Halo Silahkan Registrasi Sebagai User.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 16),
-            ),
-            SizedBox(height: 30),
-            FormNama(),
-            SizedBox(height: 20),
-            FormAlamat(),
-            SizedBox(height: 20),
-            JenjangSekolah(),
-            SizedBox(height: 20),
-            FormPhone(),
-            SizedBox(height: 20),
-            FormEmail(),
-            SizedBox(height: 20),
-            FormPassword(),
-            SizedBox(height: 20),
-            FormKonfirmasiPassword(),
-            SizedBox(height: 30),
-            RegisterUserBtn(
-              context,
-            ),
-            SizedBox(height: 30),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 40),
+              Image.asset("assets/icon/icon_color.png", height: 50),
+              SizedBox(height: 10),
+              Text(
+                'Register User',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Halo Silahkan Registrasi Sebagai User.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 16),
+              ),
+              SizedBox(height: 30),
+              FormNama(),
+              SizedBox(height: 20),
+              FormAlamat(),
+              SizedBox(height: 20),
+              JenjangSekolah(),
+              SizedBox(height: 20),
+              FormPhone(),
+              SizedBox(height: 20),
+              FormEmail(),
+              SizedBox(height: 20),
+              FormPassword(),
+              SizedBox(height: 20),
+              FormKonfirmasiPassword(),
+              SizedBox(height: 30),
+              RegisterUserBtn(
+                context,
+              ),
+              SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     ));

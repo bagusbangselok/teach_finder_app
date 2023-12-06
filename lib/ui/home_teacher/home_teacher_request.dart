@@ -22,7 +22,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ProfileTeacherController _profileTeacherController =
       ProfileTeacherController();
-
+  Responsive _responsive = Responsive();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,9 +149,10 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
               SizedBox(
                   width: double.infinity,
                   child: Container(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 44),
+                    padding: EdgeInsets.only(
+                        left: 10, right: 10, top: 40, bottom: 0),
                     width: double.infinity,
-                    height: 640,
+                    height: 0.69 * _responsive.screenHeight(context),
                     decoration: BoxDecoration(
                         color: whiteColor,
                         borderRadius: BorderRadius.only(
@@ -200,7 +201,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
               : snapshotPesanan.data!.isEmpty
                   ? Container(
                       padding: EdgeInsets.only(
-                          top: 0.2 * Responsive().screenHeight(context)),
+                          top: 0.2 * _responsive.screenHeight(context)),
                       child: Center(
                         child: RequestNotFound(),
                       ),
@@ -223,7 +224,7 @@ class _HomeTeacherRequestState extends State<HomeTeacherRequest> {
                                     );
                                   },
                                   child: CardListUser(
-                                    urlImage: "assets/icon/user_icon1.png",
+                                    urlImage: "assets/icon/icon_murid.png",
                                     name:
                                         "${snapshotPesanan.data![index].murid.name}",
                                     level:
